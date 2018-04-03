@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
-public class Card {
+public abstract class Card {
+	private String cardName;
+	
+	public void effect() {
+		
+	}
 
 }
