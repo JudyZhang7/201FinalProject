@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package user;
 
 import java.util.Arrays;
 import java.util.Collections;

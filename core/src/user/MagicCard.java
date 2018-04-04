@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package user;
 
 public class MagicCard extends Card{
 

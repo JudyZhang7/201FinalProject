@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package user;
 
 public class ActionCard extends Card{
 
