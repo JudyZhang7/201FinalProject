@@ -5,23 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
-public class LoginPage extends ApplicationAdapter {
-	Stage stage;
+public class ProfilePage extends ApplicationAdapter {
 	SpriteBatch batch;
-	TextButton loginButton;
-	TextButtonStyle loginStyle;
 	
 	@Override
 	public void create () {
-		stage = new Stage();
 		batch = new SpriteBatch();
-		loginStyle = new TextButtonStyle();
-		loginButton = new TextButton("LOGIN", loginStyle);
-		stage.addActor(loginButton);
 	}
 
 	@Override
@@ -30,7 +20,6 @@ public class LoginPage extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.end();
-		stage.addActor(loginButton);
 	}
 	
 	@Override
