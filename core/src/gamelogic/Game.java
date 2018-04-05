@@ -21,10 +21,12 @@ public class Game {
 	
 	public void UpdateWL() {
 		if (winner == 1) {
-			
+			p1.GetUser().AddWin();
+			p2.GetUser().AddLoss();
 		}
 		else if(winner == 2) {
-			
+			p1.GetUser().AddLoss();
+			p2.GetUser().AddWin();
 		}
 	}
 }
