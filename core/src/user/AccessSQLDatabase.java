@@ -6,11 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class AccessSQLDatabase
 {
 	/* Verify the user information in the database. If correct information, extract the information of 
-	 * the user so that he/she can login. If not,  */
+	 * the user so that he/she can login. If the user gives the wrong password, but existing username,
+	 * inform user that there is an invalid password. If the user gives a non-existing username, then
+	 * inform the user that the username does not exist in the database  */
 	
 	public static void main(String[] args)
 	{
@@ -19,6 +22,15 @@ public class AccessSQLDatabase
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		
+		String userToFind = "";
+		String passwordToMatch = "";
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Enter Username: ");
+		userToFind = input.nextLine().trim();
+		System.out.println("Enter Password: ");
+		passwordToMatch = input.nextLine().trim();
+		
 		try
 		{
 			// Reflection
@@ -26,7 +38,9 @@ public class AccessSQLDatabase
 			Class.forName("com.mysql.jdbc.Driver");
 			// Get connection to the SQL Database. Use SSL=false to tell SQL to not give you the warning that you aren't using SSL
 			// SQLException might get thrown here if there is an error
-			String yourPassword = "spideyspider";
+			
+			String yourPassword = "spideyspider"; // Write your password here to access the database
+			
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
 			
@@ -34,8 +48,8 @@ public class AccessSQLDatabase
 										+ " FROM ProjectUserTable u " + " WHERE u.username=? " + ";");
 										//+ " AND u.userPassword=? " + ";");
 			
-			String userToFind = "rayandrie"; // This is supposed to be the username passed in from the front end
-			String passwordToMatch = "qwert"; // This is supposed to be the password passed in from the front end
+			//userToFind = "rayandrie"; // This is supposed to be the username passed in from the front end
+			//passwordToMatch = "qwerty"; // This is supposed to be the password passed in from the front end
 			
 			// USERNAMES SHOULD BE UNIQUE
 			
@@ -109,5 +123,6 @@ public class AccessSQLDatabase
 				System.out.println("Error in closing stream: " + io.getMessage());
 			}
 		}
+		input.close();
 	}
 }
