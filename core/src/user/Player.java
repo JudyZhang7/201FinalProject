@@ -7,6 +7,7 @@ public class Player {
 	private int _mana;
 	private List<Card> _cardDeck;
 	private Boolean _turn;
+	private User myUser;
 	
 	public Player() {
 		
@@ -18,6 +19,10 @@ public class Player {
 	
 	public void Act() {
 		
+	}
+	
+	public User GetUser() {
+		return myUser;
 	}
 }
 

@@ -5,6 +5,7 @@ import user.Player;
 public class Game {
 	private Player p1;
 	private Player p2;
+	private int winner = 0;
 	
 	public Game(Player first, Player second) {
 		p1 = first;
@@ -18,5 +19,14 @@ public class Game {
 		}
 	}
 	
-	
+	public void UpdateWL() {
+		if (winner == 1) {
+			p1.GetUser().AddWin();
+			p2.GetUser().AddLoss();
+		}
+		else if(winner == 2) {
+			p1.GetUser().AddLoss();
+			p2.GetUser().AddWin();
+		}
+	}
 }
