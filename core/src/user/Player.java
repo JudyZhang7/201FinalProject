@@ -24,5 +24,9 @@ public class Player {
 	public User GetUser() {
 		return myUser;
 	}
+	
+	public int GetHP() {
+		return _hp;
+	}
 }
 

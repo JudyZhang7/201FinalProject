@@ -13,9 +13,17 @@ public class Game {
 	}
 	
 	public void Run() {
-		while(true) {
+		while(winner == 0) {
 			p1.Act();
 			p2.Act();
+			
+			if(p1.GetHP() <= 0) {
+				winner = 2;
+			}
+			else if(p2.GetHP() <= 0) {
+				winner = 1;
+			}
+
 		}
 	}
 	
