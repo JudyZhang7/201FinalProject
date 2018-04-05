@@ -13,6 +13,9 @@ public class Player {
 		
 	}
 	
+	public List<Card> GetCardDeck() {
+		return _cardDeck;
+	}
 	
 	
 }
