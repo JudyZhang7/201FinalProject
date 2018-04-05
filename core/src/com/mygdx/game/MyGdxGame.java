@@ -51,7 +51,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		usernameTextField.setPosition(24,73);
 		usernameTextField.setSize(88, 14);
 
-		stage.add(usernameTextField);            // <-- Actor now on stage 
+		stage.addActor(usernameTextField);            // <-- Actor now on stage 
 		Gdx.input.setInputProcessor(stage);
 		
 		
