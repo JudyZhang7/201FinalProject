@@ -38,9 +38,9 @@ public class AccessSQLDatabase
 			Class.forName("com.mysql.jdbc.Driver");
 			// Get connection to the SQL Database. Use SSL=false to tell SQL to not give you the warning that you aren't using SSL
 			// SQLException might get thrown here if there is an error
-			
+
 			String yourPassword = "spideyspider"; // Write your password here to access the database
-			
+
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
 			

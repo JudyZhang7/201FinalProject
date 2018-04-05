@@ -3,7 +3,9 @@ package user;
 import java.util.List;
 
 public class User {
-	private List <Deck> _decks;
+	//object that holds all of the user's decks
+	private Decks _decks;
+	
 	private String _Username;
 	private String _Password;
 	private Player _player;
@@ -34,4 +36,10 @@ public class User {
 		this._losses = _losses;
 	}
 	
+	public void AddWin() {
+		_wins++;
+	}
+	public void AddLoss() {
+		_losses++;
+	}
 }
