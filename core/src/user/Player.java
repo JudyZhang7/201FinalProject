@@ -17,6 +17,8 @@ public class Player {
 		return _cardDeck;
 	}
 	
-	
+	public void Act() {
+		
+	}
 }
 
