@@ -2,11 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-<<<<<<< HEAD
 import com.badlogic.gdx.assets.AssetManager;
-=======
 import com.badlogic.gdx.assets.loaders.AssetLoader;
->>>>>>> 90569e3d0f039cee8756d1922ef870b575586a69
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
