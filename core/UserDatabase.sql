@@ -11,10 +11,10 @@ CREATE TABLE ProjectUserTable
     userPassword VARCHAR(50) NOT NULL,
     userLevel INT(2) NOT NULL, -- Capped at lvl 99
     userWins INT(4) NOT NULL, -- Capped at 9999
-    userLosses INT(4) NOT NULL -- Capped at 9999
+    userLosses INT(4) NOT NULL, -- Capped at 9999
+    deck longblob NULL -- null lets you leave off the name
     
 );
--- What about cards and decks?
 
 -- Insert one user to the table to start off
 
