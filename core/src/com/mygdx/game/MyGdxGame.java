@@ -26,12 +26,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-<<<<<<< HEAD
 		libGDXAssetManager = new AssetManager();
-=======
+
 		this.stage = new Stage();
 
->>>>>>> 90569e3d0f039cee8756d1922ef870b575586a69
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
