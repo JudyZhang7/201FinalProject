@@ -34,4 +34,10 @@ public class User {
 		this._losses = _losses;
 	}
 	
+	public void AddWin() {
+		_wins++;
+	}
+	public void AddLoss() {
+		_losses++;
+	}
 }
