@@ -4,10 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class GameBoardPage extends ApplicationAdapter {
 	Stage stage;
@@ -15,6 +18,8 @@ public class GameBoardPage extends ApplicationAdapter {
 	TextButton endTurnButton;
 	TextButtonStyle endTurnButtonStyle;
 	Skin endTurnSkin;
+	float ENDTURN_X = 2500;
+	float ENDTURN_Y = 960;
 	
 	@Override
 	public void create () {
@@ -25,8 +30,14 @@ public class GameBoardPage extends ApplicationAdapter {
 		endTurnSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		endTurnButton = new TextButton("END TURN", endTurnSkin);
-		endTurnButton.setPosition(2500, 960);
+		endTurnButton.setPosition(ENDTURN_X, ENDTURN_Y);
 		endTurnButton.setSize(500, 100);
+		endTurnButton.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				// Debug statement, add backend here
+				System.out.println("Turn end!");
+			}
+		});
 		
 		stage.addActor(endTurnButton);
 	}
