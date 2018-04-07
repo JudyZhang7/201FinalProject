@@ -42,11 +42,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 	
 	public void login () {
-		TextField usernameTextField = new TextField("", AssetLoader.defaultSkin);
+		batch = new SpriteBatch();
+        Skin textSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        stage = new Stage();
+        
+		TextField usernameTextField = new TextField("", textSkin);
 		usernameTextField.setPosition(24,73);
 		usernameTextField.setSize(88, 14);
 
-		stage.add(usernameTextField);            // <-- Actor now on stage 
+		stage.addActor(usernameTextField);            // <-- Actor now on stage 
 		Gdx.input.setInputProcessor(stage);
 		
 		
