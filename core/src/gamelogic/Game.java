@@ -23,7 +23,7 @@ public class Game {
 			else if(p2.GetHP() <= 0) {
 				winner = 1;
 			}
-
+			UpdateWL();
 		}
 	}
 	
