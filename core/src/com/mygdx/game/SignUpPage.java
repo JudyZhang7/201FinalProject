@@ -30,6 +30,8 @@ public class SignUpPage extends ApplicationAdapter {
 		batch.begin();
 		batch.end();
 		stage.addActor(signupButton);
+		stage.draw();
+		stage.act();
 	}
 	
 	@Override
