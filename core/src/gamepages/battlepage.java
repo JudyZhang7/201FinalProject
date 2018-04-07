@@ -1,5 +1,5 @@
 package gamepages;
 
-public class battlepage {
+public class battlepage extends Game {
 
 }
