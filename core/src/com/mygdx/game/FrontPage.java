@@ -30,7 +30,7 @@ public class FrontPage implements Screen
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
-		loginButton.setPosition(300, 300);// Setting the position of the button
+		loginButton.setPosition(100, 300);// Setting the position of the button
 		loginButton.setSize(300, 60); // Setting the size of the button
 		loginButton.addListener(new ClickListener() 
 		{
@@ -43,8 +43,8 @@ public class FrontPage implements Screen
 			}
 		});
 		
-		SignUpButton = new TextButton("Sign-Up", skin);
-		SignUpButton.setPosition(300, 150);
+		SignUpButton = new TextButton("Sign Up", skin);
+		SignUpButton.setPosition(550, 300);
 		SignUpButton.setSize(300, 60);
 		SignUpButton.addListener(new ClickListener() 
 		{
@@ -57,8 +57,8 @@ public class FrontPage implements Screen
 			}
 		});
 		
-		GuestButton = new TextButton("Sign-Up", skin);
-		GuestButton.setPosition(150, 300);
+		GuestButton = new TextButton("Guest", skin);
+		GuestButton.setPosition(1000, 300);
 		GuestButton.setSize(300, 60);
 		GuestButton.addListener(new ClickListener() 
 		{
@@ -105,7 +105,7 @@ public class FrontPage implements Screen
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();

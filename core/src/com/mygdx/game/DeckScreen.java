@@ -6,10 +6,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class DeckScreen implements Screen {
 
@@ -23,9 +26,15 @@ public class DeckScreen implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		
+		Skin card1 = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		//LOGIN BUTTON
-		TextButton btnLogin = new TextButton ("Login", textSkin);
-		btnLogin.setPosition(300, 200);
+		TextButton btnLogin = new TextButton ("Back to Game", textSkin);
+		
+		TextButton cardButton = new TextButton("", card1);
+		
+		// login button
+		btnLogin.setPosition(100, 1000);
 		btnLogin.setSize(300, 60);
 		
 		btnLogin.addListener(new ClickListener(){
@@ -43,6 +52,13 @@ public class DeckScreen implements Screen {
 		stage.addActor(txfPassword);
 		
 		stage.addActor(btnLogin);
+		
+		// cards
+		cardButton.setPosition(200, 500);
+		cardButton.setSize(300, 300);
+		
+		
+		stage.addActor(cardButton);
 		
 	}
 	
