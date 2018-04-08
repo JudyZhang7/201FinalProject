@@ -1,5 +1,6 @@
 package user;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,27 +11,22 @@ import java.util.Scanner;
 
 public class AccessSQLDatabase
 {
+	private static final String SQL_SERIALIZE_OBJECT_PLAYER = "INSERT INTO PlayerObject(username, serialized_object_player) VALUES (?, ?)";
+	private static final String SQL_SERIALIZE_OBJECT_DECKS = "INSERT INTO DecksObject(username, serialized_object_decks) VALUES (? , ?)";
+	private static final String SQL_DESERIALIZE_OBJECT_PLAYER = "SELECT serialized_object_player FROM PlayerObject WHERE serialized_id_player = ?";
+	private static final String SQL_DESERIALIZE_OBJECT_DECKS = "SELECT serialized_object_decks FROM DecksObject WHERE serialized_id_decks = ?";
+
+	SerializeToDatabase STD = new SerializeToDatabase();
 	/* Verify the user information in the database. If correct information, extract the information of 
 	 * the user so that he/she can login. If the user gives the wrong password, but existing username,
 	 * inform user that there is an invalid password. If the user gives a non-existing username, then
 	 * inform the user that the username does not exist in the database  */
-	
-	public static void main(String[] args)
-	{
+	public User getUser(String userToFind, String passwordToMatch) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
-		
-		String userToFind = "";
-		String passwordToMatch = "";
-		Scanner input = new Scanner(System.in);
-		
-		System.out.println("Enter Username: ");
-		userToFind = input.nextLine().trim();
-		System.out.println("Enter Password: ");
-		passwordToMatch = input.nextLine().trim();
-		
+		User user = null;
 		try
 		{
 			// Reflection
@@ -65,6 +61,9 @@ public class AccessSQLDatabase
 			int userLevel;
 			int userWins;
 			int userLosses;
+			int serialized_id;
+			Decks deck;
+			Player player;
 			
 			if (rs.next() == true) // User exists in the database
 			{
@@ -76,8 +75,19 @@ public class AccessSQLDatabase
 					userWins = rs.getInt("userWins");
 					userLosses = rs.getInt("userLosses");
 					
+					PreparedStatement psi = null;
+					psi = conn.prepareStatement("SELECT serialized_id_player FROM PlayerObject WHERE username = ?\"");
+					psi.setString(1, userToFind);
+					ResultSet rsi = psi.executeQuery();
+					serialized_id = rsi.getInt(columnIndex)
+					
+					
+					deck = (Decks) STD.deSerializeJavaObjectFromDB(conn, serialized_id, SQL_DESERIALIZE_OBJECT_DECKS);
+					player = (Player) STD.deSerializeJavaObjectFromDB(conn, serialized_id, SQL_DESERIALIZE_OBJECT_PLAYER);
+										
 					System.out.println("Username: " + username + ", Password: " + password + ", Level: "
 										+ userLevel + ", User Wins: " + userWins + ", User Losses: " + userLosses);
+					
 				}
 				else // Here, username exists, but password is wrong
 				{
@@ -96,6 +106,9 @@ public class AccessSQLDatabase
 		catch (ClassNotFoundException io)
 		{
 			System.out.println("cnfe: " + io.getMessage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -123,6 +136,12 @@ public class AccessSQLDatabase
 				System.out.println("Error in closing stream: " + io.getMessage());
 			}
 		}
-		input.close();
+		return user;
+	}
+	
+	
+	public static void main(String[] args)
+	{
+		
 	}
 }
