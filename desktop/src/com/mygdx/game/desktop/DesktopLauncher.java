@@ -10,8 +10,8 @@ import com.mygdx.game.SignUpPage;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 800;
-		config.width = 800;
+		config.height = 1920;
+		config.width = 3072;
 		new LwjglApplication(new GameBoardPage(), config);
 	}
 }
