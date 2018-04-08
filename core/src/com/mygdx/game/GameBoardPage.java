@@ -21,8 +21,8 @@ public class GameBoardPage implements Screen {
 	TextButtonStyle endTurnButtonStyle;
 	Skin endTurnSkin;
 	Game game;
-	float ENDTURN_X = 300;
-	float ENDTURN_Y = 200;
+	float ENDTURN_X = 2500;
+	float ENDTURN_Y = 910;
 	
 	public GameBoardPage(Game g) {
 		System.out.println("GAME BOARD!");
