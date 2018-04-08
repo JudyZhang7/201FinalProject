@@ -26,12 +26,12 @@ public class GameBoardPage implements Screen {
 	
 	float ENDTURN_X = 2500;
 	float ENDTURN_Y = 910;
-	float YOURDECK_X = 2672;
+	float YOURDECK_X = 2700;
 	float YOURDECK_Y = 50;
 	float OPPONENTDECK_X = 175;
-	float OPPONENTDECK_Y = 1570;
-	float DECKWIDTH = 225;
-	float DECKHEIGHT = 300;
+	float OPPONENTDECK_Y = 1620;
+	float DECKWIDTH = 180;
+	float DECKHEIGHT = 252;
 	
 	public GameBoardPage(Game g) {
 		System.out.println("GAME BOARD!");
@@ -40,9 +40,9 @@ public class GameBoardPage implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		
 		font = new BitmapFont();
-		endTurnSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		// End Turn button setup
+		endTurnSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		endTurnButton = new TextButton("END TURN", endTurnSkin);
 		endTurnButton.setPosition(ENDTURN_X, ENDTURN_Y);
 		endTurnButton.setSize(500, 100);
