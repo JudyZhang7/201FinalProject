@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import user.AccessSQLDatabase;
+import user.User;
+
 public class LoginScreen implements Screen{
 	private SpriteBatch batch;
     private BitmapFont font;
@@ -45,21 +48,29 @@ public class LoginScreen implements Screen{
 			}
 		});
 		//LOGIN FIELDS
-		txfUsername = new TextField("", textSkin);
-		txfUsername.setPosition(300, 300);
-		stage.addActor(txfUsername);
 		txfPassword = new TextField("", textSkin);
-		txfPassword.setPosition(300, 350);
+		txfPassword.setPosition(300, 300);
 		stage.addActor(txfPassword);
+		txfUsername = new TextField("", textSkin);
+		txfUsername.setPosition(300, 350);
+		stage.addActor(txfUsername);
 		
 		stage.addActor(btnLogin);
 	}
 	
 	public void btnLoginClicked() {
-		System.out.println(txfUsername.getText());
-		System.out.println(txfPassword.getText());
-		inputtedUsername = txfUsername.getText();
-		inputtedPassword = txfPassword.getText();
+		
+		System.out.println("Username is: " + txfUsername.getText());
+		System.out.println("Password is: " + txfPassword.getText());
+		AccessSQLDatabase acc = new AccessSQLDatabase(this);
+		// fields must not be empty
+		if (!txfUsername.getText().isEmpty() && !txfUsername.getText().isEmpty())
+		{
+			inputtedUsername = txfUsername.getText();
+			inputtedPassword = txfPassword.getText();
+			User myUser = acc.getUser(inputtedUsername, inputtedPassword);
+			System.out.println("Printing shoudl strat below");
+		}
 	}
 	
 	public String getUsername() {

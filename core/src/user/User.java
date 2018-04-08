@@ -14,6 +14,12 @@ public class User {
 	private int _losses;
 	private int _level;
 	
+	// Dummy function
+	public void printUsername()
+	{
+		System.out.println("Username is: " + _Username);
+	}
+	
 	public User(Decks decks, String username, String password, Player player, int wins, int losses, int level) {
 		_decks = decks;
 		_Username = username;

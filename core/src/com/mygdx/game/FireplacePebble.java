@@ -9,8 +9,7 @@ public class FireplacePebble extends Game{
 	@Override
 	public void create() {
 		Assets.load();
-		LoginScreen lScreen = new LoginScreen(this);
-		AccessSQLDatabase acc = new AccessSQLDatabase(lScreen);
+		//this.setScreen(new LoginScreen(this));
 		this.setScreen(new DeckScreen(this));
 		this.setScreen(new GameBoardPage(this));
 	}

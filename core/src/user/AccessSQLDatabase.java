@@ -9,13 +9,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import com.mygdx.game.LoginScreen;
+
 public class AccessSQLDatabase
 {
+	// REMEMBER TO CHANGE YOUR PASSWORD TO AVOID EXCEPTIONS!!!
 	private static final String SQL_SERIALIZE_OBJECT_PLAYER = "INSERT INTO PlayerObject(username, serialized_object_player) VALUES (?, ?)";
 	private static final String SQL_SERIALIZE_OBJECT_DECKS = "INSERT INTO DecksObject(username, serialized_object_decks) VALUES (? , ?)";
 	private static final String SQL_DESERIALIZE_OBJECT_PLAYER = "SELECT serialized_object_player FROM PlayerObject WHERE serialized_id_player = ?";
 	private static final String SQL_DESERIALIZE_OBJECT_DECKS = "SELECT serialized_object_decks FROM DecksObject WHERE serialized_id_decks = ?";
 
+	LoginScreen lscreen;
+	
+	// Constructors
+	public AccessSQLDatabase()
+	{
+		
+	}
+	
+	public AccessSQLDatabase(LoginScreen ls)
+	{
+		lscreen = ls;
+	}
+	
 	SerializeToDatabase STD = new SerializeToDatabase();
 	/* Verify the user information in the database. If correct information, extract the information of 
 	 * the user so that he/she can login. If the user gives the wrong password, but existing username,
@@ -35,7 +51,7 @@ public class AccessSQLDatabase
 			// Get connection to the SQL Database. Use SSL=false to tell SQL to not give you the warning that you aren't using SSL
 			// SQLException might get thrown here if there is an error
 
-			String yourPassword = "Equyi86V"; // Write your password here to access the database
+			String yourPassword = "spideyspider"; // Write your password here to access the database
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
@@ -50,6 +66,8 @@ public class AccessSQLDatabase
 			// USERNAMES SHOULD BE UNIQUE
 			
 			ps.setString(1, userToFind);
+			
+			System.out.println(userToFind + " " + passwordToMatch);
 			
 			// Embedding SQL Code
 			rs = ps.executeQuery();
@@ -96,8 +114,10 @@ public class AccessSQLDatabase
 										
 					System.out.println("Username: " + username + ", Password: " + password + ", Level: "
 										+ userLevel + ", User Wins: " + userWins + ", User Losses: " + userLosses);
-					
-					
+					// Added statement
+					//user = new User(deck, username, password, player, userWins, userLosses, userLevel);
+					//user.printUsername();
+					// Return null user
 				}
 				else // Here, username exists, but password is wrong
 				{
@@ -154,5 +174,7 @@ public class AccessSQLDatabase
 	{
 		AccessSQLDatabase ASD = new AccessSQLDatabase();
 		User user = ASD.getUser("Cats", "Dogs");
+		//User user = ASD.getUser("Judy", "qwerty");
+		//user.printUsername();
 	}
 }
