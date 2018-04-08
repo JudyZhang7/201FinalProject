@@ -13,21 +13,21 @@ import java.util.Vector;
 
 public class SerializeToDatabase {
 
-	private static final String SQL_SERIALIZE_OBJECT_PLAYER = "INSERT INTO TEST(serialized_object_player) VALUES (?)";;
-	private static final String SQL_SERIALIZE_OBJECT_DECKS = "INSERT INTO TEST(serialized_object_decks) VALUES (?)";
-	private static final String SQL_DESERIALIZE_OBJECT_PLAYER = "SELECT serialized_object_player FROM TEST WHERE serialized_id_player = ?";
-	private static final String SQL_DESERIALIZE_OBJECT_DECKS = "SELECT serialized_object_decks FROM TEST";
+	private static final String SQL_SERIALIZE_OBJECT_PLAYER = "INSERT INTO PlayerObject(username, serialized_object_player) VALUES (?, ?)";
+	private static final String SQL_SERIALIZE_OBJECT_DECKS = "INSERT INTO DecksObject(username, serialized_object_decks) VALUES (? , ?)";
+	private static final String SQL_DESERIALIZE_OBJECT_PLAYER = "SELECT serialized_object_player FROM PlayerObject WHERE serialized_id_player = ?";
+	private static final String SQL_DESERIALIZE_OBJECT_DECKS = "SELECT serialized_object_decks FROM DecksObject WHERE serialized_id_decks = ?";
 
 
 	public static long serializeJavaObjectToDB(Connection connection,
-			Object objectToSerialize) throws SQLException {
+			Object objectToSerialize, String username, String request) throws SQLException {
 
 		PreparedStatement pstmt = connection
-				.prepareStatement(SQL_SERIALIZE_OBJECT_PLAYER, Statement.RETURN_GENERATED_KEYS);
+				.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
 
 		// just setting the class name
-//		pstmt.setString(1, objectToSerialize.getClass().getName());
-		pstmt.setObject(1, objectToSerialize);
+		pstmt.setString(1, username);
+		pstmt.setObject(2, objectToSerialize);
 		pstmt.executeUpdate();
 		ResultSet rs = pstmt.getGeneratedKeys();
 		int serialized_id = -1;
@@ -49,10 +49,10 @@ public class SerializeToDatabase {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object deSerializeJavaObjectFromDB(Connection connection,
-			long serialized_id) throws SQLException, IOException,
+			long serialized_id, String request) throws SQLException, IOException,
 			ClassNotFoundException {
 		PreparedStatement pstmt = connection
-				.prepareStatement(SQL_DESERIALIZE_OBJECT_PLAYER);
+				.prepareStatement(request);
 		pstmt.setLong(1, serialized_id);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
@@ -91,18 +91,17 @@ public class SerializeToDatabase {
 		String yourPassword = "Equyi86V";
 		connection = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 
-
 		// a sample java object to serialize
 		Player player = new Player();
 		player.setName("JUDY!");
-		long serialized_id = serializeJavaObjectToDB(connection, player);
+		long serialized_id = serializeJavaObjectToDB(connection, player, "Judy", SQL_SERIALIZE_OBJECT_PLAYER);
 
 		// serializing java object to mysql database
 
 
 		// de-serializing java object from mysql database
 		Player objFromDatabase = (Player) deSerializeJavaObjectFromDB(
-				connection, serialized_id);
+				connection, serialized_id, SQL_DESERIALIZE_OBJECT_PLAYER);
 		
 
 		System.out.println(objFromDatabase.getName());

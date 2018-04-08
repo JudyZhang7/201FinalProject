@@ -21,6 +21,8 @@ public class LoginScreen implements Screen{
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
+	private String inputtedUsername;
+	private String inputtedPassword;
 	
 	public LoginScreen(Game g) {
 		batch = new SpriteBatch();    
@@ -56,6 +58,16 @@ public class LoginScreen implements Screen{
 	public void btnLoginClicked() {
 		System.out.println(txfUsername.getText());
 		System.out.println(txfPassword.getText());
+		inputtedUsername = txfUsername.getText();
+		inputtedPassword = txfPassword.getText();
+	}
+	
+	public String getUsername() {
+		return inputtedUsername;
+	}
+	
+	public String getPassword() {
+		return inputtedPassword;
 	}
 	
 	@Override

@@ -10,33 +10,32 @@ import java.util.Scanner;
 
 public class AddToSQLDatabase 
 {
+	private static final String SQL_SERIALIZE_OBJECT_PLAYER = "INSERT INTO PlayerObject(username, serialized_object_player) VALUES (?, ?)";
+	private static final String SQL_SERIALIZE_OBJECT_DECKS = "INSERT INTO DecksObject(username, serialized_object_decks) VALUES (? , ?)";
+	private static final String SQL_DESERIALIZE_OBJECT_PLAYER = "SELECT serialized_object_player FROM PlayerObject WHERE serialized_id_player = ?";
+	private static final String SQL_DESERIALIZE_OBJECT_DECKS = "SELECT serialized_object_decks FROM DecksObject WHERE serialized_id_decks = ?";
+
+	SerializeToDatabase STD = new SerializeToDatabase();
 	/* Given a new username and password by the new user, check that the username is not taken. If the username
 	 * is not taken, add the new user into the database, with level 1 and 0 wins and losses. 
 	 * If the username is taken, let the new user know that the username is taken, and don't update the
 	 * database */
-	
-	public static void main(String[] args)
-	{
+	public boolean addToDatabase(String userToAdd, String passwordToAdd) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		
-		String userToAdd = "";
-		String passwordToAdd = "";
-		Scanner input = new Scanner(System.in);
 		boolean validName = false;
 		boolean validPass = false;
 		
 		// Getting valid username and password from user
 		while (validName == false)
 		{
-			System.out.println("Enter Username to add: ");
-			userToAdd = input.nextLine().trim();
 			if (userToAdd.contains(" "))
 			{
 				System.out.println("Invalid Username! No spaces.");
-				continue;
+				return false;
 			}
 			else
 			{
@@ -46,11 +45,10 @@ public class AddToSQLDatabase
 		while (validPass == false)
 		{
 			
-			System.out.println("Enter Password to add: ");
-			passwordToAdd = input.nextLine().trim();
 			if (passwordToAdd.contains(" "))
 			{
 				System.out.println("Invalid Password! No spaces.");
+				return false;
 			}
 			else
 			{
@@ -66,7 +64,7 @@ public class AddToSQLDatabase
 			// Get connection to the SQL Database. Use SSL=false to tell SQL to not give you the warning that you aren't using SSL
 			// SQLException might get thrown here if there is an error
 			
-			String yourPassword = "spideyspider"; // Write your password here to access the database
+			String yourPassword = "Equyi86V"; // Write your password here to access the database
 			
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
@@ -80,16 +78,23 @@ public class AddToSQLDatabase
 			ps.setString(2, passwordToAdd);
 			
 			ps.executeUpdate();
+			Player player = new Player();
+			STD.serializeJavaObjectToDB(conn, player, userToAdd, SQL_SERIALIZE_OBJECT_PLAYER);
+			Decks decks = new Decks();
+			STD.serializeJavaObjectToDB(conn, decks, userToAdd, SQL_SERIALIZE_OBJECT_DECKS);
 			System.out.println("User successfully added!");
+			return true;
 		}
 		catch (SQLException io)
 		{
 			System.out.println("Username taken! Please choose another.");
 			System.out.println("sqle: " + io.getMessage());
+			return false;
 		}
 		catch (ClassNotFoundException io)
 		{
 			System.out.println("cnfe: " + io.getMessage());
+			return false;
 		}
 		finally
 		{
@@ -117,6 +122,10 @@ public class AddToSQLDatabase
 				System.out.println("Error in closing stream: " + io.getMessage());
 			}
 		}
-		input.close();
+	}
+	public static void main(String[] args)
+	{
+		AddToSQLDatabase ATSD = new AddToSQLDatabase();
+		ATSD.addToDatabase("Cats", "Dogs");
 	}
 }

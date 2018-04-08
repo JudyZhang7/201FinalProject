@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import user.AddToSQLDatabase;
+
 public class SignupScreen implements Screen{
 	private SpriteBatch batch;
     private BitmapFont font;
@@ -57,6 +59,9 @@ public class SignupScreen implements Screen{
 	public void btnLoginClicked() {
 		System.out.println(txfUsername.getText());
 		System.out.println(txfPassword.getText());
+		//SEND TO DA BACK
+		AddToSQLDatabase ATSD = new AddToSQLDatabase();
+		ATSD.addToDatabase(txfUsername.getText(), txfPassword.getText());
 	}
 	
 	@Override
