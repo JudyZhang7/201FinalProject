@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,17 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class GameBoardPage extends ApplicationAdapter {
+public class GameBoardPage implements Screen {
 	Stage stage;
 	BitmapFont font;
 	TextButton endTurnButton;
 	TextButtonStyle endTurnButtonStyle;
 	Skin endTurnSkin;
-	float ENDTURN_X = 2500;
-	float ENDTURN_Y = 960;
+	Game game;
+	float ENDTURN_X = 300;
+	float ENDTURN_Y = 200;
 	
-	@Override
-	public void create () {
+	public GameBoardPage(Game g) {
+		System.out.println("GAME BOARD!");
+		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
@@ -43,15 +47,45 @@ public class GameBoardPage extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0, 150/255f, 1, 1);
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
+		stage.act(delta);
 		stage.draw();
 	}
 	
 	@Override
 	public void dispose () {
 
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
 	}
 }
