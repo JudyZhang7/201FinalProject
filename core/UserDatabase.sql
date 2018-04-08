@@ -16,26 +16,28 @@ CREATE TABLE ProjectUserTable
 
 CREATE TABLE PlayerObject
 (
-    username VARCHAR(50) NOT NULL UNIQUE,
+	username VARCHAR(50) NOT NULL UNIQUE,
 	serialized_id_player int(11) NOT NULL auto_increment,
 	serialized_object_player blob NOT NULL, -- null lets you leave off the name
     PRIMARY KEY (serialized_id_player),
     
     FOREIGN KEY fk1(username) REFERENCES ProjectUserTable(username)
-);
+ );
 
-CREATE TABLE DeckObject
+CREATE TABLE DecksObject
 (
-    username VARCHAR(50) NOT NULL UNIQUE,
-	serialized_id_deck int(11) NOT NULL auto_increment,
-	serialized_object_deck blob NOT NULL, -- null lets you leave off the name
-    PRIMARY KEY (serialized_id_deck),
+	username VARCHAR(50) NOT NULL UNIQUE,
+	serialized_id_decks int(11) NOT NULL auto_increment,
+	serialized_object_decks blob NOT NULL, -- null lets you leave off the name
+    PRIMARY KEY (serialized_id_decks),
     
     FOREIGN KEY fk1(username) REFERENCES ProjectUserTable(username)
 );
 -- Insert one user to the table to start off
 
 INSERT INTO ProjectUserTable (username, userpassword, userLevel, userWins, userLosses)
-	VALUES ('rayandrie', 'qwerty', 1, 0, 0);
+	VALUES ('Judy', 'qwerty', 1, 0, 0);
+
+SELECT p.serialized_id_player FROM PlayerObject p WHERE p.username = 'Cat'
 
 

@@ -80,6 +80,8 @@ public class AddToSQLDatabase
 			ps.executeUpdate();
 			Player player = new Player();
 			STD.serializeJavaObjectToDB(conn, player, userToAdd, SQL_SERIALIZE_OBJECT_PLAYER);
+			Decks decks = new Decks();
+			STD.serializeJavaObjectToDB(conn, decks, userToAdd, SQL_SERIALIZE_OBJECT_DECKS);
 			System.out.println("User successfully added!");
 			return true;
 		}
@@ -124,6 +126,6 @@ public class AddToSQLDatabase
 	public static void main(String[] args)
 	{
 		AddToSQLDatabase ATSD = new AddToSQLDatabase();
-		ATSD.addToDatabase("Cat", "Dog");
+		ATSD.addToDatabase("Cats", "Dogs");
 	}
 }

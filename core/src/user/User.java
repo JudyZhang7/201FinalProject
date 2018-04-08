@@ -14,6 +14,16 @@ public class User {
 	private int _losses;
 	private int _level;
 	
+	public User(Decks decks, String username, String password, Player player, int wins, int losses, int level) {
+		_decks = decks;
+		_Username = username;
+		_Password = password;
+		_player = player;
+		_wins= wins;
+		_losses = losses;
+		_level = level;
+	}
+	
 	public User(String username, String password) {
 		this._Username = username;
 		this._Password = password;
