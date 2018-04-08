@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -20,18 +22,21 @@ public class DeckScreen implements Screen {
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
+	private ArrayList<TextButton> myCards;
+	private int numCardsRow = 5;
+	private int numCardsCol = 6;
 	
 	public DeckScreen(Game g) {
+		myCards = new ArrayList<TextButton>();
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		
-		Skin card1 = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Back to Game", textSkin);
 		
-		TextButton cardButton = new TextButton("", card1);
+//		TextButton cardButton = new TextButton("", card1);
 		
 		// login button
 		btnLogin.setPosition(100, 1000);
@@ -54,11 +59,18 @@ public class DeckScreen implements Screen {
 		stage.addActor(btnLogin);
 		
 		// cards
-		cardButton.setPosition(200, 500);
-		cardButton.setSize(300, 300);
+		for (int j = 0; j < numCardsRow; j++) {
+			for (int i = 0; i < numCardsCol; i++) {
+				TextButton cardButton = new TextButton("", textSkin);
+				cardButton.setPosition(((i*(200)) % 1150) + 300, (j*150) + 200);
+				cardButton.setSize(125, 125);
+				myCards.add(cardButton);
+			}
+		}
 		
-		
-		stage.addActor(cardButton);
+		for (int i = 0; i < myCards.size() ; i++) {
+			stage.addActor(myCards.get(i));
+		}
 		
 	}
 	
