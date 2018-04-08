@@ -6,9 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class StartGameScreen implements Screen {
 	private Stage stage;
@@ -51,23 +53,83 @@ public class StartGameScreen implements Screen {
 		btnStart.setPosition(550, 350);
 		btnStart.setSize(200, 50);
 		
+		//Listeners
+		btnViewDeck.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnViewDeckClicked();
+			}
+		});
+		btnViewProfile.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnViewProfileClicked();
+			}
+		});
+		btnStart.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnStartClicked();
+			}
+		});
+		btnViewDeck.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnViewDeckClicked();
+			}
+		});
+		
 		//Adding players
 		if(numPlayers != 0) {
 			TextButton p1 = new TextButton("Simon\n\nLevel 2\n\n0 Wins /10 Losses", textSkin);
 			p1.setPosition(75, 400);
 			p1.setSize(300, 150);
 			stage.addActor(p1);
+			
+			p1.addListener(new ClickListener(){
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+					btnp1Clicked();
+				}
+			});
 		}
 		if(numPlayers == 2) {
 			TextButton p2 = new TextButton("", textSkin);
 			p2.setPosition(75, 200);
 			p2.setSize(300, 150);
 			stage.addActor(p2);
+			
+			p2.addListener(new ClickListener(){
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+					btnp2Clicked();
+				}
+			});
 		}
-		
+
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
 		stage.addActor(btnStart);
+	}
+	
+	public void btnViewDeckClicked() {
+		
+	}
+	
+	public void btnViewProfileClicked() {
+		
+	}
+	
+	public void btnStartClicked() {
+		
+	}
+	
+	public void btnp1Clicked() {
+		
+	}
+	
+	public void btnp2Clicked() {
+		
 	}
 	
 	@Override
@@ -79,7 +141,7 @@ public class StartGameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(0, 150/255f, 210/255f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
