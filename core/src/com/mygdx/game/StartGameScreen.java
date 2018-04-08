@@ -13,15 +13,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class StartGameScreen implements Screen {
 	private Stage stage;
 	private Game game;
-	private BitmapFont font;
+	private BitmapFont headfont;
+	private BitmapFont bodyfont;
 	private SpriteBatch batch;
+	private int numPlayers;
 	
 	public StartGameScreen(Game game) {
 		this.game = game;
 		stage = new Stage();
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		headfont = new BitmapFont();
+		headfont.getData().setScale(3.0f, 3.0f);
+		bodyfont = new BitmapFont();
+		bodyfont.getData().setScale(1.5f, 1.5f);
 		Gdx.input.setInputProcessor(stage);
+		//Set numplayers
+		numPlayers = 1;
+		if (numPlayers > 2) {
+			numPlayers = 2;
+		}
 		
 		//Placeholder skins
 		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -41,7 +51,19 @@ public class StartGameScreen implements Screen {
 		btnStart.setPosition(550, 350);
 		btnStart.setSize(200, 50);
 		
-		//
+		//Adding players
+		if(numPlayers != 0) {
+			TextButton p1 = new TextButton("Simon\n\nLevel 2\n\n0 Wins /10 Losses", textSkin);
+			p1.setPosition(75, 400);
+			p1.setSize(300, 150);
+			stage.addActor(p1);
+		}
+		if(numPlayers == 2) {
+			TextButton p2 = new TextButton("", textSkin);
+			p2.setPosition(75, 200);
+			p2.setSize(300, 150);
+			stage.addActor(p2);
+		}
 		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
@@ -62,8 +84,8 @@ public class StartGameScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-		font.draw(batch, "Start a New Game", 550, 675);
-		font.draw(batch, "Players looking for games", 75, 600);
+		headfont.draw(batch, "Start a New Game", 475, 675);
+		bodyfont.draw(batch, "Players looking for games", 75, 600);
 		batch.end();
 	}
 
