@@ -51,7 +51,6 @@ public class LoginScreen implements Screen{
 		stage.addActor(txfPassword);
 		
 		stage.addActor(btnLogin);
-		
 	}
 	
 	public void btnLoginClicked() {
