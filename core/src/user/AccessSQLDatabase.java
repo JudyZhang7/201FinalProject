@@ -35,7 +35,7 @@ public class AccessSQLDatabase
 			// Get connection to the SQL Database. Use SSL=false to tell SQL to not give you the warning that you aren't using SSL
 			// SQLException might get thrown here if there is an error
 
-			String yourPassword = "spideyspider"; // Write your password here to access the database
+			String yourPassword = "Equyi86V"; // Write your password here to access the database
 
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
@@ -61,7 +61,8 @@ public class AccessSQLDatabase
 			int userLevel;
 			int userWins;
 			int userLosses;
-			int serialized_id;
+			int serialized_id_player;
+			int serialized_id_decks;
 			Decks deck;
 			Player player;
 			
@@ -76,17 +77,23 @@ public class AccessSQLDatabase
 					userLosses = rs.getInt("userLosses");
 					
 					PreparedStatement psi = null;
+					
 					psi = conn.prepareStatement("SELECT serialized_id_player FROM PlayerObject WHERE username = ?\"");
 					psi.setString(1, userToFind);
 					ResultSet rsi = psi.executeQuery();
-					serialized_id = rsi.getInt(columnIndex)
+					serialized_id_player = rsi.getInt("serialized_id_player");
 					
+					psi = conn.prepareStatement("SELECT serialized_id_decks FROM DecksObject WHERE username = ?\"");
+					psi.setString(1, userToFind);
+					rsi = psi.executeQuery();
+					serialized_id_decks = rsi.getInt("serialized_id_decks");
 					
-					deck = (Decks) STD.deSerializeJavaObjectFromDB(conn, serialized_id, SQL_DESERIALIZE_OBJECT_DECKS);
-					player = (Player) STD.deSerializeJavaObjectFromDB(conn, serialized_id, SQL_DESERIALIZE_OBJECT_PLAYER);
+					deck = (Decks) STD.deSerializeJavaObjectFromDB(conn, serialized_id_decks, SQL_DESERIALIZE_OBJECT_DECKS);
+					player = (Player) STD.deSerializeJavaObjectFromDB(conn, serialized_id_player, SQL_DESERIALIZE_OBJECT_PLAYER);
 										
 					System.out.println("Username: " + username + ", Password: " + password + ", Level: "
 										+ userLevel + ", User Wins: " + userWins + ", User Losses: " + userLosses);
+					
 					
 				}
 				else // Here, username exists, but password is wrong
@@ -142,6 +149,7 @@ public class AccessSQLDatabase
 	
 	public static void main(String[] args)
 	{
-		
+		AccessSQLDatabase ASD = new AccessSQLDatabase();
+		User user = ASD.getUser("Cat", "Dog");
 	}
 }
