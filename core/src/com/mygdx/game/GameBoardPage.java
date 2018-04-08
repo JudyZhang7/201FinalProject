@@ -4,8 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class GameBoardPage implements Screen {
 	private Stage stage;
+	private ShapeRenderer shapeRenderer;
 	private BitmapFont font;
 	private TextButton endTurnButton;
 	private TextButton yourDeckButton;
@@ -39,6 +43,7 @@ public class GameBoardPage implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
+		shapeRenderer = new ShapeRenderer();
 		font = new BitmapFont();
 		
 		// End Turn button setup
@@ -84,15 +89,25 @@ public class GameBoardPage implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 150/255f, 210/255f, 0);
+		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shapeRenderer.begin(ShapeType.Filled);
+		
+		shapeRenderer.setColor(0, 180/255f, 0, 1);
+		shapeRenderer.rect(0, 0, 3072, 350);
+		
+		shapeRenderer.setColor(180/255f, 0, 0, 1);
+		shapeRenderer.rect(0, 1580, 3072, 350);
+		
+		shapeRenderer.end();
+		
 		stage.act(delta);
 		stage.draw();
 	}
 	
 	@Override
 	public void dispose () {
-
+		shapeRenderer.dispose();
 	}
 
 	@Override
