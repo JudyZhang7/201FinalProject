@@ -93,10 +93,10 @@ public class GameBoardPage implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shapeRenderer.begin(ShapeType.Filled);
 		
-		shapeRenderer.setColor(Color.GREEN);
+		shapeRenderer.setColor(0, 180/255f, 0, 1);
 		shapeRenderer.rect(0, 0, 3072, 350);
 		
-		shapeRenderer.setColor(Color.RED);
+		shapeRenderer.setColor(180/255f, 0, 0, 1);
 		shapeRenderer.rect(0, 1580, 3072, 350);
 		
 		shapeRenderer.end();
