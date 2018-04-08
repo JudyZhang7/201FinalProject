@@ -61,8 +61,8 @@ public class AccessSQLDatabase
 			int userLevel;
 			int userWins;
 			int userLosses;
-			int serialized_id_player;
-			int serialized_id_decks;
+			long serialized_id_player;
+			long serialized_id_decks;
 			Decks deck;
 			Player player;
 			
@@ -78,15 +78,18 @@ public class AccessSQLDatabase
 					
 					PreparedStatement psi = null;
 					
-					psi = conn.prepareStatement("SELECT serialized_id_player FROM PlayerObject WHERE username = ?\"");
+					psi = conn.prepareStatement("SELECT p.serialized_id_player FROM PlayerObject p WHERE p.username = ?;");
 					psi.setString(1, userToFind);
 					ResultSet rsi = psi.executeQuery();
-					serialized_id_player = rsi.getInt("serialized_id_player");
+					rsi.next();
+					serialized_id_player = rsi.getLong("serialized_id_player");
 					
-					psi = conn.prepareStatement("SELECT serialized_id_decks FROM DecksObject WHERE username = ?\"");
+
+					psi = conn.prepareStatement("SELECT d.serialized_id_decks FROM DecksObject d WHERE d.username = ?;");
 					psi.setString(1, userToFind);
 					rsi = psi.executeQuery();
-					serialized_id_decks = rsi.getInt("serialized_id_decks");
+					rsi.next();
+					serialized_id_decks = rsi.getLong("serialized_id_decks");
 					
 					deck = (Decks) STD.deSerializeJavaObjectFromDB(conn, serialized_id_decks, SQL_DESERIALIZE_OBJECT_DECKS);
 					player = (Player) STD.deSerializeJavaObjectFromDB(conn, serialized_id_player, SQL_DESERIALIZE_OBJECT_PLAYER);
@@ -150,6 +153,6 @@ public class AccessSQLDatabase
 	public static void main(String[] args)
 	{
 		AccessSQLDatabase ASD = new AccessSQLDatabase();
-		User user = ASD.getUser("Cat", "Dog");
+		User user = ASD.getUser("Cats", "Dogs");
 	}
 }
