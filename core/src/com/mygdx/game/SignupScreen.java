@@ -14,7 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import user.AccessSQLDatabase;
 import user.AddToSQLDatabase;
+import user.User;
 
 public class SignupScreen implements Screen{
 	private SpriteBatch batch;
@@ -23,6 +25,8 @@ public class SignupScreen implements Screen{
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
+	private String inputtedUsername;
+	private String inputtedPassword;
 	
 	public SignupScreen(Game g) {
 		batch = new SpriteBatch();    
@@ -61,7 +65,19 @@ public class SignupScreen implements Screen{
 		System.out.println(txfPassword.getText());
 		//SEND TO DA BACK
 		AddToSQLDatabase ATSD = new AddToSQLDatabase();
-		ATSD.addToDatabase(txfUsername.getText(), txfPassword.getText());
+		// fields must not be empty
+		if (!txfUsername.getText().isEmpty() && !txfUsername.getText().isEmpty())
+		{
+			inputtedUsername = txfUsername.getText();
+			inputtedPassword = txfPassword.getText();
+			if(!ATSD.addToDatabase(inputtedUsername, inputtedPassword)) {
+				System.out.println("INVALID SIGNUP!");
+				batch.begin();
+		        font.draw(batch, "Invalid! Please try again.", 200, 400);
+		        batch.end();
+			}
+			System.out.println("Printing shoudl strat below");
+		}
 	}
 	
 	@Override

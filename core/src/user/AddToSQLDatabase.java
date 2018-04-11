@@ -126,6 +126,6 @@ public class AddToSQLDatabase
 	public static void main(String[] args)
 	{
 		AddToSQLDatabase ATSD = new AddToSQLDatabase();
-		ATSD.addToDatabase("Cats", "Dogs");
+		ATSD.addToDatabase("fd", "fd");
 	}
 }
