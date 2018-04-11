@@ -55,9 +55,7 @@ public class SignupScreen implements Screen{
 		txfPassword = new TextField("", textSkin);
 		txfPassword.setPosition(300, 350);
 		stage.addActor(txfPassword);
-		
 		stage.addActor(btnLogin);
-		
 	}
 	
 	public void btnLoginClicked() {
@@ -75,7 +73,9 @@ public class SignupScreen implements Screen{
 				batch.begin();
 		        font.draw(batch, "Invalid! Please try again.", 200, 400);
 		        batch.end();
+		        return;
 			}
+			game.setScreen(new ProfileScreen(game));
 			System.out.println("Printing shoudl strat below");
 		}
 	}

@@ -70,6 +70,8 @@ public class LoginScreen implements Screen{
 			inputtedPassword = txfPassword.getText();
 			User myUser = acc.getUser(inputtedUsername, inputtedPassword);
 			System.out.println("Printing shoudl strat below");
+			
+			game.setScreen(new ProfileScreen(game));
 		}
 	}
 	
