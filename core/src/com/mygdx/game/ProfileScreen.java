@@ -125,10 +125,7 @@ public class ProfileScreen implements Screen
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-//		batch.begin();
-//        font.draw(batch, "Player Profile", 300, 650);
-//        batch.end();
+
 		stage.act(delta);
 		stage.draw();
 	}
