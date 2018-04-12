@@ -10,10 +10,11 @@ public class FireplacePebble extends Game{
 	@Override
 	public void create() {
 //		Assets.load();
-		this.setScreen(new LoginScreen(this));
-
+//		this.setScreen(new LoginScreen(this));
 //		this.setScreen(new DeckScreen(this));
-//		this.setScreen(new GameBoardPage(this));
+//		this.setScreen(new ProfileScreen(this));
+		this.setScreen(new FrontPage(this));
+		
 	}
 	
 	public void render() {

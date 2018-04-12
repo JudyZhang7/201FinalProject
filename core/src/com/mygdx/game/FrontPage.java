@@ -80,21 +80,21 @@ public class FrontPage implements Screen
 	public void loginButtonClicked()
 	{
 		System.out.println("Login Button Clicked!");
-		//game.setScreen(new LoginScreen()); // Go to the login page
+		game.setScreen(new LoginScreen(game)); // Go to the login page
 	}
 	
 	// Method for if SignUpButton is clicked
 	public void SignUpButtonClicked()
 	{
 		System.out.println("Sign Button Clicked!");
-		//game.setScreen(new SignUpScreen()); // Go to the Sign Up page
+		game.setScreen(new SignupScreen(game)); // Go to the Sign Up page
 	}
 	
 	// Method for if GuestButton is clicked
 	public void GuestButtonClicked()
 	{
 		System.out.println("Guest Button Clicked!");
-		//game.setScreen(new GameScreen()); // Go to the Game Board page
+		game.setScreen(new StartGameScreen(game)); // Go to the Game Board page
 	}
 	
 	@Override
