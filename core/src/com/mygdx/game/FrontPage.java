@@ -42,7 +42,7 @@ public class FrontPage implements Screen
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
-		loginButton.setPosition(30, h/2);// Setting the position of the button
+		loginButton.setPosition(30, h/4);// Setting the position of the button
 		loginButton.setSize(buttonHeight, buttonWidth); // Setting the size of the button
 		loginButton.addListener(new ClickListener() 
 		{
@@ -56,7 +56,7 @@ public class FrontPage implements Screen
 		});
 		
 		SignUpButton = new TextButton("Sign Up", skin);
-		SignUpButton.setPosition((w/2) - 100 , h/2);
+		SignUpButton.setPosition((w/2) - 100 , h/4);
 		SignUpButton.setSize(buttonHeight, buttonWidth);
 		SignUpButton.addListener(new ClickListener() 
 		{
@@ -70,7 +70,7 @@ public class FrontPage implements Screen
 		});
 		
 		GuestButton = new TextButton("Guest", skin);
-		GuestButton.setPosition(w-230, h/2);
+		GuestButton.setPosition(w-230, h/4);
 		GuestButton.setSize(buttonHeight, buttonWidth);
 		GuestButton.addListener(new ClickListener() 
 		{
