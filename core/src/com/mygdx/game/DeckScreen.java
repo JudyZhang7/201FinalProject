@@ -115,14 +115,14 @@ public class DeckScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(1F, 1F, 1F, 1F);
+		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
 		
 		titleFont = game.titlefont128();
-		titleFont.setColor(Color.BLACK);
+		titleFont.setColor(Color.WHITE);
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
 		titleFont.draw(batch, "Decks", 3*w/4, 29*h/30);

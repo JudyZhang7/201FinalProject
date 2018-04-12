@@ -47,12 +47,12 @@ public class FireplacePebble extends Game{
 		regText.dispose(); // don't forget to dispose to avoid memory leaks!
 		
 //		Assets.load();
-		this.setScreen(new StartGameScreen(this));
+//		this.setScreen(new StartGameScreen(this));
 //		this.setScreen(new DeckScreen(this));
 //		this.setScreen(new ProfileScreen(this));
 		
 		//THIS IS THE START
-//		this.setScreen(new FrontPage(this));
+		this.setScreen(new FrontPage(this));
 		
 	}
 	
