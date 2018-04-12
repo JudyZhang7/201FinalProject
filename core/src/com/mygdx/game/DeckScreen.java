@@ -41,7 +41,6 @@ public class DeckScreen implements Screen {
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     private BitmapFont titleFont;
-	OrthographicCamera camera;
 	
 	public DeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<TextButton>();
@@ -49,8 +48,7 @@ public class DeckScreen implements Screen {
 		batch = new SpriteBatch();
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		camera = new OrthographicCamera();
-		camera.setToOrtho(true, 1920, 1080);
+		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 
 		//LOGIN BUTTON
@@ -84,6 +82,23 @@ public class DeckScreen implements Screen {
 			stage.addActor(myCards.get(i));
 		}
 		
+		TextButton btnBack = new TextButton ("Back", textSkin);
+		btnBack.setPosition(1*w/20, 19*h/20);
+		btnBack.setSize(buttonHeight/2, buttonWidth/2);
+		btnBack.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnBackClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(btnBack);
+		
+	}
+	public void btnBackClicked() {
+		game.setScreen(new ProfileScreen(game));
 	}
 	
 	public void btnLoginClicked() {
@@ -104,17 +119,13 @@ public class DeckScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
-		
-		camera.update();
-		
-		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		
 		titleFont = game.titlefont128();
 		titleFont.setColor(Color.BLACK);
-		titleFont.draw(batch, "Cards", (2*w)/5, h/12);
+		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
-		titleFont.draw(batch, "Decks", w, h/12);
+		titleFont.draw(batch, "Decks", 3*w/4, 29*h/30);
 		// rendering code
 		batch.end();
 	}

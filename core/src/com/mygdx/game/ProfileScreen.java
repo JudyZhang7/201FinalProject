@@ -26,7 +26,8 @@ public class ProfileScreen implements Screen
 	private FireplacePebble game;
 	private Stage stage;
 	private SpriteBatch batch;
-	private BitmapFont font;
+	private BitmapFont usernameFont;
+	private BitmapFont statsFont;
 	private Skin skin;
 	private Image profPic;
 	private TextButton startGameButton;
@@ -48,45 +49,12 @@ public class ProfileScreen implements Screen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
-		
-		// Profile Page Heading
-		/*batch = new SpriteBatch();
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		font.getData().setScale(2, 2);*/
-		String username = game.getCurrentUsername();
-		Label gameTitle = new Label(username, skin);
-		gameTitle.setFontScale(3, 3);
-		gameTitle.setSize(colWidth * 2, rowHeight * 2);
-		gameTitle.setPosition(centerX - gameTitle.getWidth() / 2, centerY + rowHeight);
-        gameTitle.setAlignment(Align.center);
-        
-        // Add in the image of something
-        
-        
-        // Add in levels, wins and losses
-        int level = game.getCurrentLevel();
-        int wins = game.getCurrentWins();
-        int losses = game.getCurrentLoses();
-        
-        Label gameLevel = new Label("Level: " + level, skin);
-		gameLevel.setFontScale(2, 2);
-		gameLevel.setSize(colWidth * 2, rowHeight * 2);
-		gameLevel.setPosition((centerX - gameTitle.getWidth() / 2) + 600, (centerY + rowHeight));
-        //gameLevel.setAlignment(Align.center);
-        
-		Label gameWins = new Label("Wins: " + wins, skin);
-		gameWins.setFontScale(2, 2);
-		gameWins.setSize(colWidth * 2, rowHeight * 2);
-		gameWins.setPosition((centerX - gameTitle.getWidth() / 2) + 600, (centerY + rowHeight) - 50);
-        //gameWins.setAlignment(Align.center);
-		
-		Label gameLosses = new Label("Losses: " + losses, skin);
-		gameLosses.setFontScale(2, 2);
-		gameLosses.setSize(colWidth * 2, rowHeight * 2);
-		gameLosses.setPosition((centerX - gameTitle.getWidth() / 2) + 600, (centerY + rowHeight) - 100);
-        //gameLosses.setAlignment(Align.center);
-		
+		batch = new SpriteBatch();   
+		usernameFont = game.titlefont128();
+        usernameFont.setColor(Color.WHITE);
+        statsFont = game.titlefont64();
+
+
 		startGameButton = new TextButton("Start New Game", skin); // Creating a button
 		startGameButton.setPosition(30, (7*h)/8);// Setting the position of the button
 		startGameButton.setSize(buttonHeight, buttonWidth); // Setting the size of the button
@@ -98,17 +66,26 @@ public class ProfileScreen implements Screen
 				startGameClicked();
 			}
 		});
+		
 		stage.addActor(startGameButton);
-		stage.addActor(gameTitle);
-		stage.addActor(gameLevel);
-		stage.addActor(gameWins);
-		stage.addActor(gameLosses);
+		TextButton logout = new TextButton ("Logout", skin);
+		logout.setPosition(17*w/20, 16*h/20);
+		logout.setSize(buttonHeight/2, buttonWidth/2);
+		logout.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				logoutClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(logout);
 	}
-	
-//	public void btnLoginClicked() {
-//		System.out.println(txfUsername.getText());
-//		System.out.println(txfPassword.getText());
-//	}
+	public void logoutClicked() {
+		game.setUser(null);
+		game.setScreen(new FrontPage(game));
+	}
 	
 	public void startGameClicked() {
 		game.setScreen(new StartGameScreen(game));
@@ -122,12 +99,22 @@ public class ProfileScreen implements Screen
 
 	@Override
 	public void render(float delta) {
+        String username = game.getCurrentUsername();
+        int level = game.getCurrentLevel();
+        int wins = game.getCurrentWins();
+        int losses = game.getCurrentLoses();
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
 		stage.draw();
+		batch.begin();
+		usernameFont.draw(batch, username, w/4, (3*h)/4);
+        statsFont.draw(batch, "Level : " + level, 3*w/4, (10*h)/15);
+        statsFont.draw(batch, "Wins: " + wins, 3*w/4, (8*h)/15);
+        statsFont.draw(batch, "Losses: " + losses, 3*w/4, (6*h)/15);
+        batch.end();
 	}
 
 	@Override

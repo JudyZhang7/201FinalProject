@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -34,17 +35,18 @@ public class LoginScreen implements Screen{
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
-    
+
 	public LoginScreen(FireplacePebble g) {
-		batch = new SpriteBatch();    
-        font = game.regfont16();
-        
-        font.setColor(Color.WHITE);
         
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
+		
+		batch = new SpriteBatch();    
+        font = game.regfont16();
+        font.setColor(Color.WHITE);
+        
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Login", textSkin);
 		btnLogin.setPosition(w/3, (1*h)/4);
@@ -149,8 +151,8 @@ public class LoginScreen implements Screen{
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-        font.draw(batch, "Username", w/3, (h)/4 + buttonHeight + 50);
-        font.draw(batch, "Password", w/3, (h)/4 + (2*buttonHeight)/3 + 50);
+		font.draw(batch, "Username", w/3, (h)/2 + buttonHeight/4);
+        font.draw(batch, "Password", w/3, (h)/2 - buttonHeight/12);
         batch.end();
 	}
 

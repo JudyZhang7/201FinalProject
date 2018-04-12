@@ -21,15 +21,17 @@ public class StartGameScreen implements Screen {
 	private BitmapFont bodyfont;
 	private SpriteBatch batch;
 	private int numPlayers;
+	int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
     
 	public StartGameScreen(FireplacePebble game) {
 		this.game = game;
 		stage = new Stage();
 		batch = new SpriteBatch();
-		headfont = new BitmapFont();
-		headfont.getData().setScale(3.0f, 3.0f);
-		bodyfont = new BitmapFont();
-		bodyfont.getData().setScale(1.5f, 1.5f);
+		headfont = game.titlefont64();
+		bodyfont = game.regfont20();
 		Gdx.input.setInputProcessor(stage);
 		//Set numplayers
 		numPlayers = 1;
@@ -42,12 +44,12 @@ public class StartGameScreen implements Screen {
 		
 		//View my deck button
 		TextButton btnViewDeck = new TextButton("View My Deck", textSkin);
-		btnViewDeck.setPosition(950, 600);
+		btnViewDeck.setPosition(3*w/4, 5*h/6);
 		btnViewDeck.setSize(225, 75);
 		
 		//View my profile button
 		TextButton btnViewProfile = new TextButton("View My Profile", textSkin);
-		btnViewProfile.setPosition(950, 500);
+		btnViewProfile.setPosition(3*w/4, 4*h/6);
 		btnViewProfile.setSize(225, 75);
 		
 		//Start button
@@ -150,8 +152,8 @@ public class StartGameScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-		headfont.draw(batch, "Start a New Game", 475, 675);
-		bodyfont.draw(batch, "Players looking for games", 75, 600);
+		headfont.draw(batch, "Start a New Game", w/3, 5*h/6);
+		bodyfont.draw(batch, "Players looking for games", w/13, 7*h/9);
 		batch.end();
 	}
 

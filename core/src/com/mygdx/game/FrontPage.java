@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,7 +33,6 @@ public class FrontPage implements Screen
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
-    
 	// Constructor
 	public FrontPage(FireplacePebble game)
 	{  

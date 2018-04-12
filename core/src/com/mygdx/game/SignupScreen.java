@@ -35,18 +35,17 @@ public class SignupScreen implements Screen{
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
-//	private OrthographicCamera camera;
-	public SignupScreen(FireplacePebble g) {
-//		camera = new OrthographicCamera(100, 100);
-		
-		batch = new SpriteBatch();    
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        
+	
+    public SignupScreen(FireplacePebble g) {
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
+		
+		batch = new SpriteBatch();    
+        font = game.regfont16();
+        font.setColor(Color.WHITE);
+		
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Sign Up", textSkin);
 		btnLogin.setPosition(w/3, (1*h)/4);
@@ -142,8 +141,8 @@ public class SignupScreen implements Screen{
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-		font.draw(batch, "Username", w/3, (h)/4 + buttonHeight + 50);
-        font.draw(batch, "Password", w/3, (h)/4 + (2*buttonHeight)/3 + 50);
+        font.draw(batch, "Username", w/3, (h)/2 + buttonHeight/4);
+        font.draw(batch, "Password", w/3, (h)/2 - buttonHeight/12);
         batch.end();
 	}
 
