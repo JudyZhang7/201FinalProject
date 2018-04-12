@@ -14,8 +14,8 @@ public class Game {
 	
 	public void run() {
 		while(winner == 0) {
-			p1.Act();
-			p2.Act();
+//			p1.Act();
+//			p2.Act();
 			
 			if(p1.get_hp() <= 0) {
 				winner = 2;

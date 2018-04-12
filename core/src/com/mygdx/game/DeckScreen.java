@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -28,14 +31,16 @@ public class DeckScreen implements Screen {
 	private TextField txfUsername;
 	private TextField txfPassword;
 	private ArrayList<TextButton> myCards;
-	private int numCardsRow = 5;
-	private int numCardsCol = 6;
+	private int numCardsRow = 4;
+	private int numCardsCol = 5;
+	private int ch = 125;
+	private int cw = 125;
 	SpriteBatch batch;
 	int buttonHeight = 200;
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
-    
+    private BitmapFont titleFont;
 	OrthographicCamera camera;
 	
 	public DeckScreen(FireplacePebble g) {
@@ -69,8 +74,8 @@ public class DeckScreen implements Screen {
 			for (int i = 0; i < numCardsCol; i++) {
 		        
 				TextButton cardButton = new TextButton("", textSkin);
-				cardButton.setPosition(((i*(200)) % 1150) + 300, (j*150) + 200);
-				cardButton.setSize(125, 125);
+				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
+				cardButton.setSize(cw, ch);
 				myCards.add(cardButton);
 			}
 		}
@@ -104,9 +109,13 @@ public class DeckScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
+		titleFont = game.titlefont128();
+		titleFont.setColor(Color.BLACK);
+		titleFont.draw(batch, "Cards", (2*w)/5, h/12);
+		
+		titleFont.draw(batch, "Decks", w, h/12);
 		// rendering code
-//		batch.draw(Assets.mySpriteList.get(4), 0, 0);
-//		batch.draw(Assets.mySpriteList.get(8), 0, 0, 150, 150);
 		batch.end();
 	}
 

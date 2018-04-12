@@ -63,7 +63,5 @@ public class Player implements Serializable{
 	public void setMyUser(User myUser) {
 		this.myUser = myUser;
 	}
-	
-	
 }
 

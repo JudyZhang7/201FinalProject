@@ -37,7 +37,8 @@ public class LoginScreen implements Screen{
     
 	public LoginScreen(FireplacePebble g) {
 		batch = new SpriteBatch();    
-        font = new BitmapFont();
+        font = game.regfont16();
+        
         font.setColor(Color.WHITE);
         
 		game = g;
@@ -117,8 +118,7 @@ public class LoginScreen implements Screen{
 		int row_height = Gdx.graphics.getWidth() / 12;
 	    int col_width = Gdx.graphics.getWidth() / 12;
 		Label.LabelStyle label1Style = new Label.LabelStyle();
-	    BitmapFont myFont = new BitmapFont();
-	    label1Style.font = myFont;
+	    label1Style.font = game.regfont16();
 	    label1Style.fontColor = Color.RED;
 	 
 	    Label label1 = new Label("Invalid input!",label1Style);
