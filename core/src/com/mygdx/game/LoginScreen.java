@@ -69,8 +69,13 @@ public class LoginScreen implements Screen{
 			inputtedUsername = txfUsername.getText();
 			inputtedPassword = txfPassword.getText();
 			User myUser = acc.getUser(inputtedUsername, inputtedPassword);
-			System.out.println("Printing shoudl strat below");
-			
+			if(myUser==null)
+			{
+				batch.begin();
+		        font.draw(batch, "Invalid! Please try again.", 200, 400);
+		        batch.end();
+		        return;
+			}
 			game.setScreen(new ProfileScreen(game));
 		}
 	}
