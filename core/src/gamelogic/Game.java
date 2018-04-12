@@ -17,10 +17,10 @@ public class Game {
 			p1.Act();
 			p2.Act();
 			
-			if(p1.GetHP() <= 0) {
+			if(p1.get_hp() <= 0) {
 				winner = 2;
 			}
-			else if(p2.GetHP() <= 0) {
+			else if(p2.get_hp() <= 0) {
 				winner = 1;
 			}
 			UpdateWL();
@@ -29,12 +29,12 @@ public class Game {
 	
 	public void UpdateWL() {
 		if (winner == 1) {
-			p1.GetUser().AddWin();
-			p2.GetUser().AddLoss();
+			p1.getMyUser().AddWin();
+			p2.getMyUser().AddLoss();
 		}
 		else if(winner == 2) {
-			p1.GetUser().AddLoss();
-			p2.GetUser().AddWin();
+			p1.getMyUser().AddLoss();
+			p2.getMyUser().AddWin();
 		}
 	}
 }

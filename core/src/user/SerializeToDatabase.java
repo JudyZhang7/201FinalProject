@@ -93,7 +93,6 @@ public class SerializeToDatabase {
 
 		// a sample java object to serialize
 		Player player = new Player();
-		player.setName("JUDY!");
 		long serialized_id = serializeJavaObjectToDB(connection, player, "Judy", SQL_SERIALIZE_OBJECT_PLAYER);
 
 		// serializing java object to mysql database
@@ -102,9 +101,6 @@ public class SerializeToDatabase {
 		// de-serializing java object from mysql database
 		Player objFromDatabase = (Player) deSerializeJavaObjectFromDB(
 				connection, serialized_id, SQL_DESERIALIZE_OBJECT_PLAYER);
-		
-
-		System.out.println(objFromDatabase.getName());
 		connection.close();
 	}
 }
