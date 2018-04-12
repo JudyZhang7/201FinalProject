@@ -31,6 +31,7 @@ public class SignupScreen implements Screen{
 	private String inputtedUsername;
 	private String inputtedPassword;
 //	private OrthographicCamera camera;
+	private Boolean success = false;
 	public SignupScreen(Game g) {
 //		camera = new OrthographicCamera(100, 100);
 		
@@ -57,12 +58,16 @@ public class SignupScreen implements Screen{
 		stage.addActor(btnLogin);
 		
 //		error();
-		btnLogin.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnLoginClicked();
-			}
-		});
+			btnLogin.addListener(new ClickListener(){
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+					btnLoginClicked();
+				}
+				public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+					return true;
+				}
+			});
+
 	}
 	
 	public void btnLoginClicked() {
@@ -81,6 +86,7 @@ public class SignupScreen implements Screen{
 		        return;
 			}
 			game.setScreen(new ProfileScreen(game));
+			success = true;
 		}
 	}
 	
