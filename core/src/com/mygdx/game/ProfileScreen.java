@@ -23,20 +23,26 @@ import com.badlogic.gdx.utils.Align;
 public class ProfileScreen implements Screen 
 {
 	// Private Variables
-	private Game game;
+	private FireplacePebble game;
 	private Stage stage;
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private Skin skin;
 	private Image profPic;
-	
+	private TextButton startGameButton;
+
 	// Public Variables
 	public static final int colWidth = Gdx.graphics.getWidth() / 8;
     public static final int rowHeight = Gdx.graphics.getHeight() / 8;
     public static final int centerX = Gdx.graphics.getWidth() / 2;
     public static final int centerY = Gdx.graphics.getHeight() / 2;
+    
+    int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
 	
-	public ProfileScreen(Game g) 
+	public ProfileScreen(FireplacePebble g) 
 	{
 		game = g;
 		stage = new Stage();
@@ -79,6 +85,18 @@ public class ProfileScreen implements Screen
 		gameLosses.setPosition((centerX - gameTitle.getWidth() / 2) + 600, (centerY + rowHeight) - 100);
         //gameLosses.setAlignment(Align.center);
 		
+		startGameButton = new TextButton("Start New Game", skin); // Creating a button
+		startGameButton.setPosition(30, (7*h)/8);// Setting the position of the button
+		startGameButton.setSize(buttonHeight, buttonWidth); // Setting the size of the button
+		startGameButton.addListener(new ClickListener() 
+		{
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button)
+			{
+				startGameClicked();
+			}
+		});
+		stage.addActor(startGameButton);
 		stage.addActor(gameTitle);
 		stage.addActor(gameLevel);
 		stage.addActor(gameWins);
@@ -89,6 +107,10 @@ public class ProfileScreen implements Screen
 //		System.out.println(txfUsername.getText());
 //		System.out.println(txfPassword.getText());
 //	}
+	
+	public void startGameClicked() {
+		game.setScreen(new StartGameScreen(game));
+	}
 	
 	@Override
 	public void show() {

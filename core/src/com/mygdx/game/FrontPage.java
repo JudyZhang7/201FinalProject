@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class FrontPage implements Screen
 {	
 	// Private Variables
-	private Game game; // Needed
+	private FireplacePebble game; // Needed
 	private Stage stage; // Needed 
 	private Skin skin; // Needed 
 	private TextButton loginButton;
@@ -34,7 +34,7 @@ public class FrontPage implements Screen
     float h = Gdx.graphics.getHeight();
     
 	// Constructor
-	public FrontPage(Game game)
+	public FrontPage(FireplacePebble game)
 	{  
 		this.game = game;
 		stage = new Stage();

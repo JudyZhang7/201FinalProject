@@ -12,7 +12,7 @@ public class Game {
 		p2 = second;
 	}
 	
-	public void Run() {
+	public void run() {
 		while(winner == 0) {
 			p1.Act();
 			p2.Act();

@@ -16,13 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class StartGameScreen implements Screen {
 	private Stage stage;
-	private Game game;
+	private FireplacePebble game;
 	private BitmapFont headfont;
 	private BitmapFont bodyfont;
 	private SpriteBatch batch;
 	private int numPlayers;
     
-	public StartGameScreen(Game game) {
+	public StartGameScreen(FireplacePebble game) {
 		this.game = game;
 		stage = new Stage();
 		batch = new SpriteBatch();
@@ -116,15 +116,15 @@ public class StartGameScreen implements Screen {
 	
 
 	public void btnViewDeckClicked() {
-		
+		game.setScreen(new DeckScreen(game));
 	}
 	
 	public void btnViewProfileClicked() {
-		
+		game.setScreen(new ProfileScreen(game));
 	}
 	
 	public void btnStartClicked() {
-		
+		game.setScreen(new GameBoardPage(game)); // Go to the login page
 	}
 	
 	public void btnp1Clicked() {

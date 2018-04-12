@@ -22,7 +22,7 @@ import user.User;
 public class LoginScreen implements Screen{
 	private SpriteBatch batch;
     private BitmapFont font;
-	private Game game;
+	private FireplacePebble game;
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
@@ -34,7 +34,7 @@ public class LoginScreen implements Screen{
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     
-	public LoginScreen(Game g) {
+	public LoginScreen(FireplacePebble g) {
 		batch = new SpriteBatch();    
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -101,6 +101,7 @@ public class LoginScreen implements Screen{
 				error();
 		        return;
 			}
+			game.setUser(myUser);
 			game.setScreen(new ProfileScreen(game));
 		}
 	}

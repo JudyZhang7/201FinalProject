@@ -24,7 +24,7 @@ import user.User;
 public class SignupScreen implements Screen{
 	private SpriteBatch batch;
     private BitmapFont font;
-	private Game game;
+	private FireplacePebble game;
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
@@ -36,7 +36,7 @@ public class SignupScreen implements Screen{
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 //	private OrthographicCamera camera;
-	public SignupScreen(Game g) {
+	public SignupScreen(FireplacePebble g) {
 //		camera = new OrthographicCamera(100, 100);
 		
 		batch = new SpriteBatch();    

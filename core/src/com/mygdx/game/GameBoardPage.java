@@ -26,7 +26,7 @@ public class GameBoardPage implements Screen {
 	private TextButton opponentDeckButton;
 	private Skin endTurnSkin;
 	private Skin deckZoneSkin;
-	private Game game;
+	private FireplacePebble game;
 	
 	float ENDTURN_X = 2500;
 	float ENDTURN_Y = 910;
@@ -37,7 +37,7 @@ public class GameBoardPage implements Screen {
 	float DECKWIDTH = 180;
 	float DECKHEIGHT = 252;
 	
-	public GameBoardPage(Game g) {
+	public GameBoardPage(FireplacePebble g) {
 		System.out.println("GAME BOARD!");
 		game = g;
 		stage = new Stage();

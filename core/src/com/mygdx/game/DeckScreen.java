@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class DeckScreen implements Screen {
 
-	private Game game;
+	private FireplacePebble game;
 	private Stage stage;
 	private TextField txfUsername;
 	private TextField txfPassword;
@@ -38,7 +38,7 @@ public class DeckScreen implements Screen {
     
 	OrthographicCamera camera;
 	
-	public DeckScreen(Game g) {
+	public DeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<TextButton>();
 		this.game = g;
 		batch = new SpriteBatch();
