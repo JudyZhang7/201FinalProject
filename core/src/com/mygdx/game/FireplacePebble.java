@@ -13,7 +13,7 @@ public class FireplacePebble extends Game{
 //		this.setScreen(new LoginScreen(this));
 //		this.setScreen(new DeckScreen(this));
 //		this.setScreen(new ProfileScreen(this));
-		this.setScreen(new LoginScreen(this));
+		this.setScreen(new SignupScreen(this));
 		
 	}
 	

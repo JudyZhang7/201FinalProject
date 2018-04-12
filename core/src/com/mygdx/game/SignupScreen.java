@@ -51,17 +51,7 @@ public class SignupScreen implements Screen{
 		TextButton btnLogin = new TextButton ("Sign Up", textSkin);
 		btnLogin.setPosition(w/3, (1*h)/4);
 		btnLogin.setSize(buttonHeight, buttonWidth);
-	
-		//LOGIN FIELDS
-		txfUsername = new TextField("", textSkin);
-		txfUsername.setPosition(w/3, (h)/4 + buttonHeight);
-		stage.addActor(txfUsername);
-		txfPassword = new TextField("", textSkin);
-		txfPassword.setPosition(w/3, (h)/4 + (2*buttonHeight)/3);
-		stage.addActor(txfPassword);
-		stage.addActor(btnLogin);
-		
-//		error();
+
 		btnLogin.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
@@ -71,6 +61,33 @@ public class SignupScreen implements Screen{
 				return true;
 			}
 		});
+		
+		TextButton btnBack = new TextButton ("Back", textSkin);
+		btnBack.setPosition(w/6, (3*h)/4);
+		btnBack.setSize(buttonHeight/2, buttonWidth/2);
+		btnBack.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnBackClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		//LOGIN FIELDS
+		txfUsername = new TextField("", textSkin);
+		txfUsername.setPosition(w/3, (h)/4 + buttonHeight);
+		stage.addActor(txfUsername);
+		txfPassword = new TextField("", textSkin);
+		txfPassword.setPosition(w/3, (h)/4 + (2*buttonHeight)/3);
+		stage.addActor(txfPassword);
+		
+		stage.addActor(btnLogin);
+		stage.addActor(btnBack);
+	}
+	
+	public void btnBackClicked() {
+		game.setScreen(new FrontPage(game));
 	}
 	
 	public void btnLoginClicked() {

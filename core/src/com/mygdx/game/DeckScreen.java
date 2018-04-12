@@ -31,7 +31,11 @@ public class DeckScreen implements Screen {
 	private int numCardsRow = 5;
 	private int numCardsCol = 6;
 	SpriteBatch batch;
-	
+	int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
+    
 	OrthographicCamera camera;
 	
 	public DeckScreen(Game g) {
@@ -49,7 +53,7 @@ public class DeckScreen implements Screen {
 				
 		// login button
 		btnLogin.setPosition(100, 1000);
-		btnLogin.setSize(300, 60);
+		btnLogin.setSize(buttonWidth, buttonHeight);
 		
 		btnLogin.addListener(new ClickListener(){
 			@Override
@@ -102,7 +106,7 @@ public class DeckScreen implements Screen {
 		batch.begin();
 		// rendering code
 //		batch.draw(Assets.mySpriteList.get(4), 0, 0);
-		batch.draw(Assets.mySpriteList.get(8), 0, 0, 150, 150);
+//		batch.draw(Assets.mySpriteList.get(8), 0, 0, 150, 150);
 		batch.end();
 	}
 
