@@ -20,6 +20,7 @@ import user.AccessSQLDatabase;
 import user.User;
 
 public class LoginScreen implements Screen{
+	
 	private SpriteBatch batch;
     private BitmapFont font;
 	private FireplacePebble game;
@@ -42,7 +43,7 @@ public class LoginScreen implements Screen{
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Login", textSkin);
 		btnLogin.setPosition(w/3, (1*h)/4);

@@ -46,7 +46,7 @@ public class SignupScreen implements Screen{
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Sign Up", textSkin);
 		btnLogin.setPosition(w/3, (1*h)/4);

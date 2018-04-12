@@ -47,7 +47,7 @@ public class GameBoardPage implements Screen {
 		font = new BitmapFont();
 		
 		// End Turn button setup
-		endTurnSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		endTurnSkin = new Skin(Gdx.files.internal(game.getSkin()));
 		endTurnButton = new TextButton("END TURN", endTurnSkin);
 		endTurnButton.setPosition(ENDTURN_X, ENDTURN_Y);
 		endTurnButton.setSize(500, 100);

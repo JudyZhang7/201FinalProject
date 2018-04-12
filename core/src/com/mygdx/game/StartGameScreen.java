@@ -38,7 +38,7 @@ public class StartGameScreen implements Screen {
 		}
 		
 		//Placeholder skins
-		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 		
 		//View my deck button
 		TextButton btnViewDeck = new TextButton("View My Deck", textSkin);

@@ -39,7 +39,7 @@ public class FrontPage implements Screen
 		this.game = game;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage); // Input to point to the stage
-		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		skin = new Skin(Gdx.files.internal(game.getSkin()));
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
 		loginButton.setPosition(30, h/4);// Setting the position of the button

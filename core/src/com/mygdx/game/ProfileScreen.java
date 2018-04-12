@@ -47,7 +47,7 @@ public class ProfileScreen implements Screen
 		game = g;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		skin = new Skin(Gdx.files.internal(game.getSkin()));
 		
 		// Profile Page Heading
 		/*batch = new SpriteBatch();

@@ -8,7 +8,7 @@ import user.User;
 
 public class FireplacePebble extends Game{
 	private User user;
-	
+	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	
 	@Override
 	public void create() {
@@ -22,6 +22,9 @@ public class FireplacePebble extends Game{
 		
 	}
 	
+	public String getSkin() {
+		return skin;
+	}
 	public void printCurrentUser() {
 		System.out.println("Current logged in user: " + user.getUsername());
 	}

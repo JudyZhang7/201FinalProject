@@ -46,7 +46,7 @@ public class DeckScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 1920, 1080);
-		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Back to Game", textSkin);
