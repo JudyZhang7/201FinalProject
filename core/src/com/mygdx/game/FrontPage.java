@@ -16,6 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import user.Player;
+import user.User;
+
 public class FrontPage implements Screen
 {	
 	// Private Variables
@@ -106,13 +109,13 @@ public class FrontPage implements Screen
 	public void GuestButtonClicked()
 	{
 		System.out.println("Guest Button Clicked!");
+		game.setUser(new User(null, "Guest", "", new Player(), 0, 0, 1));
 		game.setScreen(new StartGameScreen(game)); // Go to the Game Board page
 	}
 	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
