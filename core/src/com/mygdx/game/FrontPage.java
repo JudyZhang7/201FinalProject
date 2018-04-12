@@ -21,6 +21,10 @@ public class FrontPage implements Screen
 	private TextButton SignUpButton;
 	private TextButton GuestButton;
 	
+	int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
 	// Constructor
 	public FrontPage(Game game)
 	{
@@ -30,8 +34,8 @@ public class FrontPage implements Screen
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
-		loginButton.setPosition(100, 300);// Setting the position of the button
-		loginButton.setSize(300, 60); // Setting the size of the button
+		loginButton.setPosition(30, h/2);// Setting the position of the button
+		loginButton.setSize(buttonHeight, buttonWidth); // Setting the size of the button
 		loginButton.addListener(new ClickListener() 
 		{
 			@Override
@@ -44,8 +48,8 @@ public class FrontPage implements Screen
 		});
 		
 		SignUpButton = new TextButton("Sign Up", skin);
-		SignUpButton.setPosition(550, 300);
-		SignUpButton.setSize(300, 60);
+		SignUpButton.setPosition((w/2) - 100 , h/2);
+		SignUpButton.setSize(buttonHeight, buttonWidth);
 		SignUpButton.addListener(new ClickListener() 
 		{
 			@Override
@@ -58,8 +62,8 @@ public class FrontPage implements Screen
 		});
 		
 		GuestButton = new TextButton("Guest", skin);
-		GuestButton.setPosition(1000, 300);
-		GuestButton.setSize(300, 60);
+		GuestButton.setPosition(w-230, h/2);
+		GuestButton.setSize(buttonHeight, buttonWidth);
 		GuestButton.addListener(new ClickListener() 
 		{
 			@Override

@@ -29,6 +29,11 @@ public class LoginScreen implements Screen{
 	private String inputtedUsername;
 	private String inputtedPassword;
 	
+	int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
+    
 	public LoginScreen(Game g) {
 		batch = new SpriteBatch();    
         font = new BitmapFont();
@@ -40,8 +45,8 @@ public class LoginScreen implements Screen{
 		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Login", textSkin);
-		btnLogin.setPosition(300, 200);
-		btnLogin.setSize(300, 60);
+		btnLogin.setPosition(w/3, (1*h)/4);
+		btnLogin.setSize(buttonHeight, buttonWidth);
 		
 		btnLogin.addListener(new ClickListener(){
 			@Override
@@ -53,12 +58,14 @@ public class LoginScreen implements Screen{
 			}
 		});
 		//LOGIN FIELDS
-		txfPassword = new TextField("", textSkin);
-		txfPassword.setPosition(300, 300);
-		stage.addActor(txfPassword);
 		txfUsername = new TextField("", textSkin);
-		txfUsername.setPosition(300, 350);
+		txfUsername.setPosition(w/3, (h)/4 + buttonHeight);
 		stage.addActor(txfUsername);
+		
+		txfPassword = new TextField("", textSkin);
+		txfPassword.setPosition(w/3, (h)/4 + (2*buttonHeight)/3);
+		stage.addActor(txfPassword);
+	
 		
 		stage.addActor(btnLogin);
 	}
@@ -96,8 +103,7 @@ public class LoginScreen implements Screen{
 	 
 	    Label label1 = new Label("Invalid input!",label1Style);
 	    label1.setSize(Gdx.graphics.getWidth(),row_height);
-	    label1.setPosition(0,Gdx.graphics.getHeight()-row_height*4);
-	    label1.setAlignment(Align.center);
+	    label1.setPosition(w/3, Gdx.graphics.getHeight()-row_height*(18/3));
 	    stage.addActor(label1);
 	}
 	
@@ -123,8 +129,8 @@ public class LoginScreen implements Screen{
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-        font.draw(batch, "Username", 300, 400);
-        font.draw(batch, "Password", 300, 345);
+        font.draw(batch, "Username", w/3, (h)/4 + buttonHeight + 50);
+        font.draw(batch, "Password", w/3, (h)/4 + (2*buttonHeight)/3 + 50);
         batch.end();
 	}
 

@@ -30,6 +30,11 @@ public class SignupScreen implements Screen{
 	private TextField txfPassword;
 	private String inputtedUsername;
 	private String inputtedPassword;
+	
+	int buttonHeight = 200;
+	int buttonWidth = 60;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
 //	private OrthographicCamera camera;
 	public SignupScreen(Game g) {
 //		camera = new OrthographicCamera(100, 100);
@@ -44,29 +49,28 @@ public class SignupScreen implements Screen{
 		Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		//LOGIN BUTTON
 		TextButton btnLogin = new TextButton ("Sign Up", textSkin);
-		btnLogin.setPosition(300, 200);
-		btnLogin.setSize(300, 60);
+		btnLogin.setPosition(w/3, (1*h)/4);
+		btnLogin.setSize(buttonHeight, buttonWidth);
 	
 		//LOGIN FIELDS
 		txfUsername = new TextField("", textSkin);
-		txfUsername.setPosition(300, 300);
+		txfUsername.setPosition(w/3, (h)/4 + buttonHeight);
 		stage.addActor(txfUsername);
 		txfPassword = new TextField("", textSkin);
-		txfPassword.setPosition(300, 350);
+		txfPassword.setPosition(w/3, (h)/4 + (2*buttonHeight)/3);
 		stage.addActor(txfPassword);
 		stage.addActor(btnLogin);
 		
 //		error();
-			btnLogin.addListener(new ClickListener(){
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-					btnLoginClicked();
-				}
-				public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-					return true;
-				}
-			});
-
+		btnLogin.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnLoginClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
 	}
 	
 	public void btnLoginClicked() {
@@ -105,8 +109,7 @@ public class SignupScreen implements Screen{
 	 
 	    Label label1 = new Label("Invalid input!",label1Style);
 	    label1.setSize(Gdx.graphics.getWidth(),row_height);
-	    label1.setPosition(0,Gdx.graphics.getHeight()-row_height*4);
-	    label1.setAlignment(Align.center);
+	    label1.setPosition(w/3, Gdx.graphics.getHeight()-row_height*(18/3));
 	    stage.addActor(label1);
 	}
 
@@ -118,8 +121,8 @@ public class SignupScreen implements Screen{
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-        font.draw(batch, "Username", 300, 400);
-        font.draw(batch, "Password", 300, 345);
+		font.draw(batch, "Username", w/3, (h)/4 + buttonHeight + 50);
+        font.draw(batch, "Password", w/3, (h)/4 + (2*buttonHeight)/3 + 50);
         batch.end();
 	}
 
