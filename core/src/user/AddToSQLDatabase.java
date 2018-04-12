@@ -20,7 +20,7 @@ public class AddToSQLDatabase
 	 * is not taken, add the new user into the database, with level 1 and 0 wins and losses. 
 	 * If the username is taken, let the new user know that the username is taken, and don't update the
 	 * database */
-	public boolean addToDatabase(String userToAdd, String passwordToAdd) {
+	public User addToDatabase(String userToAdd, String passwordToAdd) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -28,14 +28,13 @@ public class AddToSQLDatabase
 		
 		boolean validName = false;
 		boolean validPass = false;
-		
+		User user = null;
 		// Getting valid username and password from user
 		while (validName == false)
 		{
 			if (userToAdd.contains(" "))
 			{
 				System.out.println("Invalid Username! No spaces.");
-				return false;
 			}
 			else
 			{
@@ -48,7 +47,6 @@ public class AddToSQLDatabase
 			if (passwordToAdd.contains(" "))
 			{
 				System.out.println("Invalid Password! No spaces.");
-				return false;
 			}
 			else
 			{
@@ -83,18 +81,17 @@ public class AddToSQLDatabase
 			Decks decks = new Decks();
 			STD.serializeJavaObjectToDB(conn, decks, userToAdd, SQL_SERIALIZE_OBJECT_DECKS);
 			System.out.println("User successfully added!");
-			return true;
+			user = new User(decks, userToAdd, passwordToAdd, player, 0, 0, 1);
+			return user;
 		}
 		catch (SQLException io)
 		{
 			System.out.println("Username taken! Please choose another.");
 			System.out.println("sqle: " + io.getMessage());
-			return false;
 		}
 		catch (ClassNotFoundException io)
 		{
 			System.out.println("cnfe: " + io.getMessage());
-			return false;
 		}
 		finally
 		{
@@ -122,6 +119,7 @@ public class AddToSQLDatabase
 				System.out.println("Error in closing stream: " + io.getMessage());
 			}
 		}
+		return user;
 	}
 	public static void main(String[] args)
 	{

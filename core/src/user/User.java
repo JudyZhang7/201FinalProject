@@ -36,6 +36,39 @@ public class User {
 		this._player = new Player();
 	}
 	
+	
+	public Decks get_decks() {
+		return _decks;
+	}
+
+	public void set_decks(Decks _decks) {
+		this._decks = _decks;
+	}
+
+	public String get_Username() {
+		return _Username;
+	}
+
+	public void set_Username(String _Username) {
+		this._Username = _Username;
+	}
+
+	public String get_Password() {
+		return _Password;
+	}
+
+	public void set_Password(String _Password) {
+		this._Password = _Password;
+	}
+
+	public Player get_player() {
+		return _player;
+	}
+
+	public void set_player(Player _player) {
+		this._player = _player;
+	}
+
 	public int get_wins() {
 		return _wins;
 	}
@@ -51,11 +84,22 @@ public class User {
 	public void set_losses(int _losses) {
 		this._losses = _losses;
 	}
-	
+
+	public int get_level() {
+		return _level;
+	}
+
+	public void set_level(int _level) {
+		this._level = _level;
+	}
+
 	public void AddWin() {
 		_wins++;
 	}
 	public void AddLoss() {
 		_losses++;
+	}
+	public String getUsername() {
+		return _Username;
 	}
 }

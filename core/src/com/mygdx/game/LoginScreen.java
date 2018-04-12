@@ -101,7 +101,9 @@ public class LoginScreen implements Screen{
 				error();
 		        return;
 			}
+			//SET USER
 			game.setUser(myUser);
+			game.printCurrentUser(); //for testing
 			game.setScreen(new ProfileScreen(game));
 		}
 	}

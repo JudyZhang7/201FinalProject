@@ -100,11 +100,15 @@ public class SignupScreen implements Screen{
 		{
 			inputtedUsername = txfUsername.getText();
 			inputtedPassword = txfPassword.getText();
-			if(!ATSD.addToDatabase(inputtedUsername, inputtedPassword)) {
+			User user = ATSD.addToDatabase(inputtedUsername, inputtedPassword);
+			if(user == null) {
 				System.out.println("INVALID SIGNUP!");
 				error();
 		        return;
 			}
+			//SET USER
+			game.setUser(user);
+			game.printCurrentUser(); //for testing
 			game.setScreen(new ProfileScreen(game));
 		}
 	}

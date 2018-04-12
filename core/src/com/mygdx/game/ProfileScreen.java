@@ -54,7 +54,8 @@ public class ProfileScreen implements Screen
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(2, 2);*/
-		Label gameTitle = new Label("Player Profile", skin);
+		String username = game.getCurrentUsername();
+		Label gameTitle = new Label(username, skin);
 		gameTitle.setFontScale(3, 3);
 		gameTitle.setSize(colWidth * 2, rowHeight * 2);
 		gameTitle.setPosition(centerX - gameTitle.getWidth() / 2, centerY + rowHeight);
@@ -64,9 +65,10 @@ public class ProfileScreen implements Screen
         
         
         // Add in levels, wins and losses
-        int level = 1;
-        int wins = 0;
-        int losses = 0;
+        int level = game.getCurrentLevel();
+        int wins = game.getCurrentWins();
+        int losses = game.getCurrentLoses();
+        
         Label gameLevel = new Label("Level: " + level, skin);
 		gameLevel.setFontScale(2, 2);
 		gameLevel.setSize(colWidth * 2, rowHeight * 2);
