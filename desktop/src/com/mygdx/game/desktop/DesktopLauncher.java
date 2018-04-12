@@ -10,8 +10,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Fireplace Pebble";
-		config.height = 1920;
-		config.width = 1080;
+		config.width = 1920;
+		config.height = 1080;
 		new LwjglApplication(new FireplacePebble(), config);
 	}
 }

@@ -4,6 +4,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,14 +24,18 @@ public class FrontPage implements Screen
 	private TextButton loginButton;
 	private TextButton SignUpButton;
 	private TextButton GuestButton;
-	
+	public static Texture texture;
+	public static TextureRegion mainBackground;
+    private SpriteBatch spriteBatch = new SpriteBatch();
+    
 	int buttonHeight = 200;
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
+    
 	// Constructor
 	public FrontPage(Game game)
-	{
+	{  
 		this.game = game;
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage); // Input to point to the stage
@@ -111,8 +119,15 @@ public class FrontPage implements Screen
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		texture = new Texture("Fireplace Pebble.png");
+		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
+		spriteBatch.begin();
+		spriteBatch.draw(mainBackground, 0, 0, w, h);
+        spriteBatch.end();
+		
 		stage.act(delta);
 		stage.draw();
+		
 	}
 
 	@Override
