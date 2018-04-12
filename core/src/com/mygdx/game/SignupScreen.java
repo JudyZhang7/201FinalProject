@@ -31,7 +31,6 @@ public class SignupScreen implements Screen{
 	private String inputtedUsername;
 	private String inputtedPassword;
 //	private OrthographicCamera camera;
-	private Boolean success = false;
 	public SignupScreen(Game g) {
 //		camera = new OrthographicCamera(100, 100);
 		
@@ -86,7 +85,6 @@ public class SignupScreen implements Screen{
 		        return;
 			}
 			game.setScreen(new ProfileScreen(game));
-			success = true;
 		}
 	}
 	
@@ -107,7 +105,7 @@ public class SignupScreen implements Screen{
 	 
 	    Label label1 = new Label("Invalid input!",label1Style);
 	    label1.setSize(Gdx.graphics.getWidth(),row_height);
-	    label1.setPosition(0,Gdx.graphics.getHeight()-row_height*3);
+	    label1.setPosition(0,Gdx.graphics.getHeight()-row_height*4);
 	    label1.setAlignment(Align.center);
 	    stage.addActor(label1);
 	}
@@ -122,7 +120,6 @@ public class SignupScreen implements Screen{
 		batch.begin();
         font.draw(batch, "Username", 300, 400);
         font.draw(batch, "Password", 300, 345);
-        font.draw(batch, "TEST", 300, 500);
         batch.end();
 	}
 

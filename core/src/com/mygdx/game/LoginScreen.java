@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import user.AccessSQLDatabase;
 import user.User;
@@ -46,6 +48,9 @@ public class LoginScreen implements Screen{
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
 				btnLoginClicked();
 			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
 		});
 		//LOGIN FIELDS
 		txfPassword = new TextField("", textSkin);
@@ -71,13 +76,29 @@ public class LoginScreen implements Screen{
 			User myUser = acc.getUser(inputtedUsername, inputtedPassword);
 			if(myUser==null)
 			{
-				batch.begin();
-		        font.draw(batch, "Invalid! Please try again.", 200, 400);
-		        batch.end();
+				System.out.println("INVALID SIGNUP!");
+				error();
 		        return;
 			}
 			game.setScreen(new ProfileScreen(game));
 		}
+	}
+	
+	public void error() {
+		System.out.println("Trying to draw error");
+		
+		int row_height = Gdx.graphics.getWidth() / 12;
+	    int col_width = Gdx.graphics.getWidth() / 12;
+		Label.LabelStyle label1Style = new Label.LabelStyle();
+	    BitmapFont myFont = new BitmapFont();
+	    label1Style.font = myFont;
+	    label1Style.fontColor = Color.RED;
+	 
+	    Label label1 = new Label("Invalid input!",label1Style);
+	    label1.setSize(Gdx.graphics.getWidth(),row_height);
+	    label1.setPosition(0,Gdx.graphics.getHeight()-row_height*4);
+	    label1.setAlignment(Align.center);
+	    stage.addActor(label1);
 	}
 	
 	public String getUsername() {

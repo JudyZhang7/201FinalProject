@@ -118,6 +118,7 @@ public class AccessSQLDatabase
 					//user = new User(deck, username, password, player, userWins, userLosses, userLevel);
 					//user.printUsername();
 					// Return null user
+					user = new User(deck, username, password, player, userWins, userLosses, userLevel);
 				}
 				else // Here, username exists, but password is wrong
 				{
