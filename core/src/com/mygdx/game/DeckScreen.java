@@ -48,12 +48,6 @@ public class DeckScreen implements Screen {
 	public DeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
-		this.currentUser = game.getUser();
-		this.currentDeck = currentUser.getTopDeck();
-		if(currentDeck== null) {
-			return;
-		}
-		cardDeck = currentUser.getTopDeck().getCardDeck();
 		Gdx.input.setInputProcessor(stage);
 		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
@@ -85,6 +79,13 @@ public class DeckScreen implements Screen {
 		});
 		stage.addActor(newDeck);
 		// cards
+		this.currentUser = game.getUser();
+		this.currentDeck = currentUser.getTopDeck();
+		if(currentDeck== null) {
+			return;
+		}
+		cardDeck = currentUser.getTopDeck().getCardDeck();
+		
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
