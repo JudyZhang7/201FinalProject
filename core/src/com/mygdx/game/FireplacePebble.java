@@ -70,11 +70,8 @@ public class FireplacePebble extends Game{
 		// TOAST create factory
 
 		//THIS IS THE START
-<<<<<<< HEAD
 		this.setScreen(new GameBoardPage(this));
-=======
-		this.setScreen(new CreateNewDeckScreen(this));
->>>>>>> 75f649b2af6962c169f9881abdb32de11149945c
+//		this.setScreen(new CreateNewDeckScreen(this));
 		
 	}
 	
