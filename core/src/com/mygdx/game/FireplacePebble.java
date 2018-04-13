@@ -1,5 +1,9 @@
 package com.mygdx.game;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
+import gamelogic.AchievementThread;
 import user.AccessSQLDatabase;
 import user.User;
 
@@ -22,6 +27,13 @@ public class FireplacePebble extends Game{
 	public BitmapFont regfont32;
 	public BitmapFont regfont20;
 	public BitmapFont regfont16;
+	
+    // NEW TOAST
+    private Toast.ToastFactory toastFactory;
+    private final List<Toast> toasts = new LinkedList<Toast>();
+    //private final List<Toast> toasts = new ArrayList<Toast>();
+    //private Toast toast;
+    // NEW TOAST
 
 	@Override
 	public void create() {
@@ -50,8 +62,15 @@ public class FireplacePebble extends Game{
 //		this.setScreen(new DeckScreen(this));
 //		this.setScreen(new ProfileScreen(this));
 		
+		// TOAST create factory
+		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(735).build();
+		toastLong("Achievement Unlocked! Levelled up!");
+//		toastShort("Hello World!");
+		// TOAST create factory
+
 		//THIS IS THE START
-		this.setScreen(new FrontPage(this));
+		this.setScreen(new GameBoardPage(this));
 		
 	}
 	
@@ -106,7 +125,36 @@ public class FireplacePebble extends Game{
 		return (user.get_level());
 	}
 	
+	// Displays long toast
+	public void toastLong(String text) 
+	{
+		toasts.add(toastFactory.create(text, Toast.Length.LONG));
+	}
+
+	// Displays short toast
+	public void toastShort(String text) 
+	{
+		toasts.add(toastFactory.create(text, Toast.Length.SHORT));
+	}
+	
 	public void render() {
 		super.render();
+		
+      // NEW TOAST
+      // handle toast queue and display
+      Iterator<Toast> it = toasts.iterator();
+      while(it.hasNext()) 
+      {
+          Toast t = it.next();
+          if (!t.render(Gdx.graphics.getDeltaTime())) 
+          {
+              it.remove(); // toast finished -> remove
+          } 
+          else 
+          {
+              break; // first toast still active, break the loop
+          }
+      }
+      // NEW TOAST
 	}
 }

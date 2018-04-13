@@ -38,12 +38,12 @@ public class FrontPage implements Screen
 	public static TextureRegion mainBackground;
     private SpriteBatch spriteBatch = new SpriteBatch();
     
-    // NEW TOAST
-    private Toast.ToastFactory toastFactory;
-    private final List<Toast> toasts = new LinkedList<Toast>();
-    //private final List<Toast> toasts = new ArrayList<Toast>();
-    //private Toast toast;
-    // NEW TOAST
+//    // NEW TOAST
+//    private Toast.ToastFactory toastFactory;
+//    private final List<Toast> toasts = new LinkedList<Toast>();
+//    //private final List<Toast> toasts = new ArrayList<Toast>();
+//    //private Toast toast;
+//    // NEW TOAST
     
 	int buttonHeight = 200;
 	int buttonWidth = 60;
@@ -57,12 +57,12 @@ public class FrontPage implements Screen
 		Gdx.input.setInputProcessor(stage); // Input to point to the stage
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
 		
-		// TOAST create factory
-		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-	    toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
-		toastLong("Achievement Unlocked! Levelled up!");
-		toastShort("Hello World!");
-		// TOAST create factory
+//		// TOAST create factory
+//		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+//	    toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
+//		toastLong("Achievement Unlocked! Levelled up!");
+//		toastShort("Hello World!");
+//		// TOAST create factory
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
 		loginButton.setPosition(250, h/4);// Setting the position of the button
@@ -148,22 +148,22 @@ public class FrontPage implements Screen
 		spriteBatch.draw(mainBackground, 0, 0, w, h);
         spriteBatch.end();
 		
-        // NEW TOAST
-        // handle toast queue and display
-        Iterator<Toast> it = toasts.iterator();
-        while(it.hasNext()) 
-        {
-            Toast t = it.next();
-            if (!t.render(delta)) 
-            {
-                it.remove(); // toast finished -> remove
-            } 
-            else 
-            {
-                break; // first toast still active, break the loop
-            }
-        }
-        // NEW TOAST
+//        // NEW TOAST
+//        // handle toast queue and display
+//        Iterator<Toast> it = toasts.iterator();
+//        while(it.hasNext()) 
+//        {
+//            Toast t = it.next();
+//            if (!t.render(delta)) 
+//            {
+//                it.remove(); // toast finished -> remove
+//            } 
+//            else 
+//            {
+//                break; // first toast still active, break the loop
+//            }
+//        }
+//        // NEW TOAST
         
 		stage.act(delta);
 		stage.draw();
@@ -198,16 +198,6 @@ public class FrontPage implements Screen
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	// Displays long toast
-	public void toastLong(String text) {
-	    toasts.add(toastFactory.create(text, Toast.Length.LONG));
-	}
-
-	// Displays short toast
-	public void toastShort(String text) {
-	    toasts.add(toastFactory.create(text, Toast.Length.SHORT));
 	}
 	
 }
