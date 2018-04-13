@@ -23,12 +23,32 @@ public class Card implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String cardName;
 	private int attack;
+	private int effectAttack = 0;
+	private int effectDefense = 0;
 	private int hp;
 	private int manaCost;
 	private String cardname;
 	private String desc;
 	private CardType type;
 	private Boolean onBoard;
+	private Player mPlayer;
+	private Boolean firstTargeted = true;
+	
+	private enum Effect {
+		rat, 
+		ox, 
+		tiger, 
+		rabbit, 
+		dragon, 
+		snek, 
+		horse, 
+		goat, 
+		monkey, 
+		rooster, 
+		dog, 
+		pig;
+	}
+	private Effect state;
 	
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 
@@ -114,11 +134,48 @@ public class Card implements Serializable {
 		this.desc = desc;
 	}
 
-	public void Effect() {}
-	public void Attack() {}
+	public void Attack(Card target, Player opponent) {
+		switch (state) {
+		case rat:
+			break;
+		case ox:
+			effectAttack = 3;
+			break;
+		case tiger:
+			break;
+		case rabbit:
+			effectDefense = 999;
+			break;
+		case dragon:
+			break;
+		case snek:
+			break;
+		case horse:
+			break;
+		case goat:
+			break;
+		case monkey:
+			break;
+		case rooster:
+			break;
+		case dog:
+			break;
+		case pig:
+			//mPlayer.draw();
+			break;
+		
+		default:
+			break;
+		}
+		
+		
+		attackValue = target.getLife() - this.getAttack();
+		effectValue = target.getEffectDefense() - this.getEffectAttack();
+		
+		if
+		
+		
+		
+	}
 
-
-
-
-	
 }
