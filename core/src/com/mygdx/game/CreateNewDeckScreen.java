@@ -23,7 +23,7 @@ import user.Card;
 import user.Deck;
 import user.User;
 
-public class NewDeck implements Screen {
+public class CreateNewDeckScreen implements Screen {
 
 	private FireplacePebble game;
 	private Stage stage = new Stage();
@@ -45,9 +45,10 @@ public class NewDeck implements Screen {
     private User currentUser;
     private Deck newDeck;
     private Card [] cardDeck = new Card[20];
+    private Card [] fullDeck = new Card[30];
     private int numCards = 0;
     
-	public NewDeck(FireplacePebble g) {
+	public CreateNewDeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
 
@@ -90,7 +91,7 @@ public class NewDeck implements Screen {
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-				final Card thisCard = cardDeck[counter]; //why is this final?
+				final Card thisCard = fullDeck[counter]; //why is this final?
 				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
 				TextureRegion cardTR = new TextureRegion(cardT);
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
@@ -103,6 +104,7 @@ public class NewDeck implements Screen {
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
 						if(!addCardToDeck(thisCard)) { //deck is full!
+							showMessage("Deck is full. \nIt's been created.");
 							newDeck.addCardDeck(cardDeck);
 							currentUser.addDeck(newDeck);
 						}
@@ -124,12 +126,13 @@ public class NewDeck implements Screen {
 	
 	public boolean deckFinished() {
 		if(cardDeck[20] == null) {
+			showMessage("Not enough cards!");
 			return false;
 		}
 		newDeck.addCardDeck(cardDeck);
 		currentUser.addDeck(newDeck);
 		//GOOD!
-		
+		showMessage("Deck created!");
 		return true;
 	}
 	

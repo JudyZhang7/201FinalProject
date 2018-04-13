@@ -108,7 +108,7 @@ public class DeckScreen implements Screen {
 		btnBack.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnBackClicked();
+				newDeckClicked();
 			}
 			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
 				return true;
@@ -117,14 +117,16 @@ public class DeckScreen implements Screen {
 		stage.addActor(btnBack);
 		
 	}
-	
+
 	public Card cardClicked(Card c) {
 		return c;
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
 	}
-	
+	public void newDeckClicked() {
+		game.setScreen(new CreateNewDeckScreen(game));
+	}
 	public void btnLoginClicked() {
 		System.out.println(txfUsername.getText());
 		System.out.println(txfPassword.getText());
