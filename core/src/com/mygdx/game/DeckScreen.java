@@ -2,27 +2,22 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import user.Card;
+import user.Deck;
+import user.User;
 
 public class DeckScreen implements Screen {
 
@@ -41,36 +36,30 @@ public class DeckScreen implements Screen {
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     private BitmapFont titleFont;
-	
+    
+    //BACKEND STUFF
+    User currentUser;
+	Deck currentDeck;
+	Card [] cardDeck;
 	public DeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<TextButton>();
 		this.game = g;
+		this.currentUser = game.getUser();
+		this.currentDeck = currentUser.getTopDeck();
+		cardDeck = currentUser.getTopDeck().getCardDeck();
+		
 		batch = new SpriteBatch();
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
-
-		//LOGIN BUTTON
-		TextButton btnLogin = new TextButton ("Back to Game", textSkin);
-				
-		// login button
-		btnLogin.setPosition(100, 1000);
-		btnLogin.setSize(buttonWidth, buttonHeight);
-		
-		btnLogin.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnLoginClicked();
-			}
-		});
-		
-		stage.addActor(btnLogin);
-		
 		// cards
+		for(int i = 0; i < cardDeck.length; i++) {
+			
+		}
+		
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-		        
 				TextButton cardButton = new TextButton("", textSkin);
 				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
 				cardButton.setSize(cw, ch);
