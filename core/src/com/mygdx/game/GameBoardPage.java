@@ -24,34 +24,28 @@ public class GameBoardPage implements Screen {
 	private TextButton endTurnButton;
 	private TextButton yourDeckButton;
 	private TextButton opponentDeckButton;
-	private Skin endTurnSkin;
-	private Skin deckZoneSkin;
+	private Skin skin;
 	private FireplacePebble game;
 	
-	float ENDTURN_X = 2500;
-	float ENDTURN_Y = 910;
-	float YOURDECK_X = 2700;
-	float YOURDECK_Y = 50;
-	float OPPONENTDECK_X = 175;
-	float OPPONENTDECK_Y = 1620;
-	float DECKWIDTH = 180;
-	float DECKHEIGHT = 252;
+	int buttonHeight = 100;
+	int buttonWidth = 100;
+	float w = Gdx.graphics.getWidth();
+    float h = Gdx.graphics.getHeight();
 	
 	public GameBoardPage(FireplacePebble g) {
 		System.out.println("GAME BOARD!");
 		game = g;
 		stage = new Stage();
+		skin = new Skin(Gdx.files.internal(game.getSkin()));
 		Gdx.input.setInputProcessor(stage);
 		
 		shapeRenderer = new ShapeRenderer();
-		font = new BitmapFont();
 		
 		// End Turn button setup
-		endTurnSkin = new Skin(Gdx.files.internal(game.getSkin()));
-		endTurnButton = new TextButton("END TURN", endTurnSkin);
-		endTurnButton.setPosition(ENDTURN_X, ENDTURN_Y);
-		endTurnButton.setSize(500, 100);
-		endTurnButton.getLabel().setFontScale(3);
+		endTurnButton = new TextButton("END TURN", skin);
+		endTurnButton.setPosition(11*w/12, h/2);
+		endTurnButton.setSize(buttonWidth, buttonHeight);
+				
 		endTurnButton.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				// Debug statement, add backend here
@@ -59,32 +53,31 @@ public class GameBoardPage implements Screen {
 			}
 		});
 		
-		// Deck zones setup
-		deckZoneSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		yourDeckButton = new TextButton("", deckZoneSkin);
-		yourDeckButton.setPosition(YOURDECK_X, YOURDECK_Y);
-		yourDeckButton.setSize(DECKWIDTH, DECKHEIGHT);
-		endTurnButton.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				// Debug statement, add backend here
-				System.out.println("My deck pressed!");
-			}
-		});
-		
-		opponentDeckButton = new TextButton("", deckZoneSkin);
-		opponentDeckButton.setPosition(OPPONENTDECK_X, OPPONENTDECK_Y);
-		opponentDeckButton.setSize(DECKWIDTH, DECKHEIGHT);
-		endTurnButton.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				// Debug statement, add backend here
-				System.out.println("Opponent deck pressed!");
-			}
-		});
+//		// Deck zones setup
+//		yourDeckButton = new TextButton("", skin);
+//		yourDeckButton.setPosition(w/2, h/2);
+//		yourDeckButton.setSize(buttonWidth, buttonHeight);
+//		endTurnButton.addListener(new ClickListener() {
+//			public void clicked(InputEvent event, float x, float y) {
+//				// Debug statement, add backend here
+//				System.out.println("My deck pressed!");
+//			}
+//		});
+//		
+//		opponentDeckButton = new TextButton("", skin);
+//		opponentDeckButton.setPosition(w/3, h/3);
+//		opponentDeckButton.setSize(buttonWidth, buttonHeight);
+//		endTurnButton.addListener(new ClickListener() {
+//			public void clicked(InputEvent event, float x, float y) {
+//				// Debug statement, add backend here
+//				System.out.println("Opponent deck pressed!");
+//			}
+//		});
 		
 		// Add all components onto stage
 		stage.addActor(endTurnButton);
-		stage.addActor(yourDeckButton);
-		stage.addActor(opponentDeckButton);
+//		stage.addActor(yourDeckButton);
+//		stage.addActor(opponentDeckButton);
 	}
 
 	@Override
