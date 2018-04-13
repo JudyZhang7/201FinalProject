@@ -102,22 +102,28 @@ public class CreateNewDeckScreen implements Screen {
 				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
 				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 		        				
-				cardButton.setPosition(((i*(130)) % w), (j*150) + h/4);
+				cardButton.setPosition(((i*(128)) % w), (j*150) + h/4);
 				cardButton.setSize(cw, ch);
 				
-//				cardButton.addListener(new ClickListener(){
-//					@Override
-//					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				cardButton.addListener(new ClickListener(){
+					@Override
+					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+						if(numCards == 20) { //deck is full!
+							showMessage("Deck is full. \nIt's been created.");
+							newDeck.addCardDeck(cardDeck);
+							currentUser.addDeck(newDeck);
+						}
+						addCardToDeck(null);
 //						if(!addCardToDeck(thisCard)) { //deck is full!
 //							showMessage("Deck is full. \nIt's been created.");
 //							newDeck.addCardDeck(cardDeck);
 //							currentUser.addDeck(newDeck);
 //						}
-//					}
-//					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-//						return true;
-//					}
-//				});
+					}
+					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+						return true;
+					}
+				});
 				myCards.add(cardButton);
 				counter++; //increment the card
 			}
@@ -144,8 +150,13 @@ public class CreateNewDeckScreen implements Screen {
 	public boolean addCardToDeck(Card c) {
 		//update screen to show how many cards selected
 		if(numCards < 20) {
-			cardDeck[numCards] = c;
+			batch.begin();
 			numCards++;
+			BitmapFont titleFont64 = game.titlefont64();
+			titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
+			// rendering code
+			batch.end();
+			cardDeck[numCards] = c;
 			return true;
 		}
 		return false;
@@ -188,7 +199,7 @@ public class CreateNewDeckScreen implements Screen {
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
 		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Cards in New Deck: ", w/6, 6*h/30);
+		titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/6, 6*h/30);
 		// rendering code
 		batch.end();
 	}
