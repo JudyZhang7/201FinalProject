@@ -1,7 +1,21 @@
 package user;
 
 public class CreatureCard extends Card{
-
+	private enum Creature {
+		rat, 
+		ox, 
+		tiger, 
+		rabbit, 
+		dragon, 
+		snake,
+		horse, 
+		goat, 
+		monkey, 
+		rooster, 
+		dog, 
+		pig;
+	}
+	
 	public CreatureCard(CardType type) {
 		super(type);
 		// TODO Auto-generated constructor stub
