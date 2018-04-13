@@ -51,7 +51,7 @@ public class FireplacePebble extends Game{
 //		this.setScreen(new ProfileScreen(this));
 		
 		//THIS IS THE START
-		this.setScreen(new FrontPage(this));
+		this.setScreen(new CreateNewDeckScreen(this));
 		
 	}
 	

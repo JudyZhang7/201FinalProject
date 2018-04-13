@@ -66,7 +66,7 @@ public class DeckScreen implements Screen {
 		stage.addActor(btnBack);
 		
 		TextButton newDeck = new TextButton ("Create New Deck", textSkin);
-		newDeck.setPosition(15*w/20, 17*h/20);
+		newDeck.setPosition(15*w/20, 14*h/20);
 		newDeck.setSize(buttonHeight, buttonWidth);
 		newDeck.addListener(new ClickListener(){
 			@Override

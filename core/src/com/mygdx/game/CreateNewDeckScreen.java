@@ -30,8 +30,8 @@ public class CreateNewDeckScreen implements Screen {
 	private TextField txfUsername;
 	private TextField txfPassword;
 	private ArrayList<ImageButton> myCards;
-	private int numCardsRow = 5;
-	private int numCardsCol = 6;
+	private int numCardsRow = 3;
+	private int numCardsCol = 10;
 	private int ch = 125;
 	private int cw = 125;
 	SpriteBatch batch = new SpriteBatch();
@@ -91,28 +91,33 @@ public class CreateNewDeckScreen implements Screen {
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-				final Card thisCard = fullDeck[counter]; //why is this final?
-				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
-				TextureRegion cardTR = new TextureRegion(cardT);
-				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+//				final Card thisCard = fullDeck[counter]; //why is this final?
+//				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
+//				TextureRegion cardTR = new TextureRegion(cardT);
+//				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+//				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+				
+				Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+				TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 		        				
-				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
+				cardButton.setPosition(((i*(130)) % w), (j*150) + h/4);
 				cardButton.setSize(cw, ch);
 				
-				cardButton.addListener(new ClickListener(){
-					@Override
-					public void touchUp(InputEvent e, float x, float y, int point, int button) {
-						if(!addCardToDeck(thisCard)) { //deck is full!
-							showMessage("Deck is full. \nIt's been created.");
-							newDeck.addCardDeck(cardDeck);
-							currentUser.addDeck(newDeck);
-						}
-					}
-					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-						return true;
-					}
-				});
+//				cardButton.addListener(new ClickListener(){
+//					@Override
+//					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//						if(!addCardToDeck(thisCard)) { //deck is full!
+//							showMessage("Deck is full. \nIt's been created.");
+//							newDeck.addCardDeck(cardDeck);
+//							currentUser.addDeck(newDeck);
+//						}
+//					}
+//					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+//						return true;
+//					}
+//				});
 				myCards.add(cardButton);
 				counter++; //increment the card
 			}
@@ -182,7 +187,8 @@ public class CreateNewDeckScreen implements Screen {
 		titleFont.setColor(Color.WHITE);
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
-		titleFont.draw(batch, "Decks", 3*w/4, 29*h/30);
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Cards in New Deck: ", w/6, 6*h/30);
 		// rendering code
 		batch.end();
 	}
