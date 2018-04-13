@@ -1,11 +1,17 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,6 +38,13 @@ public class FrontPage implements Screen
 	public static TextureRegion mainBackground;
     private SpriteBatch spriteBatch = new SpriteBatch();
     
+    // NEW TOAST
+    private Toast.ToastFactory toastFactory;
+    private final List<Toast> toasts = new LinkedList<Toast>();
+    //private final List<Toast> toasts = new ArrayList<Toast>();
+    //private Toast toast;
+    // NEW TOAST
+    
 	int buttonHeight = 200;
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
@@ -43,6 +56,14 @@ public class FrontPage implements Screen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage); // Input to point to the stage
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
+		
+		// TOAST create factory
+		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		BitmapFont fonter = new BitmapFont();
+	    toastFactory = new Toast.ToastFactory.Builder().font(fonter).positionY(750).build();
+		toastLong("Achievement Unlocked! Levelled up!");
+		toastShort("World Hello!");
+		// TOAST create factory
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
 		loginButton.setPosition(250, h/4);// Setting the position of the button
@@ -128,6 +149,23 @@ public class FrontPage implements Screen
 		spriteBatch.draw(mainBackground, 0, 0, w, h);
         spriteBatch.end();
 		
+        // NEW TOAST
+        // handle toast queue and display
+        Iterator<Toast> it = toasts.iterator();
+        while(it.hasNext()) 
+        {
+            Toast t = it.next();
+            if (!t.render(delta)) 
+            {
+                it.remove(); // toast finished -> remove
+            } 
+            else 
+            {
+                break; // first toast still active, break the loop
+            }
+        }
+        // NEW TOAST
+        
 		stage.act(delta);
 		stage.draw();
 		
@@ -162,5 +200,15 @@ public class FrontPage implements Screen
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// Displays long toast
+	public void toastLong(String text) {
+	    toasts.add(toastFactory.create(text, Toast.Length.LONG));
+	}
 
+	// Displays short toast
+	public void toastShort(String text) {
+	    toasts.add(toastFactory.create(text, Toast.Length.SHORT));
+	}
+	
 }

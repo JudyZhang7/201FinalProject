@@ -31,24 +31,8 @@ public class Card implements Serializable {
 	private String desc;
 	private CardType type;
 	private Boolean onBoard;
-	private Player mPlayer;
-	private Boolean firstTargeted = true;
 	
-	private enum Effect {
-		rat, 
-		ox, 
-		tiger, 
-		rabbit, 
-		dragon, 
-		snek, 
-		horse, 
-		goat, 
-		monkey, 
-		rooster, 
-		dog, 
-		pig;
-	}
-	private Effect state;
+	private String img; //name of the image
 	
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 
@@ -78,6 +62,9 @@ public class Card implements Serializable {
 		return attack;
 	}
 
+	public String getImg() {
+		return img;
+	}
 	public int getLife() {
 		return hp;
 	}

@@ -13,4 +13,8 @@ public class Deck implements Serializable{
 
 	}
 
+	public Card[] getCardDeck() {
+		return cardDeck;
+	}
+	
 }
