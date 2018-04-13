@@ -65,7 +65,7 @@ public class FireplacePebble extends Game{
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(735).build();
-		toastLong("Achievement Unlocked! Levelled up!");
+//		toastLong("Achievement Unlocked! Levelled up!");
 //		toastShort("Hello World!");
 		// TOAST create factory
 

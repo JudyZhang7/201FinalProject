@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import gamelogic.AchievementThread;
+
 public class GameBoardPage implements Screen {
 	private Stage stage;
 	private BitmapFont font;
@@ -94,7 +96,23 @@ public class GameBoardPage implements Screen {
 			}
 		});
 		stage.addActor(btnBack);
-		
+//		AchievementThread at = new AchievementThread(game);
+//		at.start();
+		new Thread(new Runnable() {
+			   @Override
+			   public void run() {
+			      // do something important here, asynchronously to the rendering thread
+			      // post a Runnable to the rendering thread that processes the result
+			      Gdx.app.postRunnable(new Runnable() {
+			         @Override
+			         public void run() {
+			            // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
+			            game.toastLong("Achievement Unlocked!");
+			         }
+			      });
+			   }
+			}).start();
+//		game.toastLong("Achievement Unlocked! ");
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));

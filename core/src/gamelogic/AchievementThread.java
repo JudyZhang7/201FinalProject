@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.mygdx.game.FireplacePebble;
 import com.mygdx.game.Toast;
 
@@ -31,39 +33,30 @@ public class AchievementThread extends Thread
 	public AchievementThread(FireplacePebble game)
 	{
 		this.game = game;
-	}
-	
-	// Displays long toast
-	public void toastLong(String text) 
-	{
-		toasts.add(toastFactory.create(text, Toast.Length.LONG));
-	}
-
-	// Displays short toast
-	public void toastShort(String text) 
-	{
-		toasts.add(toastFactory.create(text, Toast.Length.SHORT));
+		myMap.put("Example", true);
 	}
 	
 	// Run Method
 	public void run()
 	{
-		// TOAST create factory
-		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
-		toastLong("Achievement Unlocked! Levelled up!");
-		toastShort("Hello World!");
-		// TOAST create factory
-		
-		while (true)
-		{
-			for (Map.Entry<String, Boolean> entry : myMap.entrySet())
-			{
-				if (entry.getValue() == true) // Achievement Unlocked
-				{
-					
-				}
-			}
-		}
+//		// TOAST create factory
+//		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+//		toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
+////		toastLong("Achievement Unlocked!");
+////		toastShort("Hello World!");
+//		// TOAST create factory
+//		System.out.println("Looping");
+//		for (Map.Entry<String, Boolean> entry : myMap.entrySet())
+//		{
+//			if (entry.getValue() == true) // Achievement Unlocked
+//			{
+////				toastLong("Achievement Unlocked! " + entry.getKey());
+////				Screen currScreen = game.getScreen();
+////				currScreen.render(delta);
+//				game.toastLong("Achievement Unlocked! " + entry.getKey());
+//			}
+//		}
+		game.toastLong("Achievement Unlocked!");
+		System.out.println("In run method of Assignment Thread");
 	}
 }
