@@ -33,6 +33,18 @@ public class AchievementThread extends Thread
 		this.game = game;
 	}
 	
+	// Displays long toast
+	public void toastLong(String text) 
+	{
+		toasts.add(toastFactory.create(text, Toast.Length.LONG));
+	}
+
+	// Displays short toast
+	public void toastShort(String text) 
+	{
+		toasts.add(toastFactory.create(text, Toast.Length.SHORT));
+	}
+	
 	// Run Method
 	public void run()
 	{
