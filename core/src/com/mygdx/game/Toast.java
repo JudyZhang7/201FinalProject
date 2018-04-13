@@ -101,7 +101,7 @@ public class Toast {
         toastWidth = fontWidth + 2 * margin;
 
         // CAN EDIT THIS
-        positionX = ((screenWidth / 2) - 550) - toastWidth / 2;
+        positionX = ((screenWidth / 2) - 480) - toastWidth / 2;
 
         fontX = positionX + margin;
         fontY = positionY + margin + fontHeight;
