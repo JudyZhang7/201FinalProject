@@ -1,6 +1,6 @@
 package gamelogic;
 
-import user.Player;
+import user.*;
 
 public class Game {
 	private Player p1;
@@ -24,7 +24,9 @@ public class Game {
 				winner = 1;
 			}
 			UpdateWL();
+			GameStart();
 		}
+		
 	}
 	
 	public void UpdateWL() {
@@ -37,4 +39,44 @@ public class Game {
 			p2.getMyUser().AddWin();
 		}
 	}
+	
+	public void GameStart() {
+		if (User.get_Username().equals("Guest")) {
+			
+		}
+	}
+	
+	
+	public void loadDefaultDeck() {
+		CreatureCard ratCard = new CreatureCard();
+		CreatureCard oxCard = new CreatureCard();
+		CreatureCard tigerCard = new CreatureCard();
+		CreatureCard rabbitCard = new CreatureCard();
+		CreatureCard dragonCard = new CreatureCard();
+		CreatureCard snakeCard = new CreatureCard();
+		CreatureCard horseCard = new CreatureCard();
+		CreatureCard goatCard = new CreatureCard();
+		CreatureCard monkeyCard = new CreatureCard();
+		CreatureCard roosterCard = new CreatureCard();
+		CreatureCard dogCard = new CreatureCard();
+		CreatureCard pigCard = new CreatureCard();
+		
+		///
+		MagicCard Scorpio = new MagicCard();
+		MagicCard Sagittarius = new MagicCard();
+		MagicCard Capricorn = new MagicCard();
+		MagicCard Aquarius = new MagicCard();
+		MagicCard Pisces = new MagicCard();
+		MagicCard Aries = new MagicCard();
+		MagicCard Taurus = new MagicCard();
+		MagicCard Gemini = new MagicCard();
+		MagicCard Cancer = new MagicCard();
+		MagicCard Leo = new MagicCard();
+		MagicCard Virgo = new MagicCard();
+		MagicCard Libra = new MagicCard(type);
+		
+		
+		
+	}
+	
 }

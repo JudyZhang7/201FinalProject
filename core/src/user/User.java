@@ -6,7 +6,7 @@ public class User {
 	//object that holds all of the user's decks
 	private Decks _decks;
 	
-	private String _Username;
+	private static String _Username;
 	private String _Password;
 	private Player _player;
 	
@@ -45,7 +45,7 @@ public class User {
 		this._decks = _decks;
 	}
 
-	public String get_Username() {
+	public static String get_Username() {
 		return _Username;
 	}
 

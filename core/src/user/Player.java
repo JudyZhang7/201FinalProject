@@ -12,8 +12,13 @@ public class Player implements Serializable{
 	private List<Card> _cardDeck;
 	private Boolean _turn;
 	private User myUser;
+	private Boolean newPlayer;
 	
 	public Player() {}
+	
+	public Boolean isNew() {
+		return newPlayer;
+	}
 	
 	public List<Card> GetCardDeck() {
 		return _cardDeck;

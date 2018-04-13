@@ -29,6 +29,7 @@ public class Card implements Serializable {
 	private String desc;
 	private CardType type;
 	private Boolean onBoard;
+	private String image;
 	
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 
@@ -116,6 +117,14 @@ public class Card implements Serializable {
 
 	public void Effect() {}
 	public void Attack() {}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 
 
