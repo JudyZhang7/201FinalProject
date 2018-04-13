@@ -5,8 +5,15 @@ import java.util.List;
 
 public class Decks implements Serializable{
 	private List <Deck> _decks;
+	
 	public Decks(List <Deck> decks) {
 		this._decks = decks;
 	}
 	public Decks() {}
+	
+	public List<Deck> get_decks() {
+		return _decks;
+	}
+	
+	
 }

@@ -2,12 +2,10 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,66 +13,74 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import user.Card;
+import user.Deck;
+import user.User;
 
 public class DeckScreen implements Screen {
 
 	private FireplacePebble game;
-	private Stage stage;
+	private Stage stage = new Stage();
 	private TextField txfUsername;
 	private TextField txfPassword;
-	private ArrayList<TextButton> myCards;
+	private ArrayList<ImageButton> myCards;
 	private int numCardsRow = 4;
 	private int numCardsCol = 5;
 	private int ch = 125;
 	private int cw = 125;
-	SpriteBatch batch;
+	SpriteBatch batch = new SpriteBatch();
 	int buttonHeight = 200;
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     private BitmapFont titleFont;
-	
+    
+    //BACKEND STUFF
+    User currentUser;
+	Deck currentDeck;
+	Card [] cardDeck;
 	public DeckScreen(FireplacePebble g) {
-		myCards = new ArrayList<TextButton>();
+		myCards = new ArrayList<ImageButton>();
 		this.game = g;
-		batch = new SpriteBatch();
-		stage = new Stage();
+		this.currentUser = game.getUser();
+		this.currentDeck = currentUser.getTopDeck();
+		if(currentDeck== null) {
+			return;
+		}
+		cardDeck = currentUser.getTopDeck().getCardDeck();
 		Gdx.input.setInputProcessor(stage);
 		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
-
-		//LOGIN BUTTON
-		TextButton btnLogin = new TextButton ("Back to Game", textSkin);
-				
-		// login button
-		btnLogin.setPosition(100, 1000);
-		btnLogin.setSize(buttonWidth, buttonHeight);
-		
-		btnLogin.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnLoginClicked();
-			}
-		});
-		
-		stage.addActor(btnLogin);
-		
 		// cards
+		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-		        
-				TextButton cardButton = new TextButton("", textSkin);
+				final Card thisCard = cardDeck[counter]; //why is this final?
+				Texture cardT = new Texture(Gdx.files.internal(thisCard.getImg()));
+				TextureRegion cardTR = new TextureRegion(cardT);
+				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+		        				
 				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
 				cardButton.setSize(cw, ch);
+				
+				cardButton.addListener(new ClickListener(){
+					@Override
+					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+						Card gotCard = cardClicked(thisCard); //get the Card
+					}
+					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+						return true;
+					}
+				});
 				myCards.add(cardButton);
+				counter++; //increment the card
 			}
 		}
 		
@@ -96,6 +102,24 @@ public class DeckScreen implements Screen {
 		});
 		stage.addActor(btnBack);
 		
+		TextButton newDeck = new TextButton ("Create New Deck", textSkin);
+		btnBack.setPosition(19*w/20, 19*h/20);
+		btnBack.setSize(buttonHeight, buttonWidth);
+		btnBack.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnBackClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(btnBack);
+		
+	}
+	
+	public Card cardClicked(Card c) {
+		return c;
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));

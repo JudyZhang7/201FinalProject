@@ -16,6 +16,7 @@ public class FireplacePebble extends Game{
 	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;
+	
 	BitmapFont titlefont128;
 	BitmapFont titlefont64;
 	BitmapFont regfont32;
@@ -24,8 +25,6 @@ public class FireplacePebble extends Game{
 
 	@Override
 	public void create() {
-
-		
 		FreeTypeFontGenerator titleText = new FreeTypeFontGenerator(Gdx.files.internal("JMH.ttf"));
 		FreeTypeFontParameter titleParam = new FreeTypeFontParameter();
 		
@@ -87,6 +86,10 @@ public class FireplacePebble extends Game{
 		this.user = u;
 	}
 	
+	public User getUser() {
+		return user;
+	}
+
 	public String getCurrentUsername() {
 		return user.getUsername();
 	}
