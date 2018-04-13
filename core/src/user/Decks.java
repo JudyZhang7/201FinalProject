@@ -15,5 +15,8 @@ public class Decks implements Serializable{
 		return _decks;
 	}
 	
+	public void addDeck(Deck d) {
+		_decks.add(d);
+	}
 	
 }

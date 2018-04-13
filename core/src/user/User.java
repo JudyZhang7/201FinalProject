@@ -36,6 +36,10 @@ public class User {
 		this._player = new Player();
 	}
 	
+	public void addDeck(Deck d) {
+		_decks.addDeck(d);
+	}
+	
 	public Deck getTopDeck() {
 		if(_decks == null) {
 			return null;

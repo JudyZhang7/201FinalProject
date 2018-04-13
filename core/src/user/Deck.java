@@ -17,4 +17,7 @@ public class Deck implements Serializable{
 		return cardDeck;
 	}
 	
+	public void addCardDeck(Card [] cardDeck) {
+		this.cardDeck = cardDeck;
+	}
 }

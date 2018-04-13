@@ -17,11 +17,11 @@ public class FireplacePebble extends Game{
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;
 	
-	BitmapFont titlefont128;
-	BitmapFont titlefont64;
-	BitmapFont regfont32;
-	BitmapFont regfont20;
-	BitmapFont regfont16;
+	public BitmapFont titlefont128;
+	public BitmapFont titlefont64;
+	public BitmapFont regfont32;
+	public BitmapFont regfont20;
+	public BitmapFont regfont16;
 
 	@Override
 	public void create() {

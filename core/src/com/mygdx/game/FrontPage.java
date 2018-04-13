@@ -59,10 +59,9 @@ public class FrontPage implements Screen
 		
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		BitmapFont fonter = new BitmapFont();
-	    toastFactory = new Toast.ToastFactory.Builder().font(fonter).positionY(750).build();
+	    toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
 		toastLong("Achievement Unlocked! Levelled up!");
-		toastShort("World Hello!");
+		toastShort("Hello World!");
 		// TOAST create factory
 		
 		loginButton = new TextButton("Login", skin); // Creating a button
