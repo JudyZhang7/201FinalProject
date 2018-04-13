@@ -57,6 +57,33 @@ public class DeckScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
+		TextButton btnBack = new TextButton ("Back", textSkin);
+		btnBack.setPosition(1*w/20, 19*h/20);
+		btnBack.setSize(buttonHeight/2, buttonWidth/2);
+		btnBack.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnBackClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(btnBack);
+		
+		TextButton newDeck = new TextButton ("Create New Deck", textSkin);
+		newDeck.setPosition(19*w/20, 19*h/20);
+		newDeck.setSize(buttonHeight, buttonWidth);
+		newDeck.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				newDeckClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(newDeck);
 		// cards
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
@@ -87,34 +114,6 @@ public class DeckScreen implements Screen {
 		for (int i = 0; i < myCards.size() ; i++) {
 			stage.addActor(myCards.get(i));
 		}
-		
-		TextButton btnBack = new TextButton ("Back", textSkin);
-		btnBack.setPosition(1*w/20, 19*h/20);
-		btnBack.setSize(buttonHeight/2, buttonWidth/2);
-		btnBack.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnBackClicked();
-			}
-			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-				return true;
-			}
-		});
-		stage.addActor(btnBack);
-		
-		TextButton newDeck = new TextButton ("Create New Deck", textSkin);
-		btnBack.setPosition(19*w/20, 19*h/20);
-		btnBack.setSize(buttonHeight, buttonWidth);
-		btnBack.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				newDeckClicked();
-			}
-			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-				return true;
-			}
-		});
-		stage.addActor(btnBack);
 		
 	}
 
