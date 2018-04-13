@@ -6,7 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,11 +22,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class GameBoardPage implements Screen {
 	private Stage stage;
-	private ShapeRenderer shapeRenderer;
 	private BitmapFont font;
 	private TextButton endTurnButton;
 	private TextButton yourDeckButton;
 	private TextButton opponentDeckButton;
+	public static Texture texture;
+	public static TextureRegion mainBackground;
+	private SpriteBatch spriteBatch = new SpriteBatch();
+	
 	private Skin skin;
 	private FireplacePebble game;
 	
@@ -37,10 +43,7 @@ public class GameBoardPage implements Screen {
 		game = g;
 		stage = new Stage();
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
-		Gdx.input.setInputProcessor(stage);
-		
-		shapeRenderer = new ShapeRenderer();
-		
+		Gdx.input.setInputProcessor(stage);		
 		// End Turn button setup
 		endTurnButton = new TextButton("END TURN", skin);
 		endTurnButton.setPosition(11*w/12, h/2);
@@ -84,23 +87,18 @@ public class GameBoardPage implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapeRenderer.begin(ShapeType.Filled);
 		
-		shapeRenderer.setColor(0, 180/255f, 0, 1);
-		shapeRenderer.rect(0, 0, 3072, 350);
-		
-		shapeRenderer.setColor(180/255f, 0, 0, 1);
-		shapeRenderer.rect(0, 1580, 3072, 350);
-		
-		shapeRenderer.end();
-		
+		texture = new Texture("GamePage.png");
+		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
+		spriteBatch.begin();
+		spriteBatch.draw(mainBackground, 0, 0, w, h);
+        spriteBatch.end();
 		stage.act(delta);
 		stage.draw();
 	}
 	
 	@Override
 	public void dispose () {
-		shapeRenderer.dispose();
 	}
 
 	@Override

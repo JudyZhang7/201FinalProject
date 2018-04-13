@@ -29,6 +29,7 @@ public class Card implements Serializable {
 	private String desc;
 	private CardType type;
 	private Boolean onBoard;
+	private String img; //name of the image
 	
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 

@@ -36,7 +36,9 @@ public class User {
 		this._player = new Player();
 	}
 	
-	
+	public Deck getTopDeck() {
+		return _decks.get_decks().get(0); //the first deck
+	}
 	public Decks get_decks() {
 		return _decks;
 	}
