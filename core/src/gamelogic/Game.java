@@ -1,6 +1,7 @@
 package gamelogic;
 
 import user.*;
+import com.mygdx.game.*;
 
 public class Game {
 	private Player p1;
@@ -48,7 +49,7 @@ public class Game {
 	
 	
 	public void loadDefaultDeck() {
-		CreatureCard ratCard = new CreatureCard();
+		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.mySpriteList.get(0));
 		CreatureCard oxCard = new CreatureCard();
 		CreatureCard tigerCard = new CreatureCard();
 		CreatureCard rabbitCard = new CreatureCard();

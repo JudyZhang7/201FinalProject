@@ -2,6 +2,8 @@ package user;
 
 import java.io.Serializable;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
+
 //public abstract class Card {
 //	private String cardName;
 //	private int manaCost;
@@ -29,7 +31,7 @@ public class Card implements Serializable {
 	private int manaCost;
 	private String cardname;
 	private String desc;
-	private CardType type;
+	protected static CardType type;
 	private Boolean onBoard;
 	private String image;
 	
@@ -173,7 +175,7 @@ public class Card implements Serializable {
 		
 		if
 		
-		
+		Hi. ryan
 		
 	}
 
