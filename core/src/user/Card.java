@@ -29,7 +29,7 @@ public class Card implements Serializable {
 	private int manaCost;
 	private String cardname;
 	private String desc;
-	private CardType type;
+	protected static CardType type;
 	private Boolean onBoard;
 	private String image;
 	
