@@ -23,15 +23,15 @@ import user.Card;
 import user.Deck;
 import user.User;
 
-public class DeckScreen implements Screen {
+public class CreateNewDeckScreen implements Screen {
 
 	private FireplacePebble game;
 	private Stage stage = new Stage();
 	private TextField txfUsername;
 	private TextField txfPassword;
 	private ArrayList<ImageButton> myCards;
-	private int numCardsRow = 4;
-	private int numCardsCol = 5;
+	private int numCardsRow = 3;
+	private int numCardsCol = 10;
 	private int ch = 125;
 	private int cw = 125;
 	SpriteBatch batch = new SpriteBatch();
@@ -42,15 +42,20 @@ public class DeckScreen implements Screen {
     private BitmapFont titleFont;
     
     //BACKEND STUFF
-    User currentUser;
-	Deck currentDeck;
-	Card [] cardDeck;
-	public DeckScreen(FireplacePebble g) {
+    private User currentUser;
+    private Deck newDeck;
+    private Card [] cardDeck = new Card[20];
+    private Card [] fullDeck = new Card[30];
+    private int numCards = 0;
+    
+	public CreateNewDeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
+
 		Gdx.input.setInputProcessor(stage);
-		
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
+
+		//BACK BUTTON
 		TextButton btnBack = new TextButton ("Back", textSkin);
 		btnBack.setPosition(1*w/20, 19*h/20);
 		btnBack.setSize(buttonHeight/2, buttonWidth/2);
@@ -64,49 +69,55 @@ public class DeckScreen implements Screen {
 			}
 		});
 		stage.addActor(btnBack);
-		
-		TextButton newDeck = new TextButton ("Create New Deck", textSkin);
-		newDeck.setPosition(15*w/20, 14*h/20);
-		newDeck.setSize(buttonHeight, buttonWidth);
-		newDeck.addListener(new ClickListener(){
+		//FINISH DECK
+		TextButton deckFinish = new TextButton ("Finish Deck", textSkin);
+		deckFinish.setPosition(18*w/20, 3*h/20);
+		deckFinish.setSize(buttonHeight/2, buttonWidth/2);
+		deckFinish.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				newDeckClicked();
+				if(!deckFinished()) {
+					
+				}
 			}
 			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
 				return true;
 			}
 		});
-		stage.addActor(newDeck);
+		stage.addActor(deckFinish);
 		// cards
 		this.currentUser = game.getUser();
-		this.currentDeck = currentUser.getTopDeck();
-		if(currentDeck== null) {
-			return;
-		}
-		cardDeck = currentUser.getTopDeck().getCardDeck();
 		
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-				final Card thisCard = cardDeck[counter]; //why is this final?
-				Texture cardT = new Texture(Gdx.files.internal(thisCard.getImg()));
-				TextureRegion cardTR = new TextureRegion(cardT);
-				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+//				final Card thisCard = fullDeck[counter]; //why is this final?
+//				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
+//				TextureRegion cardTR = new TextureRegion(cardT);
+//				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+//				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+				
+				Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+				TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 		        				
-				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
+				cardButton.setPosition(((i*(130)) % w), (j*150) + h/4);
 				cardButton.setSize(cw, ch);
 				
-				cardButton.addListener(new ClickListener(){
-					@Override
-					public void touchUp(InputEvent e, float x, float y, int point, int button) {
-						Card gotCard = cardClicked(thisCard); //get the Card
-					}
-					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-						return true;
-					}
-				});
+//				cardButton.addListener(new ClickListener(){
+//					@Override
+//					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//						if(!addCardToDeck(thisCard)) { //deck is full!
+//							showMessage("Deck is full. \nIt's been created.");
+//							newDeck.addCardDeck(cardDeck);
+//							currentUser.addDeck(newDeck);
+//						}
+//					}
+//					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+//						return true;
+//					}
+//				});
 				myCards.add(cardButton);
 				counter++; //increment the card
 			}
@@ -117,16 +128,33 @@ public class DeckScreen implements Screen {
 		}
 		
 	}
-
-	public Card cardClicked(Card c) {
-		return c;
+	
+	public boolean deckFinished() {
+		if(cardDeck[20] == null) {
+			showMessage("Not enough cards!");
+			return false;
+		}
+		newDeck.addCardDeck(cardDeck);
+		currentUser.addDeck(newDeck);
+		//GOOD!
+		showMessage("Deck created!");
+		return true;
 	}
+	
+	public boolean addCardToDeck(Card c) {
+		//update screen to show how many cards selected
+		if(numCards < 20) {
+			cardDeck[numCards] = c;
+			numCards++;
+			return true;
+		}
+		return false;
+	}
+	
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
 	}
-	public void newDeckClicked() {
-		game.setScreen(new CreateNewDeckScreen(game));
-	}
+	
 	public void btnLoginClicked() {
 		System.out.println(txfUsername.getText());
 		System.out.println(txfPassword.getText());
@@ -138,6 +166,14 @@ public class DeckScreen implements Screen {
 		
 	}
 
+	public void showMessage(String message) {
+		batch.begin();
+		titleFont = game.regfont32();
+		titleFont.setColor(Color.WHITE);
+		titleFont.draw(batch, message, 3*w/4, 4*h/30);
+		// rendering code
+		batch.end();
+	}
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
@@ -151,7 +187,8 @@ public class DeckScreen implements Screen {
 		titleFont.setColor(Color.WHITE);
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
-		titleFont.draw(batch, "Decks", 3*w/4, 29*h/30);
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Cards in New Deck: ", w/6, 6*h/30);
 		// rendering code
 		batch.end();
 	}

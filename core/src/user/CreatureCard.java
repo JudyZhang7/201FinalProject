@@ -1,7 +1,19 @@
 package user;
 
-public class CreatureCard extends Card{
-	private enum Creature {
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+public class CreatureCard extends Card {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7502974519273870078L;
+	private int _hp;
+	private int _damage;
+	private int _manaCost;
+	private Sprite _mSprite;
+	private String creature;
+	
+	private static enum _Creature {
 		rat, 
 		ox, 
 		tiger, 
@@ -16,10 +28,16 @@ public class CreatureCard extends Card{
 		pig;
 	}
 	
-	public CreatureCard(CardType type) {
+	
+	public CreatureCard(int hp, int damage, int manaCost, String cre, Sprite sprite) {
 		super(type);
-		// TODO Auto-generated constructor stub
+		_hp = hp;
+		_damage = damage;
+		_manaCost = manaCost;
+		creature = cre;
+		_mSprite = sprite;
 	}
+	
 }
 //package user;
 //
