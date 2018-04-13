@@ -2,6 +2,8 @@ package user;
 
 import java.io.Serializable;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
+
 //public abstract class Card {
 //	private String cardName;
 //	private int manaCost;
@@ -173,7 +175,7 @@ public class Card implements Serializable {
 		
 		if
 		
-		
+		Hi. ryan
 		
 	}
 
