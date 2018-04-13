@@ -81,6 +81,23 @@ public class GameBoardPage implements Screen {
 		stage.addActor(endTurnButton);
 //		stage.addActor(yourDeckButton);
 //		stage.addActor(opponentDeckButton);
+		TextButton btnBack = new TextButton ("Quit", skin);
+		btnBack.setPosition(w/40, 18*h/20);
+		btnBack.setSize(buttonHeight/2, buttonWidth/2);
+		btnBack.addListener(new ClickListener(){
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+				btnBackClicked();
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+				return true;
+			}
+		});
+		stage.addActor(btnBack);
+		
+	}
+	public void btnBackClicked() {
+		game.setScreen(new ProfileScreen(game));
 	}
 
 	@Override

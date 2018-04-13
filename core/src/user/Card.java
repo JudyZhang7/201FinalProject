@@ -59,6 +59,9 @@ public class Card implements Serializable {
 		return attack;
 	}
 
+	public String getImg() {
+		return img;
+	}
 	public int getLife() {
 		return hp;
 	}

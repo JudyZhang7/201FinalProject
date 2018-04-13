@@ -37,6 +37,12 @@ public class User {
 	}
 	
 	public Deck getTopDeck() {
+		if(_decks == null) {
+			return null;
+		}
+		if(_decks.get_decks().isEmpty()) {
+			return null;
+		}
 		return _decks.get_decks().get(0); //the first deck
 	}
 	public Decks get_decks() {
