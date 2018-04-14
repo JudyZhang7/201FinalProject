@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.AchievementThread;
 import gamelogic.ThisGame;
+import user.Card;
 import user.Player;
 import user.User;
 
@@ -133,31 +134,58 @@ public class GameBoardPage implements Screen {
 		
 		//stage.setDebugAll(true); // Weird
 		
+		// DECK BUTTON
 		// Create Deck Button
-		
 		Texture DECK_T = new Texture(Gdx.files.internal("Cards/Dog.png"));
 		TextureRegion DECK_TR = new TextureRegion(DECK_T);
 		TextureRegionDrawable DECK_TRD = new TextureRegionDrawable(DECK_TR);
 		ImageButton DeckButton = new ImageButton(DECK_TRD);
-		
 		// Set position of Deck Button to Bottom Right Corner and Clickable
 		System.out.println("w in this computer is: " + w);
 		System.out.println("h in this computer is: " + h);
 		DeckButton.setPosition(cw + (w/2 + 400), h/12); // Should edit to fit others' resolution
 		DeckButton.setSize(cw, ch);
-		DeckButton.addListener(new ClickListener() {
+		/*DeckButton.addListener(new ClickListener() {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button)
 			{
 				System.out.println("Deck Clicked, Draw a Card!");
+				deckButtonClicked();
 			}
 			@Override
 			public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
 			{
 				return true;
 			}
-		});
+		});*/
 		stage.addActor(DeckButton);
+		// DECK BUTTON
+		
+		// HAND BUTTONS
+		// Draw the first 5 cards
+		for (int i = 1; i <= 5; i++)
+		{
+			currentGame.getmPlayer().drawCards();
+		}
+		// Get the Hand
+		ArrayList<Card> currHand = currentGame.getmPlayer().getmHand();
+		// Get the Textures of the cards to output them
+		ArrayList<ImageButton> handImages = new ArrayList<ImageButton>();
+		for (int i = 0; i < currHand.size(); i++)
+		{
+			Texture currCard = currHand.get(i).getTexture();
+			TextureRegion TEMP_C = new TextureRegion(currCard);
+			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+			ImageButton HandButton = new ImageButton(TEMP_CARD);
+			HandButton.setPosition(cw * i + (w/2 + 200), h/12); 
+			HandButton.setSize(cw, ch);
+			handImages.add(HandButton);
+		}
+		for (int i = 0; i < handImages.size(); i++) 
+		{
+			stage.addActor(handImages.get(i));
+		}
+		// HAND BUTTONS
 		
 		int counter = 0;
 		
@@ -225,6 +253,13 @@ public class GameBoardPage implements Screen {
 		batch.end();
 		stage.act(delta);
 		stage.draw();
+	}
+	
+	// Deck Button Clicked
+	public void deckButtonClicked()
+	{
+		// Draw a card from the deck in thisGame and output it on the Screen.
+//		currentGame.getmPlayer().drawCards();
 	}
 	
 	@Override

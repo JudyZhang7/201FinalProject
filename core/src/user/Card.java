@@ -61,9 +61,8 @@ public abstract class Card implements Serializable {
 		this.type = type;
 	}
 
-	public String getName() {
-		return cardName;
-	}	
+	//public abstract getType();
+
 	public int getAttack() {
 		return attack;
 	}
@@ -75,7 +74,6 @@ public abstract class Card implements Serializable {
 	}
 
 	public abstract String getCardname();
-
 	public abstract String getMyType();
 
 	public void setName(String name) {
