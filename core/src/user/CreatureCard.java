@@ -44,12 +44,11 @@ public class CreatureCard extends Card {
 		targetedFirst = true;
 		firstTurn = true;
 		mPlayer = null;
-<<<<<<< HEAD
+
 		name = cre;
-=======
+
 		mytype = "creature";
 		
->>>>>>> c41f75a75e3ea53df25b82995ba57318de24f0ff
 		if(cre.equalsIgnoreCase("rat")) {
 			state = _Creature.rat;
 		}

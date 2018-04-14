@@ -55,7 +55,6 @@ public class CreateNewDeckScreen implements Screen {
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
 		fullDeck = game.getAllCards();
-
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
 
@@ -92,11 +91,9 @@ public class CreateNewDeckScreen implements Screen {
 		// cards
 		this.currentUser = game.getUser();
 		
-		counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-				final Card thisCard = fullDeck[counter]; //why is this final?
-				counter++;
+				final Card thisCard = fullDeck[i+j]; //why is this final?
 				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
 				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
