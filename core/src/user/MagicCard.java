@@ -42,6 +42,7 @@ public class MagicCard extends Card{
 		_manaCost = manaCost;
 		_astrological = cre;
 		_mSprite = sprite;
+		mytype = "magic";
 		
 		if(cre.equalsIgnoreCase("Scorpio")) {
 			state = Astro.Scorpio;

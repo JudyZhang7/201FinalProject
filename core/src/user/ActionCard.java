@@ -32,6 +32,7 @@ public class ActionCard extends Card {
 		_mana = mana;
 		_actionName = actionName;
 		_mSprite = mSprite;
+		mytype = "action";
 		
 		if(actionName.equalsIgnoreCase("Weapon")) {
 			state = Action.Weapon;

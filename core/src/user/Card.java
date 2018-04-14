@@ -36,7 +36,12 @@ public abstract class Card implements Serializable {
 	private Boolean onBoard;
 	private String image;
 	protected Player mPlayer;
+	protected String mytype;
 	
+	public String getMytype() {
+		return mytype;
+	}
+
 	private String img; //name of the image
 	
 	public static enum TargetType {OWNER, 
