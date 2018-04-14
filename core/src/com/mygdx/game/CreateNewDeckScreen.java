@@ -109,6 +109,7 @@ public class CreateNewDeckScreen implements Screen {
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
 						if(numCards == 20) { //deck is full!
+							System.out.println("Deck is full. \nIt's been created." + numCards);
 							showMessage("Deck is full. \nIt's been created.");
 							newDeck.addCardDeck(cardDeck);
 							currentUser.addDeck(newDeck);
@@ -136,27 +137,29 @@ public class CreateNewDeckScreen implements Screen {
 	}
 	
 	public boolean deckFinished() {
-		if(cardDeck[20] == null) {
+		if(cardDeck[19] == null) {
 			showMessage("Not enough cards!");
 			return false;
 		}
 		newDeck.addCardDeck(cardDeck);
 		currentUser.addDeck(newDeck);
 		//GOOD!
+		System.out.println("Deck created!");
 		showMessage("Deck created!");
 		return true;
 	}
 	
 	public boolean addCardToDeck(Card c) {
 		//update screen to show how many cards selected
+		batch.begin();
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
+		// rendering code
+		batch.end();
+		
 		if(numCards < 20) {
-			batch.begin();
 			numCards++;
-			BitmapFont titleFont64 = game.titlefont64();
-			titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
-			// rendering code
-			batch.end();
-			cardDeck[numCards] = c;
+			cardDeck[numCards-1] = c;
 			return true;
 		}
 		return false;
