@@ -45,11 +45,14 @@ public class ThisGame {
 		return winner;
 	}
 	
-	public void cardPlayed(CreatureCard yourCard, CreatureCard opponentCard) {
+	public void playMagicCard(MagicCard yourCard) {
+		yourCard.AstroEffect();
+	}
+	public void playCreatureCard(CreatureCard yourCard, CreatureCard opponentCard) {
 		yourCard 
 	}
 	
-	public void cardPlayed(ActionCard yourCard, Player opponent) {
+	public void playActionCard(ActionCard yourCard, Player opponent) {
 		
 	}
 	
