@@ -28,4 +28,9 @@ public class OpponentCard extends Card {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String getMyType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

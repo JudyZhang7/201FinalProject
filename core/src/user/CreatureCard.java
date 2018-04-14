@@ -256,5 +256,10 @@ public class CreatureCard extends Card {
 		// TODO Auto-generated method stub
 		return name;
 	}
+	@Override
+	public String getMyType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
