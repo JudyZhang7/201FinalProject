@@ -47,13 +47,15 @@ public class ActionCard extends Card {
 		}
 	}
 
-	public void ActionEffect(Player you, Player opponent)
+	public void ActionEffect(Player you, Player opponent, CreatureCard opponentCreature)
 	{
 		switch(state) {
 		case Weapon:
 			opponent.set_hp(opponent.get_hp() - _damage);
 			break;
 		case Shield:
+			// if the opponent/opponent creature is attacking, set their attack damage to 0
+			
 			break;
 		case Heal:
 			you.set_hp(you.get_hp() + _hpReplenish);
