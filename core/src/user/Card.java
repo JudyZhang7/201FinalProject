@@ -136,7 +136,7 @@ public class Card implements Serializable {
 	}
 
 	public void Attack(Card target, Player opponent) {
-		switch (state) {
+		switch (_Creature) {
 		case rat:
 			break;
 		case ox:

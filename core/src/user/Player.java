@@ -1,7 +1,9 @@
 package user;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class Player implements Serializable{
@@ -13,6 +15,11 @@ public class Player implements Serializable{
 	private Boolean _turn;
 	private User myUser;
 	private Boolean newPlayer;
+	private int handSize;
+	private ArrayList<Card> mHand;
+	
+	private ArrayList<Card> playerBoard;
+	private ArrayList<Card> opponentBoard;
 	
 	public Player() {}
 	
@@ -67,6 +74,40 @@ public class Player implements Serializable{
 
 	public void setMyUser(User myUser) {
 		this.myUser = myUser;
+	}
+	
+	public void drawCards() {
+		if (this.get_turn()) {
+			if (handSize == 5) {
+				double rangeMin = 0.0f;
+				double rangeMax = 1.0f;
+				Random r = new Random();
+				double createRand = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+				this.get_cardDeck().remove((int)(createRand * this.get_cardDeck().size()));
+			} 
+			else {
+				double rangeMin = 0.0f;
+				double rangeMax = 1.0f;
+				Random r = new Random();
+				double createRand = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+				
+				mHand.add(this.get_cardDeck().get((int)(createRand * this.get_cardDeck().size())));
+				
+				this.get_cardDeck().remove((int)(createRand * this.get_cardDeck().size()));
+			}
+		}
+	}
+	
+	public void placeCardOnBoard() {
+		int currHandSize = mHand.size();
+		
+		//place card on board
+		// somehow user choose card or index
+		
+		playerBoard.add(null);
+		
+		// player has to remove card from hand
+		mHand.remove(null);
 	}
 }
 
