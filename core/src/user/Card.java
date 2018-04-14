@@ -2,6 +2,7 @@ package user;
 
 import java.io.Serializable;
 
+
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
 //public abstract class Card {

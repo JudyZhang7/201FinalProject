@@ -47,6 +47,7 @@ public class ThisGame {
 		if (User.get_Username().equals("Guest")) {
 			// don't load from database
 		}
+		mPlayer = new Player();
 	}
 	
 	
