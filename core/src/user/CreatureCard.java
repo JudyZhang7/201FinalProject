@@ -100,6 +100,9 @@ public class CreatureCard extends Card {
 	public int getHP() {
 		return _hp;
 	}
+	public void setHP(int newHP) {
+		_hp = newHP;
+	}
 	
 	
 	@Override
@@ -110,35 +113,58 @@ public class CreatureCard extends Card {
 		switch(state) {
 		case rat:
 			effectValue = _damage;
+			break;
 		case ox:
 			_damage += 3;
 			effectValue = _damage;
+			break;
+		case tiger:
+			break;
+		case rabbit:
+			break;
 		case dragon:
 			target.burn();
+			break;
+		case snake: 
+			break;
 		case horse:
 			if(firstTurn) {
 				effectValue = _damage;
 			}
+			break;
+		case goat: 
+			break;
+		case monkey: 
+			break;
 		case rooster:
 			_damage *= 2;
 			effectValue = _damage;
+			break;
+		case dog: 
+			break;
+		case pig:
+			break;
 		}
 		
-		if(target.getBurn()) {
+		if(target.getBurn() && attackValue > 0) {
 			effectValue += 1;
 		}
 		
 		if(attackValue < 0) {
-			
+			target.setHP(0);
 		}
 		else if(attackValue == 0) {
-			
+			target.setHP(attackValue);
+			//damage opponent
 		}
 		else {
+			target.setHP(attackValue);
+			//try applying damage to animal
+			//if it dies, check if we harm the human
+			
+			
 			
 		}
-		
-		
 	}
 	
 }
