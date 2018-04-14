@@ -60,12 +60,12 @@ public class Assets {
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Weapon.png")));
 	}
 	
-	public static void loadWithString(String textureName) {
-		texture_back = new Texture(Gdx.files.internal(textureName));
-		texture_back.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		sprite_back = new Sprite(texture_back);
-		sprite_back.flip(false, true);
-		mySpriteList.add(sprite_back);
-		myTexturesList.add(texture_back);
-	}
+//	public static void loadWithString(String textureName) {
+//		texture_back = new Texture(Gdx.files.internal(textureName));
+//		texture_back.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//		sprite_back = new Sprite(texture_back);
+//		sprite_back.flip(false, true);
+//		mySpriteList.add(sprite_back);
+//		myTexturesList.add(texture_back);
+//	}
 }
