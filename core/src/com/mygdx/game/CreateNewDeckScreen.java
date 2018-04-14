@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import gamelogic.ThisGame;
 import user.Card;
 import user.Deck;
 import user.User;
@@ -30,8 +31,8 @@ public class CreateNewDeckScreen implements Screen {
 	private TextField txfUsername;
 	private TextField txfPassword;
 	private ArrayList<ImageButton> myCards;
-	private int numCardsRow = 3;
-	private int numCardsCol = 10;
+	private int numCardsRow = 4;
+	private int numCardsCol = 7;
 	private int ch = 125;
 	private int cw = 125;
 	SpriteBatch batch = new SpriteBatch();
@@ -46,12 +47,14 @@ public class CreateNewDeckScreen implements Screen {
     private User currentUser;
     private Deck newDeck;
     private Card [] cardDeck = new Card[20];
-    private Card [] fullDeck = new Card[30];
+    private Card [] fullDeck = new Card[28];
     private int numCards = 0;
     
 	public CreateNewDeckScreen(FireplacePebble g) {
+		System.out.println("Create new deck screen!");
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
+		fullDeck = game.getAllCards();
 
 		Gdx.input.setInputProcessor(stage);
 		Skin textSkin = new Skin(Gdx.files.internal(game.getSkin()));
@@ -92,17 +95,16 @@ public class CreateNewDeckScreen implements Screen {
 		counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-//				final Card thisCard = fullDeck[counter]; //why is this final?
+				final Card thisCard = fullDeck[counter]; //why is this final?
 				counter++;
-//				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
-//				TextureRegion cardTR = new TextureRegion(cardT);
-//				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-//				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
+				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
 				
-				Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
-				TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
-				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
-				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
+//				Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+//				TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+//				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+//				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 		        				
 				cardButton.setPosition(((i*(128)) % w), (j*150) + h/4);
 				cardButton.setSize(cw, ch);

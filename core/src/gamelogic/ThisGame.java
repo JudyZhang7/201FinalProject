@@ -8,9 +8,6 @@ import java.util.HashMap;
 import com.mygdx.game.*;
 
 public class ThisGame {
-	HashMap< String,CreatureCard> creatureCards = new HashMap< String,CreatureCard>();
-	HashMap< String,ActionCard> actionCards = new HashMap< String,ActionCard>();
-	HashMap< String,MagicCard> magicCards = new HashMap< String,MagicCard>();
 
 	private Player p1;
 	private Player p2;
@@ -48,9 +45,9 @@ public class ThisGame {
 	public void playMagicCard(MagicCard yourCard) {
 		yourCard.AstroEffect();
 	}
-	public void playCreatureCard(CreatureCard yourCard, CreatureCard opponentCard) {
-		yourCard.Attack(opponentCard, opponentCard.getmPlayer()); 
-	}
+//	public void playCreatureCard(CreatureCard yourCard, CreatureCard opponentCard) {
+//		yourCard.Attack(opponentCard, opponentCard.getmPlayer()); 
+//	}
 	
 	public void playActionCard(ActionCard yourCard, Player opponent) {
 		
@@ -101,76 +98,6 @@ public class ThisGame {
 			// don't load from database
 		}
 		mPlayer = new Player();
-	}
-	
-	
-	public void loadDefaultDeck(FireplacePebble game) {
-		this.game = game;
-		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.myTexturesList.get(8));
-		CreatureCard oxCard = new CreatureCard(3, 1, 2, "ox", Assets.myTexturesList.get(5));
-		CreatureCard tigerCard = new CreatureCard(3, 1, 2, "tiger", Assets.myTexturesList.get(11));
-		CreatureCard rabbitCard = new CreatureCard(3, 1, 2, "rabbit", Assets.myTexturesList.get(7));
-		CreatureCard dragonCard = new CreatureCard(3, 1, 2, "dragon", Assets.myTexturesList.get(1));
-		CreatureCard snakeCard = new CreatureCard(3, 1, 2, "snake", Assets.myTexturesList.get(10));
-		CreatureCard horseCard = new CreatureCard(3, 1, 2, "horse", Assets.myTexturesList.get(3));
-		CreatureCard goatCard = new CreatureCard(3, 1, 2, "goat", Assets.myTexturesList.get(2));
-		CreatureCard monkeyCard = new CreatureCard(3, 1, 2, "monkey", Assets.myTexturesList.get(4));
-		CreatureCard roosterCard = new CreatureCard(3, 1, 2, "rooster", Assets.myTexturesList.get(9));
-		CreatureCard dogCard = new CreatureCard(3, 1, 2, "dog", Assets.myTexturesList.get(0));
-		CreatureCard pigCard = new CreatureCard(3, 1, 2, "pig", Assets.myTexturesList.get(6));
-		//PUT IN CREATURE CARD MAP
-		creatureCards.put("rat", ratCard);
-		creatureCards.put("ox", oxCard);
-		creatureCards.put("tiger", tigerCard);
-		creatureCards.put("rabbit", rabbitCard);
-		creatureCards.put("dragon", dragonCard);
-		creatureCards.put("snake", snakeCard);
-		creatureCards.put("horse", horseCard);
-		creatureCards.put("goat", goatCard);
-		creatureCards.put("monkey", monkeyCard);
-		creatureCards.put("rooster", roosterCard);
-		creatureCards.put("dog", dogCard);
-		creatureCards.put("pig", pigCard);
-		
-		///
-		MagicCard Scorpio = new MagicCard(2, 2, 0, "scorpio", Assets.myTexturesList.get(21), this.game);
-		MagicCard Sagittarius = new MagicCard(2, 4, 0, "sagittarius", Assets.myTexturesList.get(20), this.game);
-		MagicCard Capricorn = new MagicCard(0, 3, 0, "capricorn", Assets.myTexturesList.get(15), this.game);
-		MagicCard Aquarius = new MagicCard(0, 4, 0, "aquarius", Assets.myTexturesList.get(12), this.game);
-		MagicCard Pisces = new MagicCard(0, 2, 0, "pisces", Assets.myTexturesList.get(19), this.game);
-		MagicCard Aries = new MagicCard(0, 3, 5, "aries", Assets.myTexturesList.get(13), this.game);
-		MagicCard Taurus = new MagicCard(0, 3, 3, "taurus", Assets.myTexturesList.get(22), this.game);
-		MagicCard Gemini = new MagicCard(0, 4, 0, "gemini", Assets.myTexturesList.get(16), this.game);
-		MagicCard Cancer = new MagicCard(0, 2, 0, "cancer", Assets.myTexturesList.get(14), this.game);
-		MagicCard Leo = new MagicCard(0, 2, 0, "leo", Assets.myTexturesList.get(17), this.game);
-		MagicCard Virgo = new MagicCard(2, 1, 0, "virgo", Assets.myTexturesList.get(23), this.game);
-		MagicCard Libra = new MagicCard(0, 2, 1, "libra", Assets.myTexturesList.get(18), this.game);
-		//PUT IN MAGIC CARD MAP
-		magicCards.put("scorpio", Scorpio);
-		magicCards.put("sagittarius", Sagittarius);
-		magicCards.put("capricorn", Capricorn);
-		magicCards.put("aquarius", Aquarius);
-		magicCards.put("pisces", Pisces);
-		magicCards.put("aries", Aries);
-		magicCards.put("taurus", Taurus);
-		magicCards.put("gemini", Gemini);
-		magicCards.put("cancer", Cancer);
-		magicCards.put("leo", Leo);
-		magicCards.put("virgo", Virgo);
-		magicCards.put("libra", Libra);
-		
-		///mana cost, damage, hp replenish, mana, actionname, sprite
-		ActionCard Weapon = new ActionCard(3, 3, 0, 0, "Weapon", Assets.myTexturesList.get(28));
-		ActionCard Shield = new ActionCard(2, 0, 0, 0, "Shield", Assets.myTexturesList.get(27));
-		ActionCard Heal = new ActionCard(2, 0, 3, 0, "Heal", Assets.myTexturesList.get(25));
-		ActionCard DoubleDamage = new ActionCard(4, 0, 0, 0, "DoubleDamage", Assets.myTexturesList.get(24));
-		ActionCard Preparation = new ActionCard(3, 0, 0, 0, "Preparation", Assets.myTexturesList.get(26));
-		//PUT IN ACTION CARD MAP
-		actionCards.put("weapon", Weapon);
-		actionCards.put("shield", Shield);
-		actionCards.put("heal", Heal);
-		actionCards.put("doubleDamage", DoubleDamage);
-		actionCards.put("preparation", Preparation);
 	}
 	
 }

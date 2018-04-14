@@ -86,8 +86,13 @@ public class ActionCard extends Card {
 	public void set_damageOpponentDoes(int damage ) {
 		_damageOpponentDoes = damage;
 	}
-
+	@Override
+	public String getCardname() {
+		// TODO Auto-generated method stub
+		return _actionName;
+	}
 	public Texture getTexture() {
+		System.out.println("getTexturing!");
 		return _texture;
 	}
 	@Override

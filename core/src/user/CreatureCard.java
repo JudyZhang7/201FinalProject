@@ -32,7 +32,7 @@ public class CreatureCard extends Card {
 	private Boolean burn;
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
-
+	private String name;
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;
@@ -44,7 +44,7 @@ public class CreatureCard extends Card {
 		targetedFirst = true;
 		firstTurn = true;
 		mPlayer = null;
-		
+		name = cre;
 		if(cre.equalsIgnoreCase("rat")) {
 			state = _Creature.rat;
 		}
@@ -83,6 +83,7 @@ public class CreatureCard extends Card {
 		}
 	}
 	public Texture getTexture() {
+		System.out.println("getTexturing!");
 		return _texture;
 	}
 	public _Creature getState() {
@@ -239,6 +240,11 @@ public class CreatureCard extends Card {
 		
 		firstTurn = false;
 		target.setTargetedFirst(false);
+	}
+	@Override
+	public String getCardname() {
+		// TODO Auto-generated method stub
+		return name;
 	}
 	
 }

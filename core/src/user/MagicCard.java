@@ -260,6 +260,7 @@ public class MagicCard extends Card{
 	}
 
 	public Texture getTexture() {
+		System.out.println("getTexturing!");
 		return _texture;
 	}
 	
@@ -275,5 +276,10 @@ public class MagicCard extends Card{
 	public Boolean isDead() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getCardname() {
+		return _astrological;
 	}
 }
