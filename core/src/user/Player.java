@@ -76,6 +76,15 @@ public class Player implements Serializable{
 		this.myUser = myUser;
 	}
 	
+	public Boolean isDead() {
+		if(_hp <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void drawCards() {
 		if (this.get_turn()) {
 			if (handSize == 5) {
