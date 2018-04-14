@@ -128,7 +128,7 @@ public class CreatureCard extends Card {
 	
 	
 	@Override
-	public void Attack(CreatureCard target, Player opponent) {
+	public Boolean Attack(CreatureCard target, Player opponent) {
 		int attackValue = target.getHP() - _damage;
 		int effectValue = 0;
 		
@@ -167,6 +167,10 @@ public class CreatureCard extends Card {
 		case pig:
 			mPlayer.drawCards();
 			break;
+		}
+		
+		if(mPlayer.get_mana() - _manaCost < 0) {
+			return false;
 		}
 		
 		if(target.getBurn() && attackValue > 0) {
@@ -245,6 +249,9 @@ public class CreatureCard extends Card {
 		
 		firstTurn = false;
 		target.setTargetedFirst(false);
+		
+		mPlayer.set_mana(mPlayer.get_mana() - _manaCost);
+		return true;
 	}
 	@Override
 	public String getCardname() {
@@ -253,6 +260,7 @@ public class CreatureCard extends Card {
 	}
 	@Override
 	public CardType getType() {
+		// TODO Auto-generated method stub
 		return _cardtype;
 	}
 }

@@ -144,9 +144,9 @@ public abstract class Card implements Serializable {
 		this.image = image;
 	}
 
-	public void Attack(CreatureCard target, Player opponent) {
+	public Boolean Attack(CreatureCard target, Player opponent) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	
 	public abstract Boolean isDead();
