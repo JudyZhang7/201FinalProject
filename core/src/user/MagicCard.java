@@ -131,7 +131,7 @@ public class MagicCard extends Card{
 		switch (state) {
 		case Scorpio:
 			// need player turn
-			if (game.getUser().get_player().get_turn() && turnCounter != 0) {
+			if (this.game.getUser().get_player().get_turn() && turnCounter != 0) {
 				turnCounter--;
 				// need player hp to increase by 2;
 				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() + 2);

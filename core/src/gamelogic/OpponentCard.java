@@ -11,4 +11,9 @@ public class OpponentCard extends Card {
 	private int manaCost;
 	private int attack;
 	private int hpReplenish;
+	@Override
+	public Boolean isDead() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
