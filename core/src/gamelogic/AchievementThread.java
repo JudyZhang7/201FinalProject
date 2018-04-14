@@ -18,45 +18,47 @@ public class AchievementThread extends Thread
 	
 	// Private Variables
 	private FireplacePebble game; // Game is where the game is being played
-	// String, Boolean Map. String is the achievement, Boolean is to determine whether
-	//  Achievement has been unlocked or not
-	private Map<String, Boolean> myMap = new HashMap<String, Boolean>();
-	
-	// NEW TOAST
-    private Toast.ToastFactory toastFactory;
-    private final List<Toast> toasts = new LinkedList<Toast>();
-    //private final List<Toast> toasts = new ArrayList<Toast>();
-    //private Toast toast;
-    // NEW TOAST
 	
 	// Constructor
 	public AchievementThread(FireplacePebble game)
 	{
 		this.game = game;
-		myMap.put("Example", true);
+		this.start();
 	}
 	
 	// Run Method
 	public void run()
 	{
-//		// TOAST create factory
-//		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-//		toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
-////		toastLong("Achievement Unlocked!");
-////		toastShort("Hello World!");
-//		// TOAST create factory
-//		System.out.println("Looping");
-//		for (Map.Entry<String, Boolean> entry : myMap.entrySet())
-//		{
-//			if (entry.getValue() == true) // Achievement Unlocked
-//			{
-////				toastLong("Achievement Unlocked! " + entry.getKey());
-////				Screen currScreen = game.getScreen();
-////				currScreen.render(delta);
-//				game.toastLong("Achievement Unlocked! " + entry.getKey());
-//			}
-//		}
-		game.toastLong("Achievement Unlocked!");
-		System.out.println("In run method of Assignment Thread");
+		System.out.println("In Run Method");
+		Gdx.app.postRunnable(new Runnable()
+		{
+	        public void run()
+	        {
+	        		// Run this run method when the user has unlocked an achievement
+        	 		// if value is 0, achievement still locked.
+        	 		// if value is 1, achievement is unlocked
+        	 		// if value is 2, achievement is unlocked already and has already been displayed to the user
+        	 		int i = 0;
+        	 		// While game is still ongoing? While true doesn't work
+        	 		while (i < 5)
+        	 		{	
+        	 			if (i == 3)
+        	 			{
+        	 				game.achievementMap.put("Played a game!", 1);
+        	 			}
+        	 			for (Map.Entry<String, Integer> entry : game.achievementMap.entrySet())
+        	 			{
+        	 				if (entry.getValue() == 1) // Output achievment unlocked
+        	 				{
+        	 					game.toastLong("Achievement Unlocked! " + entry.getKey());
+        	 					// Update the value of map value so that you don't output the
+        	 					// achievement twice
+        	 					game.achievementMap.put(entry.getKey(), 2);
+        	 				}
+        	 			}
+        	 			i++;
+        	 		}
+	        }
+	    });
 	}
 }

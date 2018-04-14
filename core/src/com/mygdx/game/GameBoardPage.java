@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.Map;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -96,23 +98,9 @@ public class GameBoardPage implements Screen {
 			}
 		});
 		stage.addActor(btnBack);
-//		AchievementThread at = new AchievementThread(game);
-//		at.start();
-		new Thread(new Runnable() {
-			   @Override
-			   public void run() {
-			      // do something important here, asynchronously to the rendering thread
-			      // post a Runnable to the rendering thread that processes the result
-			      Gdx.app.postRunnable(new Runnable() {
-			         @Override
-			         public void run() {
-			            // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
-			            game.toastLong("Achievement Unlocked!");
-			         }
-			      });
-			   }
-			}).start();
-//		game.toastLong("Achievement Unlocked! ");
+		
+		// Thread to run achievements
+		new AchievementThread(game);
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));

@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -29,10 +31,9 @@ public class FireplacePebble extends Game{
 	public BitmapFont regfont16;
 	
     // NEW TOAST
+	public Map<String, Integer> achievementMap = new HashMap<String, Integer>();
     private Toast.ToastFactory toastFactory;
     private final List<Toast> toasts = new LinkedList<Toast>();
-    //private final List<Toast> toasts = new ArrayList<Toast>();
-    //private Toast toast;
     // NEW TOAST
 
 	@Override
@@ -65,8 +66,7 @@ public class FireplacePebble extends Game{
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(735).build();
-//		toastLong("Achievement Unlocked! Levelled up!");
-//		toastShort("Hello World!");
+	    achievementMap.put("Chosen a card!", 1);
 		// TOAST create factory
 
 		//THIS IS THE START
@@ -137,6 +137,12 @@ public class FireplacePebble extends Game{
 	{
 		toasts.add(toastFactory.create(text, Toast.Length.SHORT));
 	}
+	
+	// Get achievement map
+//	public Map<String, Integer> getAchievementMap()
+//	{
+//		return achievementMap;
+//	}
 	
 	public void render() {
 		super.render();
