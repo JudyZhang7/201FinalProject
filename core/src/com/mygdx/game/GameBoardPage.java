@@ -23,10 +23,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import gamelogic.AchievementThread;
+import gamelogic.ThisGame;
 
 public class GameBoardPage implements Screen {
 	//THE ACTUAL GAME OBJECT
-	private Game currentGame;
+	private ThisGame currentGame;
 	//THE ACTUAL GAME OBJECT ^^^
 	
 	private Stage stage;
@@ -46,7 +47,7 @@ public class GameBoardPage implements Screen {
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 	
-	public GameBoardPage(FireplacePebble g, Game cg) {
+	public GameBoardPage(FireplacePebble g, ThisGame cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
 		currentGame = cg; //THE ACTUAL GAME LOGIC GAME

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import gamelogic.ThisGame;
 import user.Player;
 
 public class StartGameScreen implements Screen {
@@ -55,9 +56,9 @@ public class StartGameScreen implements Screen {
 		btnViewProfile.setSize(225, 75);
 		
 		//Start button
-		TextButton btnStart = new TextButton("Start", textSkin);
-		btnStart.setPosition(550, 350);
-		btnStart.setSize(200, 50);
+//		TextButton btnStart = new TextButton("Start", textSkin);
+//		btnStart.setPosition(550, 350);
+//		btnStart.setSize(200, 50);
 		
 		//Listeners
 		btnViewDeck.addListener(new ClickListener(){
@@ -72,12 +73,12 @@ public class StartGameScreen implements Screen {
 				btnViewProfileClicked();
 			}
 		});
-		btnStart.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnStartClicked();
-			}
-		});
+//		btnStart.addListener(new ClickListener(){
+//			@Override
+//			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//				btnStartClicked();
+//			}
+//		});
 		
 		//PLAY WITH COMPUTER
 		TextButton computer = new TextButton("Play with Computer", textSkin);
@@ -122,10 +123,9 @@ public class StartGameScreen implements Screen {
 		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
-		stage.addActor(btnStart);
+//		stage.addActor(btnStart);
 	}
 	
-
 	public void btnViewDeckClicked() {
 		game.setScreen(new DeckScreen(game));
 	}
@@ -135,12 +135,13 @@ public class StartGameScreen implements Screen {
 	}
 	
 	public void btnStartClicked() {
-		Player computerPlayer = new Player();
-		game.setScreen(new GameBoardPage(game, new Game(game.getUser().get_player(), computerPlayer))); // Go to the login page
+
 	}
 	
 	public void startGameWithComputer() {
-		
+		Player computerPlayer = new Player();
+		//or game could just have a default computer player thing
+		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page
 	}
 	
 	public void btnp1Clicked() {
