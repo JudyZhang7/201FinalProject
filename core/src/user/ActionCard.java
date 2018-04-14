@@ -47,8 +47,23 @@ public class ActionCard extends Card {
 		}
 	}
 
-	public void ActionEffect(Player player)
+	public void ActionEffect(Player you, Player opponent)
 	{
-		
+		switch(state) {
+		case Weapon:
+			opponent.set_hp(opponent.get_hp() - _damage);
+			break;
+		case Shield:
+			break;
+		case Heal:
+			you.set_hp(you.get_hp() + _hpReplenish);
+			break;
+		case DoubleDamage:
+			opponent.set_hp(opponent.get_hp() - 2 * _damage);
+			break;
+		case Preparation:
+			you.set_mana(you.get_mana() + _mana);
+			break;
+		}
 	}
 }
