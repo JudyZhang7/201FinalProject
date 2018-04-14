@@ -107,6 +107,16 @@ public class CreatureCard extends Card {
 		_hp = newHP;
 	}
 	
+	@Override
+	public Boolean isDead() {
+		if(_hp <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	
 	@Override
 	public void Attack(CreatureCard target, Player opponent) {
