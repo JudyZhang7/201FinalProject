@@ -1,6 +1,7 @@
 package user;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ActionCard extends Card {
@@ -10,7 +11,9 @@ public class ActionCard extends Card {
 	private int _hpReplenish;
 	private int _mana;
 	private String _actionName;
-	private Sprite _mSprite;
+
+	private Texture _texture;
+
 	private Boolean ACTIONDEAD;
 	
 	private int _damageOpponentDoes = 0;
@@ -24,15 +27,18 @@ public class ActionCard extends Card {
 		Preparation;
 	}
 	
-	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Sprite mSprite) {
+	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
 		super(type);
 		_manaCost = manaCost;
 		_damage = damage;
 		_hpReplenish = hpReplenish;
 		_mana = mana;
 		_actionName = actionName;
-		_mSprite = mSprite;
+		//_mSprite = mSprite;
 		mytype = "action";
+		_texture = img;
+//		_mSprite = mSprite;
+
 		
 		if(actionName.equalsIgnoreCase("Weapon")) {
 			state = Action.Weapon;
@@ -84,9 +90,12 @@ public class ActionCard extends Card {
 		_damageOpponentDoes = damage;
 	}
 
+	public Texture getTexture() {
+		return _texture;
+	}
 	@Override
 	public Boolean isDead() {
 		// TODO Auto-generated method stub
-		return true;
+		return null;
 	}
 }

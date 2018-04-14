@@ -121,18 +121,18 @@ public class ThisGame {
 	
 	public void loadDefaultDeck(FireplacePebble game) {
 		this.game = game;
-		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.mySpriteList.get(8));
-		CreatureCard oxCard = new CreatureCard(3, 1, 2, "ox", Assets.mySpriteList.get(5));
-		CreatureCard tigerCard = new CreatureCard(3, 1, 2, "tiger", Assets.mySpriteList.get(11));
-		CreatureCard rabbitCard = new CreatureCard(3, 1, 2, "rabbit", Assets.mySpriteList.get(7));
-		CreatureCard dragonCard = new CreatureCard(3, 1, 2, "dragon", Assets.mySpriteList.get(1));
-		CreatureCard snakeCard = new CreatureCard(3, 1, 2, "snake", Assets.mySpriteList.get(10));
-		CreatureCard horseCard = new CreatureCard(3, 1, 2, "horse", Assets.mySpriteList.get(3));
-		CreatureCard goatCard = new CreatureCard(3, 1, 2, "goat", Assets.mySpriteList.get(2));
-		CreatureCard monkeyCard = new CreatureCard(3, 1, 2, "monkey", Assets.mySpriteList.get(4));
-		CreatureCard roosterCard = new CreatureCard(3, 1, 2, "rooster", Assets.mySpriteList.get(9));
-		CreatureCard dogCard = new CreatureCard(3, 1, 2, "dog", Assets.mySpriteList.get(0));
-		CreatureCard pigCard = new CreatureCard(3, 1, 2, "pig", Assets.mySpriteList.get(6));
+		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.myTexturesList.get(8));
+		CreatureCard oxCard = new CreatureCard(3, 1, 2, "ox", Assets.myTexturesList.get(5));
+		CreatureCard tigerCard = new CreatureCard(3, 1, 2, "tiger", Assets.myTexturesList.get(11));
+		CreatureCard rabbitCard = new CreatureCard(3, 1, 2, "rabbit", Assets.myTexturesList.get(7));
+		CreatureCard dragonCard = new CreatureCard(3, 1, 2, "dragon", Assets.myTexturesList.get(1));
+		CreatureCard snakeCard = new CreatureCard(3, 1, 2, "snake", Assets.myTexturesList.get(10));
+		CreatureCard horseCard = new CreatureCard(3, 1, 2, "horse", Assets.myTexturesList.get(3));
+		CreatureCard goatCard = new CreatureCard(3, 1, 2, "goat", Assets.myTexturesList.get(2));
+		CreatureCard monkeyCard = new CreatureCard(3, 1, 2, "monkey", Assets.myTexturesList.get(4));
+		CreatureCard roosterCard = new CreatureCard(3, 1, 2, "rooster", Assets.myTexturesList.get(9));
+		CreatureCard dogCard = new CreatureCard(3, 1, 2, "dog", Assets.myTexturesList.get(0));
+		CreatureCard pigCard = new CreatureCard(3, 1, 2, "pig", Assets.myTexturesList.get(6));
 		//PUT IN CREATURE CARD MAP
 		creatureCards.put("rat", ratCard);
 		creatureCards.put("ox", oxCard);
@@ -148,18 +148,18 @@ public class ThisGame {
 		creatureCards.put("pig", pigCard);
 		
 		///
-		MagicCard Scorpio = new MagicCard(2, 2, 0, "scorpio", Assets.mySpriteList.get(21), this.game);
-		MagicCard Sagittarius = new MagicCard(2, 4, 0, "sagittarius", Assets.mySpriteList.get(20), this.game);
-		MagicCard Capricorn = new MagicCard(0, 3, 0, "capricorn", Assets.mySpriteList.get(15), this.game);
-		MagicCard Aquarius = new MagicCard(0, 4, 0, "aquarius", Assets.mySpriteList.get(12), this.game);
-		MagicCard Pisces = new MagicCard(0, 2, 0, "pisces", Assets.mySpriteList.get(19), this.game);
-		MagicCard Aries = new MagicCard(0, 3, 5, "aries", Assets.mySpriteList.get(13), this.game);
-		MagicCard Taurus = new MagicCard(0, 3, 3, "taurus", Assets.mySpriteList.get(22), this.game);
-		MagicCard Gemini = new MagicCard(0, 4, 0, "gemini", Assets.mySpriteList.get(16), this.game);
-		MagicCard Cancer = new MagicCard(0, 2, 0, "cancer", Assets.mySpriteList.get(14), this.game);
-		MagicCard Leo = new MagicCard(0, 2, 0, "leo", Assets.mySpriteList.get(17), this.game);
-		MagicCard Virgo = new MagicCard(2, 1, 0, "virgo", Assets.mySpriteList.get(23), this.game);
-		MagicCard Libra = new MagicCard(0, 2, 1, "libra", Assets.mySpriteList.get(18), this.game);
+		MagicCard Scorpio = new MagicCard(2, 2, 0, "scorpio", Assets.myTexturesList.get(21), this.game);
+		MagicCard Sagittarius = new MagicCard(2, 4, 0, "sagittarius", Assets.myTexturesList.get(20), this.game);
+		MagicCard Capricorn = new MagicCard(0, 3, 0, "capricorn", Assets.myTexturesList.get(15), this.game);
+		MagicCard Aquarius = new MagicCard(0, 4, 0, "aquarius", Assets.myTexturesList.get(12), this.game);
+		MagicCard Pisces = new MagicCard(0, 2, 0, "pisces", Assets.myTexturesList.get(19), this.game);
+		MagicCard Aries = new MagicCard(0, 3, 5, "aries", Assets.myTexturesList.get(13), this.game);
+		MagicCard Taurus = new MagicCard(0, 3, 3, "taurus", Assets.myTexturesList.get(22), this.game);
+		MagicCard Gemini = new MagicCard(0, 4, 0, "gemini", Assets.myTexturesList.get(16), this.game);
+		MagicCard Cancer = new MagicCard(0, 2, 0, "cancer", Assets.myTexturesList.get(14), this.game);
+		MagicCard Leo = new MagicCard(0, 2, 0, "leo", Assets.myTexturesList.get(17), this.game);
+		MagicCard Virgo = new MagicCard(2, 1, 0, "virgo", Assets.myTexturesList.get(23), this.game);
+		MagicCard Libra = new MagicCard(0, 2, 1, "libra", Assets.myTexturesList.get(18), this.game);
 		//PUT IN MAGIC CARD MAP
 		magicCards.put("scorpio", Scorpio);
 		magicCards.put("sagittarius", Sagittarius);
@@ -175,11 +175,11 @@ public class ThisGame {
 		magicCards.put("libra", Libra);
 		
 		///mana cost, damage, hp replenish, mana, actionname, sprite
-		ActionCard Weapon = new ActionCard(3, 3, 0, 0, "Weapon", Assets.mySpriteList.get(28));
-		ActionCard Shield = new ActionCard(2, 0, 0, 0, "Shield", Assets.mySpriteList.get(27));
-		ActionCard Heal = new ActionCard(2, 0, 3, 0, "Heal", Assets.mySpriteList.get(25));
-		ActionCard DoubleDamage = new ActionCard(4, 0, 0, 0, "DoubleDamage", Assets.mySpriteList.get(24));
-		ActionCard Preparation = new ActionCard(3, 0, 0, 0, "Preparation", Assets.mySpriteList.get(26));
+		ActionCard Weapon = new ActionCard(3, 3, 0, 0, "Weapon", Assets.myTexturesList.get(28));
+		ActionCard Shield = new ActionCard(2, 0, 0, 0, "Shield", Assets.myTexturesList.get(27));
+		ActionCard Heal = new ActionCard(2, 0, 3, 0, "Heal", Assets.myTexturesList.get(25));
+		ActionCard DoubleDamage = new ActionCard(4, 0, 0, 0, "DoubleDamage", Assets.myTexturesList.get(24));
+		ActionCard Preparation = new ActionCard(3, 0, 0, 0, "Preparation", Assets.myTexturesList.get(26));
 		//PUT IN ACTION CARD MAP
 		actionCards.put("weapon", Weapon);
 		actionCards.put("shield", Shield);

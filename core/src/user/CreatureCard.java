@@ -1,5 +1,6 @@
 package user;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class CreatureCard extends Card {
@@ -26,20 +27,19 @@ public class CreatureCard extends Card {
 	private int _maxhp;
 	private int _damage;
 	private int _manaCost;
-	private Sprite _mSprite;
+	private Texture _texture;
 	private _Creature state;
 	private Boolean burn;
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
 
-	public CreatureCard(int hp, int damage, int manaCost, String cre, Sprite sprite) {
+	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;
 		_maxhp = hp;
 		_damage = damage;
 		_manaCost = manaCost;
-		//creature = cre;
-		_mSprite = sprite;
+		_texture = img;
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
@@ -83,7 +83,9 @@ public class CreatureCard extends Card {
 			state = _Creature.pig;
 		}
 	}
-
+	public Texture getTexture() {
+		return _texture;
+	}
 	public _Creature getState() {
 		return state;
 	}
