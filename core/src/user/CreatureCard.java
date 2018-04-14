@@ -29,6 +29,7 @@ public class CreatureCard extends Card {
 	private int _manaCost;
 	private Texture _texture;
 	private _Creature state;
+	private CardType _cardtype;
 	private Boolean burn;
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
@@ -257,8 +258,11 @@ public class CreatureCard extends Card {
 		// TODO Auto-generated method stub
 		return name;
 	}
-	
-	
+	@Override
+	public CardType getType() {
+		// TODO Auto-generated method stub
+		return _cardtype;
+	}
 }
 //package user;
 //

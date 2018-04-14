@@ -18,7 +18,7 @@ public class ActionCard extends Card {
 	
 	private int _damageOpponentDoes = 0;
 	private Action state;
-	
+	private CardType _cardtype;
 	private static enum Action {
 		Weapon,
 		Shield,
@@ -102,5 +102,10 @@ public class ActionCard extends Card {
 	public Boolean isDead() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public CardType getType() {
+		return _cardtype;
 	}
 }
