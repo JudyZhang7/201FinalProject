@@ -226,8 +226,6 @@ public class MagicCard extends Card{
 		super(type);
 		// TODO Auto-generated constructor stub
 	}
-//	private int damage;
-//	private int heal;
 
 	public FireplacePebble getGame() {
 		return game;

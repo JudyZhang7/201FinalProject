@@ -11,6 +11,8 @@ public class ActionCard extends Card {
 	private int _mana;
 	private String _actionName;
 	private Sprite _mSprite;
+	
+	private int _damageOpponentDoes = 0;
 	private Action state;
 	
 	private static enum Action {
@@ -57,6 +59,7 @@ public class ActionCard extends Card {
 			// check if opponent attacked you
 			// store damage inflicted to add back to your hp
 			// if yes, add the damage the opponent inflicted back into your hp
+			opponent.set_hp(opponent.get_hp() - _damageOpponentDoes);
 			break;
 		case Heal:
 			you.set_hp(you.get_hp() + _hpReplenish);
@@ -68,5 +71,9 @@ public class ActionCard extends Card {
 			you.set_mana(you.get_mana() + _mana);
 			break;
 		}
+	}
+	
+	public void set_damageOpponentDoes(int damage ) {
+		_damageOpponentDoes = damage;
 	}
 }
