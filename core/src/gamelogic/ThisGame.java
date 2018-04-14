@@ -8,16 +8,10 @@ import java.util.HashMap;
 import com.mygdx.game.*;
 
 public class ThisGame {
-//	private ArrayList<CreatureCard> creatureCards = new ArrayList<CreatureCard>();
-//	private ArrayList<ActionCard> actionCard = new ArrayList<ActionCard>();
-//	private ArrayList<MagicCard> magicCard = new ArrayList<MagicCard>();
-	
 	HashMap< String,CreatureCard> creatureCards = new HashMap< String,CreatureCard>();
 	HashMap< String,ActionCard> actionCards = new HashMap< String,ActionCard>();
 	HashMap< String,MagicCard> magicCards = new HashMap< String,MagicCard>();
 
-
-	
 	private Player p1;
 	private Player p2;
 	private int winner = 0;
@@ -26,6 +20,7 @@ public class ThisGame {
 	private Player mPlayer;
 	
 	public ThisGame(Player first, Player second) {
+		//first will always be the current player, second computer.
 		p1 = first;
 		p2 = second;
 	}
@@ -49,7 +44,15 @@ public class ThisGame {
 	public int getWinner() {
 		return winner;
 	}
-
+	
+	public void cardPlayed(CreatureCard yourCard, CreatureCard opponentCard) {
+		yourCard 
+	}
+	
+	public void cardPlayed(ActionCard yourCard, Player opponent) {
+		
+	}
+	
 	public void setWinner(int winner) {
 		this.winner = winner;
 	}
