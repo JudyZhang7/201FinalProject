@@ -99,8 +99,13 @@ public class GameBoardPage implements Screen {
 		});
 		stage.addActor(btnBack);
 		
-		// Thread to run achievements
-		new AchievementThread(game);
+		// Thread to run achievements - Will output the achievement that has been unlocked
+		boolean cardPicked = true;
+		if (cardPicked)
+		{
+			game.achievementMap.put("Card Picked!", 1);
+			new AchievementThread(game);
+		}
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));

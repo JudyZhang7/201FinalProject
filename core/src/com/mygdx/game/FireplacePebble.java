@@ -66,7 +66,10 @@ public class FireplacePebble extends Game{
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(735).build();
-	    achievementMap.put("Chosen a card!", 1);
+//	    // Add achievements here?
+//	    achievementMap.put("Chosen a card!", 1);
+//	    achievementMap.put("Played a Game!", 1);
+//	    achievementMap.put("Attacked for the First Time!", 1);
 		// TOAST create factory
 
 		//THIS IS THE START

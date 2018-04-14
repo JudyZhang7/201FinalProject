@@ -1,14 +1,9 @@
 package gamelogic;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.mygdx.game.FireplacePebble;
-import com.mygdx.game.Toast;
 
 public class AchievementThread extends Thread
 {
@@ -38,27 +33,16 @@ public class AchievementThread extends Thread
         	 		// if value is 0, achievement still locked.
         	 		// if value is 1, achievement is unlocked
         	 		// if value is 2, achievement is unlocked already and has already been displayed to the user
-        	 		int i = 0;
-        	 		// While game is still ongoing? While true doesn't work
-        	 		while (i < 5)
-        	 		{	
-        	 			if (i == 3)
+        	 		for (Map.Entry<String, Integer> entry : game.achievementMap.entrySet())
+        	 		{
+        	 			if (entry.getValue() == 1) // Output achievment unlocked
         	 			{
-        	 				game.achievementMap.put("Played a game!", 1);
+        	 				game.toastLong("Achievement Unlocked! " + entry.getKey());
+        	 				// Update the value of map value so that you don't output the same achievement twice
+        	 				game.achievementMap.put(entry.getKey(), 2);
         	 			}
-        	 			for (Map.Entry<String, Integer> entry : game.achievementMap.entrySet())
-        	 			{
-        	 				if (entry.getValue() == 1) // Output achievment unlocked
-        	 				{
-        	 					game.toastLong("Achievement Unlocked! " + entry.getKey());
-        	 					// Update the value of map value so that you don't output the
-        	 					// achievement twice
-        	 					game.achievementMap.put(entry.getKey(), 2);
-        	 				}
-        	 			}
-        	 			i++;
         	 		}
-	        }
+        	 	}
 	    });
 	}
 }
