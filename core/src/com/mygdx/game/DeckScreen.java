@@ -90,8 +90,7 @@ public class DeckScreen implements Screen {
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
 				final Card thisCard = cardDeck[counter]; //why is this final?
-				Texture cardT = new Texture(Gdx.files.internal(thisCard.getImg()));
-				TextureRegion cardTR = new TextureRegion(cardT);
+				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
 				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
 		        				

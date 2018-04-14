@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
+import com.badlogic.gdx.graphics.Texture;
+
 //public abstract class Card {
 //	private String cardName;
 //	private int manaCost;
@@ -30,15 +32,18 @@ public abstract class Card implements Serializable {
 	private int effectDefense = 0;
 	private int hp;
 	private int manaCost;
+	private Texture _texture;
 	private String cardname;
 	private String desc;
 	protected static CardType type;
 	private Boolean onBoard;
 	private String image;
 	protected Player mPlayer;
-	
-	private String img; //name of the image
-	
+	protected String mytype;
+
+	public String getMytype() {
+		return mytype;
+	}
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 
 								  ANY};
@@ -67,24 +72,19 @@ public abstract class Card implements Serializable {
 		return c;
 	}*/
 
-	public String getName() {
-		return cardName;
-	}
+	//public abstract getType();
 
 	public int getAttack() {
 		return attack;
 	}
-
-	public String getImg() {
-		return img;
-	}
+	
+	public abstract Texture getTexture();
+	
 	public int getLife() {
 		return hp;
 	}
 
-	public String getCardname() {
-		return cardname;
-	}
+	public abstract String getCardname();
 
 	public CardType getType() {
 		return type;
@@ -145,9 +145,9 @@ public abstract class Card implements Serializable {
 		this.image = image;
 	}
 
-	public void Attack(CreatureCard target, Player opponent) {
+	public Boolean Attack(CreatureCard target, Player opponent) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	
 	public abstract Boolean isDead();

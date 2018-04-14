@@ -1,5 +1,6 @@
 package user;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class CreatureCard extends Card {
@@ -26,24 +27,28 @@ public class CreatureCard extends Card {
 	private int _maxhp;
 	private int _damage;
 	private int _manaCost;
-	private Sprite _mSprite;
+	private Texture _texture;
 	private _Creature state;
+	private CardType _cardtype;
 	private Boolean burn;
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
-
-	public CreatureCard(int hp, int damage, int manaCost, String cre, Sprite sprite) {
+	private String name;
+	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;
 		_maxhp = hp;
 		_damage = damage;
 		_manaCost = manaCost;
-		//creature = cre;
-		_mSprite = sprite;
+		_texture = img;
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
 		mPlayer = null;
+
+		name = cre;
+
+		mytype = "creature";
 		
 		if(cre.equalsIgnoreCase("rat")) {
 			state = _Creature.rat;
@@ -82,7 +87,10 @@ public class CreatureCard extends Card {
 			state = _Creature.pig;
 		}
 	}
-
+	public Texture getTexture() {
+		System.out.println("getTexturing!");
+		return _texture;
+	}
 	public _Creature getState() {
 		return state;
 	}
@@ -120,7 +128,7 @@ public class CreatureCard extends Card {
 	
 	
 	@Override
-	public void Attack(CreatureCard target, Player opponent) {
+	public Boolean Attack(CreatureCard target, Player opponent) {
 		int attackValue = target.getHP() - _damage;
 		int effectValue = 0;
 		
@@ -159,6 +167,10 @@ public class CreatureCard extends Card {
 		case pig:
 			mPlayer.drawCards();
 			break;
+		}
+		
+		if(mPlayer.get_mana() - _manaCost < 0) {
+			return false;
 		}
 		
 		if(target.getBurn() && attackValue > 0) {
@@ -237,124 +249,18 @@ public class CreatureCard extends Card {
 		
 		firstTurn = false;
 		target.setTargetedFirst(false);
+		
+		mPlayer.set_mana(mPlayer.get_mana() - _manaCost);
+		return true;
 	}
-	
+	@Override
+	public String getCardname() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+	@Override
+	public CardType getType() {
+		// TODO Auto-generated method stub
+		return _cardtype;
+	}
 }
-//package user;
-//
-//public class CreatureCard extends Card{
-//	public CreatureCard(CardType type) {
-//		super(type);
-//		// TODO Auto-generated constructor stub
-//	}
-////	private int hp;
-////	private int damage;
-////	private int heal;
-////	Boolean isAlive = true;
-////	Boolean targeted = false;
-//	@Override
-//	public void Effect() {
-//		// TODO Auto-generated method stub
-////		super.effect();
-//		switch (this.getCardname()) {
-//		case "RAT":
-////			"Double Target: Can attack\n" + 
-////			"twice in the same turn, but\n" + 
-////			"must attack creature once\n" + 
-////			"and then the opponent once\n" + 
-//			
-//			break;
-//		case "OX":
-//			break;
-//		case "TIGER":
-//			break;
-//		case "RABBIT":
-//			break;
-//		case "DRAGON":
-//			break;
-//		case "SNAKE":
-//			break;
-//		case "HORSE":
-//			break;
-//		case "GOAT":
-//			break;
-//		case "MONKEY":
-//			break;
-//		case "ROOSTER":
-//			break;
-//		case "DOG":
-//			break;
-//		case "PIG":
-//			break;
-//		default:
-//			break;
-//		}
-////		switch (this.getCardname()) {
-////		case "RAT":
-//////			"Double Target: Can attack\n" + 
-//////			"twice in the same turn, but\n" + 
-//////			"must attack creature once\n" + 
-//////			"and then the opponent once\n" + 
-////			
-////			break;
-////		case "OX":
-////			break;
-////		case "TIGER":
-////			break;
-////		case "RABBIT":
-////			break;
-////		case "DRAGON":
-////			break;
-////		case "SNAKE":
-////			break;
-////		case "HORSE":
-////			break;
-////		case "GOAT":
-////			break;
-////		case "MONKEY":
-////			break;
-////		case "ROOSTER":
-////			break;
-////		case "DOG":
-////			break;
-////		case "PIG":
-////			break;
-////		default:
-////			break;
-////		}
-//	}
-//	
-//@Override
-//	public void Attack() {
-//		switch (this.getCardname()) {
-//		case "RAT":
-//			
-//			break;
-//		case "OX":
-//			break;
-//		case "TIGER":
-//			break;
-//		case "RABBIT":
-//			break;
-//		case "DRAGON":
-//			break;
-//		case "SNAKE":
-//			break;
-//		case "HORSE":
-//			break;
-//		case "GOAT":
-//			break;
-//		case "MONKEY":
-//			break;
-//		case "ROOSTER":
-//			break;
-//		case "DOG":
-//			break;
-//		case "PIG":
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-//}
-//}

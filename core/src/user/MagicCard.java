@@ -4,6 +4,7 @@ import java.util.Random;
 import gamelogic.*;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.FireplacePebble;
 import com.mygdx.game.GameBoardPage;
@@ -13,11 +14,12 @@ public class MagicCard extends Card{
 	private int _manaCost;
 	private int _damage;
 	private String _astrological;
-	private Sprite _mSprite;
 	private Astro state;
 	private FireplacePebble game;
 	private int turnCounter;
+	private Texture _texture;
 	private Boolean ADEAD;
+	private CardType _cardtype;
 	
 	private static enum Astro {
 		Scorpio,
@@ -34,14 +36,17 @@ public class MagicCard extends Card{
 		Libra;
 	}
 	
-	public MagicCard(int hp, int damage, int manaCost, String cre, Sprite sprite, FireplacePebble game) {
+	public MagicCard(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
 		super(type);
 		this.game = game;
 		_hpRep = hp;
 		_damage = damage;
 		_manaCost = manaCost;
 		_astrological = cre;
-		_mSprite = sprite;
+
+		//_mSprite = sprite;
+//		mytype = "magic";
+		_texture = img;
 		
 		if(cre.equalsIgnoreCase("Scorpio")) {
 			state = Astro.Scorpio;
@@ -258,6 +263,11 @@ public class MagicCard extends Card{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Texture getTexture() {
+		System.out.println("getTexturing!");
+		return _texture;
+	}
+	
 	public FireplacePebble getGame() {
 		return game;
 	}
@@ -270,5 +280,15 @@ public class MagicCard extends Card{
 	public Boolean isDead() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getCardname() {
+		return _astrological;
+	}
+
+	@Override
+	public CardType getType() {
+		return _cardtype;
 	}
 }
