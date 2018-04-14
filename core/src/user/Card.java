@@ -76,6 +76,8 @@ public abstract class Card implements Serializable {
 		return cardName;
 	}
 
+	public abstract getType();
+	
 	public int getAttack() {
 		return attack;
 	}
