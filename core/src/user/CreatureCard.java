@@ -81,7 +81,7 @@ public class CreatureCard extends Card {
 			state = _Creature.pig;
 		}
 	}
-	
+
 	public _Creature getState() {
 		return state;
 	}
@@ -93,6 +93,9 @@ public class CreatureCard extends Card {
 	}
 	public Boolean getTargetedFirst() {
 		return targetedFirst;
+	}
+	public void setTargetedFirst(Boolean targetedFirst) {
+		this.targetedFirst = targetedFirst;
 	}
 	public Boolean getFirstTurn() {
 		return firstTurn;
@@ -112,7 +115,7 @@ public class CreatureCard extends Card {
 		
 		switch(state) {
 		case rat:
-			effectValue = _damage;
+			effectValue = 2 * _damage;
 			break;
 		case ox:
 			_damage += 3;
@@ -143,11 +146,25 @@ public class CreatureCard extends Card {
 		case dog: 
 			break;
 		case pig:
+			mPlayer.drawCards();
 			break;
 		}
 		
 		if(target.getBurn() && attackValue > 0) {
 			effectValue += 1;
+		}
+		
+		if(target.getState() == _Creature.tiger && target.getTargetedFirst()) {
+			attackValue = target.getHP();
+			effectValue = 0;
+		}
+		
+		if(this.getState() == _Creature.snake) {
+			int newHP = this.getHP() + (target.getHP() - attackValue);
+			if(newHP > _maxhp) {
+				newHP = _maxhp;
+			}
+			this.setHP(newHP);
 		}
 		
 		if(attackValue < 0) {
@@ -156,16 +173,22 @@ public class CreatureCard extends Card {
 		}
 		else if(attackValue == 0) {
 			target.setHP(attackValue);
-			//damage opponent
 			opponent.set_hp(opponent.get_hp() - effectValue);
 		}
 		else {
 			target.setHP(attackValue);
 			//try applying damage to animal
 			//if it dies, check if we harm the human
+			if(target.getState() == _Creature.rabbit) {
+				effectValue = 0;
+			}
 			
-			
-			
+		}
+		
+		if(this.getState() == _Creature.monkey) {
+			if (mPlayer.get_hp() > 0) {
+				mPlayer.set_hp(mPlayer.get_hp() + 1);
+			}
 		}
 	}
 	
