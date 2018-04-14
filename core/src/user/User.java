@@ -8,7 +8,7 @@ public class User {
 	
 	private static String _Username;
 	private String _Password;
-	private static Player _player;
+	private Player _player;
 	
 	private int _wins;
 	private int _losses;
@@ -73,7 +73,7 @@ public class User {
 		this._Password = _Password;
 	}
 
-	public static Player get_player() {
+	public Player get_player() {
 		return _player;
 	}
 

@@ -15,6 +15,38 @@ public class ThisGame {
 		p2 = second;
 	}
 	
+	public Player getP1() {
+		return p1;
+	}
+
+	public void setP1(Player p1) {
+		this.p1 = p1;
+	}
+
+	public Player getP2() {
+		return p2;
+	}
+
+	public void setP2(Player p2) {
+		this.p2 = p2;
+	}
+
+	public int getWinner() {
+		return winner;
+	}
+
+	public void setWinner(int winner) {
+		this.winner = winner;
+	}
+
+	public Player getmPlayer() {
+		return mPlayer;
+	}
+
+	public void setmPlayer(Player mPlayer) {
+		this.mPlayer = mPlayer;
+	}
+
 	public void run() {
 		while(winner == 0) {
 //			p1.Act();

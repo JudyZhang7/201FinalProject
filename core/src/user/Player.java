@@ -39,8 +39,14 @@ public class Player implements Serializable{
 
 	private ArrayList<Card> opponentBoard;
 	
-	public Player() {}
+	public Player(int hp, int mana) {
+		_hp = hp;
+		_mana = mana;
+	}
 	
+	public Player () {
+		
+	}
 	public Boolean isNew() {
 		return newPlayer;
 	}
