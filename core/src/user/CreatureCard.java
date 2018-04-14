@@ -34,6 +34,7 @@ public class CreatureCard extends Card {
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
 	private String name;
+	
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;

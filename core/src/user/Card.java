@@ -60,17 +60,6 @@ public abstract class Card implements Serializable {
 	public Card(CardType type) {
 		this.type = type;
 	}
-	
-	/*public Card create() {
-		//Card c = new Card(this.type);
-		c.setName(this.cardName);
-		c.setAttack(this.attack);
-		c.setLife(this.hp);
-		c.setCardname(this.cardname);
-		c.setCost(this.manaCost);
-		c.setDesc(this.desc);
-		return c;
-	}*/
 
 	public String getName() {
 		return cardName;
@@ -87,7 +76,7 @@ public abstract class Card implements Serializable {
 
 	public abstract String getCardname();
 
-	public abstract CardType getType();
+	public abstract String getMyType();
 
 	public void setName(String name) {
 		this.cardName = name;
@@ -150,47 +139,7 @@ public abstract class Card implements Serializable {
 	}
 	
 	public abstract Boolean isDead();
-
-//	public void Attack(Card target, Player opponent) {
-//		switch (_Creature) {
-//		case rat:
-//			break;
-//		case ox:
-//			effectAttack = 3;
-//			break;
-//		case tiger:
-//			break;
-//		case rabbit:
-//			effectDefense = 999;
-//			break;
-//		case dragon:
-//			break;
-//		case snek:
-//			break;
-//		case horse:
-//			break;
-//		case goat:
-//			break;
-//		case monkey:
-//			break;
-//		case rooster:
-//			break;
-//		case dog:
-//			break;
-//		case pig:
-//			//mPlayer.draw();
-//			break;
-//		
-//		default:
-//			break;
-//		}
-//		
-//		
-//		attackValue = target.getLife() - this.getAttack();
-//		effectValue = target.getEffectDefense() - this.getEffectAttack();
-//		
-//		if
-//		
-//		Hi. ryan
+	
+	
 		
 	}
