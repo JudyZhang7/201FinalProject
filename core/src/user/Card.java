@@ -21,7 +21,7 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 //import com.mygdx.game.desktop.Card;
 //import com.mygdx.game.desktop.CardType;
 //
-public class Card implements Serializable {
+public abstract class Card implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String cardName;
@@ -48,8 +48,8 @@ public class Card implements Serializable {
 		this.type = type;
 	}
 	
-	public Card create() {
-		Card c = new Card(this.type);
+	/*public Card create() {
+		//Card c = new Card(this.type);
 		c.setName(this.cardName);
 		c.setAttack(this.attack);
 		c.setLife(this.hp);
@@ -57,7 +57,7 @@ public class Card implements Serializable {
 		c.setCost(this.manaCost);
 		c.setDesc(this.desc);
 		return c;
-	}
+	}*/
 
 	public String getName() {
 		return cardName;
@@ -141,6 +141,8 @@ public class Card implements Serializable {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public abstract Boolean isDead();
 
 //	public void Attack(Card target, Player opponent) {
 //		switch (_Creature) {
