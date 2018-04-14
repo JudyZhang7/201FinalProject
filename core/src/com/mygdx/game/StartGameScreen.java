@@ -167,7 +167,7 @@ public class StartGameScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-		headfont.draw(batch, "Start a New Game", w/3, 5*h/6);
+		headfont.draw(batch, "Start a New Game", w/3, h/2);
 		bodyfont.draw(batch, "Players looking for games", w/13, 7*h/9);
 		batch.end();
 	}
