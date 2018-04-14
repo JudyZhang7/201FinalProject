@@ -131,7 +131,11 @@ public class MagicCard extends Card{
 		}
 	}
 	
-	public void AstroEffect() {
+	public Boolean AstroEffect() {
+		
+		if(mPlayer.get_mana() - _manaCost < 0) {
+			return false;
+		}
 		
 		switch (state) {
 		case Scorpio:
@@ -256,6 +260,9 @@ public class MagicCard extends Card{
 		default:
 			break;
 		}
+		
+		mPlayer.set_mana(mPlayer.get_mana() - _manaCost); 
+		return true;
 	}
 	
 	public MagicCard(CardType type) {
