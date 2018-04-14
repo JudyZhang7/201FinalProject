@@ -135,48 +135,51 @@ public class Card implements Serializable {
 		this.image = image;
 	}
 
-	public void Attack(Card target, Player opponent) {
-		switch (_Creature) {
-		case rat:
-			break;
-		case ox:
-			effectAttack = 3;
-			break;
-		case tiger:
-			break;
-		case rabbit:
-			effectDefense = 999;
-			break;
-		case dragon:
-			break;
-		case snek:
-			break;
-		case horse:
-			break;
-		case goat:
-			break;
-		case monkey:
-			break;
-		case rooster:
-			break;
-		case dog:
-			break;
-		case pig:
-			//mPlayer.draw();
-			break;
-		
-		default:
-			break;
-		}
-		
-		
-		attackValue = target.getLife() - this.getAttack();
-		effectValue = target.getEffectDefense() - this.getEffectAttack();
-		
-		if
-		
-		Hi. ryan
+	public void Attack(CreatureCard target, Player opponent) {
+		// TODO Auto-generated method stub
 		
 	}
 
-}
+//	public void Attack(Card target, Player opponent) {
+//		switch (_Creature) {
+//		case rat:
+//			break;
+//		case ox:
+//			effectAttack = 3;
+//			break;
+//		case tiger:
+//			break;
+//		case rabbit:
+//			effectDefense = 999;
+//			break;
+//		case dragon:
+//			break;
+//		case snek:
+//			break;
+//		case horse:
+//			break;
+//		case goat:
+//			break;
+//		case monkey:
+//			break;
+//		case rooster:
+//			break;
+//		case dog:
+//			break;
+//		case pig:
+//			//mPlayer.draw();
+//			break;
+//		
+//		default:
+//			break;
+//		}
+//		
+//		
+//		attackValue = target.getLife() - this.getAttack();
+//		effectValue = target.getEffectDefense() - this.getEffectAttack();
+//		
+//		if
+//		
+//		Hi. ryan
+		
+	}

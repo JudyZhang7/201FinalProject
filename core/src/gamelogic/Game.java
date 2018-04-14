@@ -8,6 +8,8 @@ public class Game {
 	private Player p2;
 	private int winner = 0;
 	
+	private Player mPlayer;
+	
 	public Game(Player first, Player second) {
 		p1 = first;
 		p2 = second;
@@ -43,7 +45,7 @@ public class Game {
 	
 	public void GameStart() {
 		if (User.get_Username().equals("Guest")) {
-			
+			// don't load from database
 		}
 	}
 	
