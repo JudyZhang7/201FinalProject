@@ -49,6 +49,7 @@ public class ThisGame {
 		yourCard.AstroEffect();
 	}
 	public void playCreatureCard(CreatureCard yourCard, CreatureCard opponentCard) {
+		yourCard.Attack(opponentCard, opponentCard.getmPlayer()); 
 	}
 	
 	public void playActionCard(ActionCard yourCard, Player opponent) {

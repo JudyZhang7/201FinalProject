@@ -43,6 +43,7 @@ public class CreatureCard extends Card {
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
+		mPlayer = null;
 		
 		if(cre.equalsIgnoreCase("rat")) {
 			state = _Creature.rat;

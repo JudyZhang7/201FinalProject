@@ -44,6 +44,14 @@ public abstract class Card implements Serializable {
 								  ANY};
 	
 
+	public Player getmPlayer() {
+		return mPlayer;
+	}
+
+	public void setmPlayer(Player mPlayer) {
+		this.mPlayer = mPlayer;
+	}
+
 	public Card(CardType type) {
 		this.type = type;
 	}
