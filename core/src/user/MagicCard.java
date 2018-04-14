@@ -17,6 +17,7 @@ public class MagicCard extends Card{
 	private Astro state;
 	private FireplacePebble game;
 	private int turnCounter;
+	private Boolean ADEAD;
 	
 	private static enum Astro {
 		Scorpio,
@@ -135,6 +136,7 @@ public class MagicCard extends Card{
 				// need player hp to increase by 2;
 				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() + 2);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Sagittarius:
 			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
@@ -145,6 +147,7 @@ public class MagicCard extends Card{
 				
 				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(0);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Capricorn:
 			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
@@ -154,12 +157,14 @@ public class MagicCard extends Card{
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 				game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Aquarius:
 			int boardSize = game.getUser().get_player().getOpponent().getOpponentBoard().size();
 			for (int i = 0; i < boardSize; i++) {
 				game.getUser().get_player().getOpponent().getOpponentBoard().get(i).setLife(game.getUser().get_player().getOpponent().getOpponentBoard().get(i).getLife() - 1);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Pisces:
 			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
@@ -169,14 +174,17 @@ public class MagicCard extends Card{
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 				game.getUser().get_player().getPlayerBoard().get(randomNum).setLife(game.getUser().get_player().getPlayerBoard().get(randomNum).getLife() * 2);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Aries:
 			_damage += 5;
 			game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() - 5);
 			// damage player by 5
+			this.ADEAD = isDead();
 			break;
 		case Taurus:
 			_damage += 3;
+			this.ADEAD = isDead();
 			break;
 		case Gemini:
 			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
@@ -186,6 +194,7 @@ public class MagicCard extends Card{
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 				game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getPlayerBoard().get(randomNum));
 			}
+			this.ADEAD = isDead();
 			break;
 		case Cancer:
 			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
@@ -196,6 +205,7 @@ public class MagicCard extends Card{
 				game.getUser().get_player().getmHand().add(game.getUser().get_player().getOpponent().getOpponentHand().get(randomNum));
 				game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Leo:
 			if (game.getUser().get_player().getOpponentBoard().isEmpty() == false) {
@@ -207,6 +217,7 @@ public class MagicCard extends Card{
 				game.getUser().get_player().getOpponent().getOpponentHand().add(game.getUser().get_player().getOpponentBoard().get(randomNum));
 				game.getUser().get_player().getOpponent().getOpponentBoard().remove(randomNum);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Virgo:
 			if (game.getUser().get_player().getmHand().isEmpty() == false) {
@@ -218,6 +229,7 @@ public class MagicCard extends Card{
 				game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getmHand().get(randomNum));
 				game.getUser().get_player().getmHand().remove(randomNum);
 			}
+			this.ADEAD = isDead();
 			break;
 		case Libra:
 			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
@@ -234,7 +246,7 @@ public class MagicCard extends Card{
 
 				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(creatureHP - randomNum1);
 			}
-		    
+			this.ADEAD = isDead();
 			break;
 		default:
 			break;
@@ -254,5 +266,11 @@ public class MagicCard extends Card{
 
 	public void setGame(FireplacePebble game) {
 		this.game = game;
+	}
+
+	@Override
+	public Boolean isDead() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }
