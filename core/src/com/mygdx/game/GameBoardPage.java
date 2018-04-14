@@ -104,6 +104,7 @@ public class GameBoardPage implements Screen {
 		if (cardPicked)
 		{
 			game.achievementMap.put("Card Picked!", 1);
+			game.achievementMap.put("Played a Game!", 1);
 			new AchievementThread(game);
 		}
 	}
