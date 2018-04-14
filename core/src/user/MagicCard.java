@@ -77,18 +77,69 @@ public class MagicCard extends Card{
 		}
 	}
 
+	public void AstroAttack() {
+		
+		switch (state) {
+		case Scorpio:
+			break;
+		case Sagittarius:
+			//
+			break;
+		case Capricorn:
+			
+			break;
+		case Aquarius:
+			
+			break;
+		case Pisces:
+			
+			break;
+		case Aries:
+			
+			break;
+		case Taurus:
+
+			break;
+		case Gemini:
+			
+			break;
+		case Cancer:
+			
+			break;
+		case Leo:
+			
+			break;
+		case Virgo:
+			
+			break;
+		case Libra:
+			
+			break;
+		default:
+			break;
+		}
+	}
+	
 	public void AstroEffect() {
 		
 		switch (state) {
 		case Scorpio:
 			// need player turn
-			if (true && turnCounter != 0) {
+			if (User.get_player().get_turn() && turnCounter != 0) {
 				turnCounter--;
 				// need player hp to increase by 2;
+				User.get_player().set_hp(User.get_player().get_hp() + 2);
 			}
 			break;
 		case Sagittarius:
-			//
+			if (User.get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
+				Random rand = null;
+				int min = 1;
+				int max = User.get_player().getPlayerBoard().size() - 1;
+				int randomNum = rand.nextInt((max - min) + 1) + min;
+				
+				User.get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(0);
+			}
 			break;
 		case Capricorn:
 			if (User.get_player().getOpponent().getOpponentHand().isEmpty() == false) {
@@ -142,8 +193,18 @@ public class MagicCard extends Card{
 			}
 			break;
 		case Leo:
+			if (User.get_player().getOpponentBoard().isEmpty() == false) {
+				Random rand = null;
+				int min = 1;
+				int max = User.get_player().getPlayerBoard().size() - 1;
+				int randomNum = rand.nextInt((max - min) + 1) + min;
+				
+				User.get_player().getOpponent().getOpponentHand().add(User.get_player().getOpponentBoard().get(randomNum));
+				User.get_player().getOpponent().getOpponentBoard().remove(randomNum);
+			}
 			break;
 		case Virgo:
+			
 			break;
 		case Libra:
 			Random rand = null;
