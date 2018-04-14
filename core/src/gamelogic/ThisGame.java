@@ -7,6 +7,7 @@ public class ThisGame {
 	private Player p1;
 	private Player p2;
 	private int winner = 0;
+	FireplacePebble game;
 	
 	private Player mPlayer;
 	
@@ -83,7 +84,8 @@ public class ThisGame {
 	}
 	
 	
-	public void loadDefaultDeck() {
+	public void loadDefaultDeck(FireplacePebble game) {
+		this.game = game;
 		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.mySpriteList.get(8));
 		CreatureCard oxCard = new CreatureCard(3, 1, 2, "ox", Assets.mySpriteList.get(5));
 		CreatureCard tigerCard = new CreatureCard(3, 1, 2, "tiger", Assets.mySpriteList.get(11));
@@ -98,18 +100,18 @@ public class ThisGame {
 		CreatureCard pigCard = new CreatureCard(3, 1, 2, "pig", Assets.mySpriteList.get(6));
 		
 		///
-		MagicCard Scorpio = new MagicCard(2, 2, 0, "Scorpio", Assets.mySpriteList.get(21));
-		MagicCard Sagittarius = new MagicCard(2, 4, 0, "Sagittarius", Assets.mySpriteList.get(20));
-		MagicCard Capricorn = new MagicCard(0, 3, 0, "Capricorn", Assets.mySpriteList.get(15));
-		MagicCard Aquarius = new MagicCard(0, 4, 0, "Aquarius", Assets.mySpriteList.get(12));
-		MagicCard Pisces = new MagicCard(0, 2, 0, "Pisces", Assets.mySpriteList.get(19));
-		MagicCard Aries = new MagicCard(0, 3, 5, "Aries", Assets.mySpriteList.get(13));
-		MagicCard Taurus = new MagicCard(0, 3, 3, "Taurus", Assets.mySpriteList.get(22));
-		MagicCard Gemini = new MagicCard(0, 4, 0, "Gemini", Assets.mySpriteList.get(16));
-		MagicCard Cancer = new MagicCard(0, 2, 0, "Cancer", Assets.mySpriteList.get(14));
-		MagicCard Leo = new MagicCard(0, 2, 0, "Leo", Assets.mySpriteList.get(17));
-		MagicCard Virgo = new MagicCard(2, 1, 0, "Virgo", Assets.mySpriteList.get(23));
-		MagicCard Libra = new MagicCard(0, 2, 1, "Libra", Assets.mySpriteList.get(18));
+		MagicCard Scorpio = new MagicCard(2, 2, 0, "Scorpio", Assets.mySpriteList.get(21), this.game);
+		MagicCard Sagittarius = new MagicCard(2, 4, 0, "Sagittarius", Assets.mySpriteList.get(20), this.game);
+		MagicCard Capricorn = new MagicCard(0, 3, 0, "Capricorn", Assets.mySpriteList.get(15), this.game);
+		MagicCard Aquarius = new MagicCard(0, 4, 0, "Aquarius", Assets.mySpriteList.get(12), this.game);
+		MagicCard Pisces = new MagicCard(0, 2, 0, "Pisces", Assets.mySpriteList.get(19), this.game);
+		MagicCard Aries = new MagicCard(0, 3, 5, "Aries", Assets.mySpriteList.get(13), this.game);
+		MagicCard Taurus = new MagicCard(0, 3, 3, "Taurus", Assets.mySpriteList.get(22), this.game);
+		MagicCard Gemini = new MagicCard(0, 4, 0, "Gemini", Assets.mySpriteList.get(16), this.game);
+		MagicCard Cancer = new MagicCard(0, 2, 0, "Cancer", Assets.mySpriteList.get(14), this.game);
+		MagicCard Leo = new MagicCard(0, 2, 0, "Leo", Assets.mySpriteList.get(17), this.game);
+		MagicCard Virgo = new MagicCard(2, 1, 0, "Virgo", Assets.mySpriteList.get(23), this.game);
+		MagicCard Libra = new MagicCard(0, 2, 1, "Libra", Assets.mySpriteList.get(18), this.game);
 		
 		
 		

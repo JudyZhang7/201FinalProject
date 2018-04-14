@@ -3,7 +3,10 @@ package user;
 import java.util.Random;
 import gamelogic.*;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.FireplacePebble;
+import com.mygdx.game.GameBoardPage;
 
 public class MagicCard extends Card{
 	private int _hpRep;
@@ -12,7 +15,7 @@ public class MagicCard extends Card{
 	private String _astrological;
 	private Sprite _mSprite;
 	private Astro state;
-	
+	private FireplacePebble game;
 	private int turnCounter;
 	
 	private static enum Astro {
@@ -30,8 +33,9 @@ public class MagicCard extends Card{
 		Libra;
 	}
 	
-	public MagicCard(int hp, int damage, int manaCost, String cre, Sprite sprite) {
+	public MagicCard(int hp, int damage, int manaCost, String cre, Sprite sprite, FireplacePebble game) {
 		super(type);
+		this.game = game;
 		_hpRep = hp;
 		_damage = damage;
 		_manaCost = manaCost;
@@ -125,82 +129,82 @@ public class MagicCard extends Card{
 		switch (state) {
 		case Scorpio:
 			// need player turn
-			if (User.get_player().get_turn() && turnCounter != 0) {
+			if (game.getUser().get_player().get_turn() && turnCounter != 0) {
 				turnCounter--;
 				// need player hp to increase by 2;
-				User.get_player().set_hp(User.get_player().get_hp() + 2);
+				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() + 2);
 			}
 			break;
 		case Sagittarius:
-			if (User.get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
+			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getPlayerBoard().size() - 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 				
-				User.get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(0);
+				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(0);
 			}
 			break;
 		case Capricorn:
-			if (User.get_player().getOpponent().getOpponentHand().isEmpty() == false) {
+			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getOpponent().getmHand().size() - 1;
+				int max = game.getUser().get_player().getOpponent().getmHand().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
-				User.get_player().getOpponent().getOpponentHand().remove(randomNum);
+				game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
 			}
 			break;
 		case Aquarius:
-			int boardSize = User.get_player().getOpponent().getOpponentBoard().size();
+			int boardSize = game.getUser().get_player().getOpponent().getOpponentBoard().size();
 			for (int i = 0; i < boardSize; i++) {
-				User.get_player().getOpponent().getOpponentBoard().get(i).setLife(User.get_player().getOpponent().getOpponentBoard().get(i).getLife() - 1);
+				game.getUser().get_player().getOpponent().getOpponentBoard().get(i).setLife(game.getUser().get_player().getOpponent().getOpponentBoard().get(i).getLife() - 1);
 			}
 			break;
 		case Pisces:
-			if (User.get_player().getPlayerBoard().isEmpty() == false) {
+			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getPlayerBoard().size() - 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
-				User.get_player().getPlayerBoard().get(randomNum).setLife(User.get_player().getPlayerBoard().get(randomNum).getLife() * 2);
+				game.getUser().get_player().getPlayerBoard().get(randomNum).setLife(game.getUser().get_player().getPlayerBoard().get(randomNum).getLife() * 2);
 			}
 			break;
 		case Aries:
 			_damage += 5;
-			User.get_player().set_hp(User.get_player().get_hp() - 5);
+			game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() - 5);
 			// damage player by 5
 			break;
 		case Taurus:
 			_damage += 3;
 			break;
 		case Gemini:
-			if (User.get_player().getPlayerBoard().isEmpty() == false) {
+			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getPlayerBoard().size() - 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
-				User.get_player().getPlayerBoard().add(User.get_player().getPlayerBoard().get(randomNum));
+				game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getPlayerBoard().get(randomNum));
 			}
 			break;
 		case Cancer:
-			if (User.get_player().getOpponent().getOpponentHand().isEmpty() == false) {
+			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getPlayerBoard().size() - 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
-				User.get_player().getmHand().add(User.get_player().getOpponent().getOpponentHand().get(randomNum));
-				User.get_player().getOpponent().getOpponentHand().remove(randomNum);
+				game.getUser().get_player().getmHand().add(game.getUser().get_player().getOpponent().getOpponentHand().get(randomNum));
+				game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
 			}
 			break;
 		case Leo:
-			if (User.get_player().getOpponentBoard().isEmpty() == false) {
+			if (game.getUser().get_player().getOpponentBoard().isEmpty() == false) {
 				Random rand = null;
 				int min = 1;
-				int max = User.get_player().getPlayerBoard().size() - 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 				
-				User.get_player().getOpponent().getOpponentHand().add(User.get_player().getOpponentBoard().get(randomNum));
-				User.get_player().getOpponent().getOpponentBoard().remove(randomNum);
+				game.getUser().get_player().getOpponent().getOpponentHand().add(game.getUser().get_player().getOpponentBoard().get(randomNum));
+				game.getUser().get_player().getOpponent().getOpponentBoard().remove(randomNum);
 			}
 			break;
 		case Virgo:
@@ -224,4 +228,12 @@ public class MagicCard extends Card{
 	}
 //	private int damage;
 //	private int heal;
+
+	public FireplacePebble getGame() {
+		return game;
+	}
+
+	public void setGame(FireplacePebble game) {
+		this.game = game;
+	}
 }
