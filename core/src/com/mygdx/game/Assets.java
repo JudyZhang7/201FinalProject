@@ -25,41 +25,39 @@ public class Assets {
 		mySpriteList = new ArrayList<Sprite>();
 		myTexturesList = new ArrayList<Texture>();
 		
-		loadWithString("Zodiac/Dog.png");
-		loadWithString("Zodiac/Dragon.png");
-		loadWithString("Zodiac/Goat.png");
-		loadWithString("Zodiac/Horse.png");
-		loadWithString("Zodiac/Monkey.png");
-		loadWithString("Zodiac/OX.png");
-		loadWithString("Zodiac/Pig.png");
-		loadWithString("Zodiac/Rabbit.png");
-		loadWithString("Zodiac/RAT.png");
-		loadWithString("Zodiac/Rooster.png");
-		loadWithString("Zodiac/Snake.png");
-		loadWithString("Zodiac/Tiger.png");
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Dog.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Dragon.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Goat.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Horse.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Monkey.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/OX.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Pig.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Rabbit.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/RAT.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Rooster.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Snake.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Tiger.png")));
 		
 		//
-		loadWithString("Astro/[D]Card-Aquarius.png");
-		loadWithString("Astro/[D]Card-Aries.png");
-		loadWithString("Astro/[D]Card-Cancer.png");
-		loadWithString("Astro/[D]Card-Capricorn.png");
-		loadWithString("Astro/[D]Card-Gemini.png");
-		loadWithString("Astro/[D]Card-Leo.png");
-		loadWithString("Astro/[D]Card-Libra.png");
-		loadWithString("Astro/[D]Card-Pisces.png");
-		loadWithString("Astro/[D]Card-Sagittarius.png");
-		loadWithString("Astro/[D]Card-Scorpio.png");
-		loadWithString("Astro/[D]Card-Taurus.png");
-		loadWithString("Astro/[D]Card-Virgo.png");
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Aquarius.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Aries.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Cancer.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Capricorn.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Gemini.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Leo.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Libra.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Pisces.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Sagittarius.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Scorpio.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Taurus.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Virgo.png")));
 		//
 		
-		loadWithString("Action/[D]DoubleDamage.png");
-		loadWithString("Action/[D]Heal.png");
-		loadWithString("Action/[D]Preparation.png");
-		loadWithString("Action/[D]Shield.png");
-		loadWithString("Action/[D]Weapon.png");
-		
-		
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]DoubleDamage.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Heal.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Preparation.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Shield.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Weapon.png")));
 	}
 	
 	public static void loadWithString(String textureName) {
