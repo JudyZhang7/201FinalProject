@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import gamelogic.ThisGame;
+import user.Player;
+
 public class StartGameScreen implements Screen {
 	private Stage stage;
 	private FireplacePebble game;
@@ -53,9 +56,9 @@ public class StartGameScreen implements Screen {
 		btnViewProfile.setSize(225, 75);
 		
 		//Start button
-		TextButton btnStart = new TextButton("Start", textSkin);
-		btnStart.setPosition(550, 350);
-		btnStart.setSize(200, 50);
+//		TextButton btnStart = new TextButton("Start", textSkin);
+//		btnStart.setPosition(550, 350);
+//		btnStart.setSize(200, 50);
 		
 		//Listeners
 		btnViewDeck.addListener(new ClickListener(){
@@ -70,53 +73,59 @@ public class StartGameScreen implements Screen {
 				btnViewProfileClicked();
 			}
 		});
-		btnStart.addListener(new ClickListener(){
+//		btnStart.addListener(new ClickListener(){
+//			@Override
+//			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//				btnStartClicked();
+//			}
+//		});
+		
+		//PLAY WITH COMPUTER
+		TextButton computer = new TextButton("Play with Computer", textSkin);
+		computer.setPosition(w/14, 4*h/6);
+		computer.setSize(200, 60);
+		stage.addActor(computer);
+		
+		computer.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnStartClicked();
-			}
-		});
-		btnViewDeck.addListener(new ClickListener(){
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnViewDeckClicked();
+				startGameWithComputer();
 			}
 		});
 		
-		//Adding players
-		if(numPlayers != 0) {
-			TextButton p1 = new TextButton("Simon\n\nLevel 2\n\n0 Wins /10 Losses", textSkin);
-			p1.setPosition(75, 400);
-			p1.setSize(300, 150);
-			stage.addActor(p1);
-			
-			p1.addListener(new ClickListener(){
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-					btnp1Clicked();
-				}
-			});
-		}
-		if(numPlayers == 2) {
-			TextButton p2 = new TextButton("", textSkin);
-			p2.setPosition(75, 200);
-			p2.setSize(300, 150);
-			stage.addActor(p2);
-			
-			p2.addListener(new ClickListener(){
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-					btnp2Clicked();
-				}
-			});
-		}
-
+//	Adding players
+//		if(numPlayers != 0) {
+//			TextButton p1 = new TextButton("", textSkin);
+//			p1.setPosition(w/4, h/2);
+//			p1.setSize(300, 150);
+//			stage.addActor(p1);
+//			
+//			p1.addListener(new ClickListener(){
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//					btnp1Clicked();
+//				}
+//			});
+//		}
+//		if(numPlayers == 2) { //what's this?
+//			TextButton p2 = new TextButton("", textSkin);
+//			p2.setPosition(w/4, h/3);
+//			p2.setSize(300, 150);
+//			stage.addActor(p2);
+//			
+//			p2.addListener(new ClickListener(){
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//					btnp2Clicked();
+//				}
+//			});
+//		}
+		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
-		stage.addActor(btnStart);
+//		stage.addActor(btnStart);
 	}
 	
-
 	public void btnViewDeckClicked() {
 		game.setScreen(new DeckScreen(game));
 	}
@@ -126,7 +135,13 @@ public class StartGameScreen implements Screen {
 	}
 	
 	public void btnStartClicked() {
-		game.setScreen(new GameBoardPage(game)); // Go to the login page
+
+	}
+	
+	public void startGameWithComputer() {
+		Player computerPlayer = new Player();
+		//or game could just have a default computer player thing
+		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page
 	}
 	
 	public void btnp1Clicked() {
@@ -152,7 +167,7 @@ public class StartGameScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		batch.begin();
-		headfont.draw(batch, "Start a New Game", w/3, 5*h/6);
+		headfont.draw(batch, "Start a New Game", w/3, h/2);
 		bodyfont.draw(batch, "Players looking for games", w/13, 7*h/9);
 		batch.end();
 	}

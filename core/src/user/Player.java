@@ -16,13 +16,37 @@ public class Player implements Serializable{
 	private User myUser;
 	private Boolean newPlayer;
 	private int handSize;
+	public ArrayList<Card> getmHand() {
+		return mHand;
+	}
+
+	public void setmHand(ArrayList<Card> mHand) {
+		this.mHand = mHand;
+	}
+
 	private ArrayList<Card> mHand;
+	private ArrayList<Card> opponentHand;
+	private Player opponent;
 	
 	private ArrayList<Card> playerBoard;
+	public ArrayList<Card> getPlayerBoard() {
+		return playerBoard;
+	}
+
+	public void setPlayerBoard(ArrayList<Card> playerBoard) {
+		this.playerBoard = playerBoard;
+	}
+
 	private ArrayList<Card> opponentBoard;
 	
-	public Player() {}
+	public Player(int hp, int mana) {
+		_hp = hp;
+		_mana = mana;
+	}
 	
+	public Player () {
+		
+	}
 	public Boolean isNew() {
 		return newPlayer;
 	}
@@ -118,5 +142,30 @@ public class Player implements Serializable{
 		// player has to remove card from hand
 		mHand.remove(null);
 	}
+
+	public Player getOpponent() {
+		return opponent;
+	}
+
+	public void setOpponent(Player opponent) {
+		this.opponent = opponent;
+	}
+
+	public ArrayList<Card> getOpponentBoard() {
+		return opponentBoard;
+	}
+
+	public void setOpponentBoard(ArrayList<Card> opponentBoard) {
+		this.opponentBoard = opponentBoard;
+	}
+
+	public ArrayList<Card> getOpponentHand() {
+		return opponentHand;
+	}
+
+	public void setOpponentHand(ArrayList<Card> opponentHand) {
+		this.opponentHand = opponentHand;
+	}
+	
 }
 

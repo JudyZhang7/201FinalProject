@@ -19,7 +19,6 @@ public class FireplacePebble extends Game{
 	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;
-	
 	public BitmapFont titlefont128;
 	public BitmapFont titlefont64;
 	public BitmapFont regfont32;
