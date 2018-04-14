@@ -61,7 +61,7 @@ public class GameBoardPage implements Screen {
 		stage = new Stage();
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
         font = game.regfont32();
-        font.setColor(Color.WHITE);
+        font.setColor(Color.BLACK);
 		Gdx.input.setInputProcessor(stage);		
 		// End Turn button setup
 		endTurnButton = new TextButton("END TURN", skin);
@@ -125,22 +125,31 @@ public class GameBoardPage implements Screen {
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
 	}
-	public void endTurnButtonClicked() {
-		font.draw(batch, "Username", w/3, (h)/2 + buttonHeight/4);
+	
+	public boolean endTurnButtonClicked() {
+		batch.begin();
+		font.draw(batch, "Healthfds - " + (player.get_hp()-1), w/8, (h)/6 + buttonHeight/2);
+		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
+		
+		//OPPONENT
+		font.draw(batch, "Health - " + otherPlayer.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
+		font.draw(batch, "Mana - " + otherPlayer.get_mana(), 6*w/8, (5*h)/6);
+		batch.end();
+		return true;
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		texture = new Texture("GamePage.png");
 		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
-		batch.begin();
-		
+
 		player = game.getUser().get_player();
 		otherPlayer = game.getUser().get_player();
 		
+		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
 		
 		font.draw(batch, "Health - " + player.get_hp(), w/8, (h)/6 + buttonHeight/2);
 		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
