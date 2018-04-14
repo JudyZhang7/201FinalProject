@@ -57,8 +57,12 @@ public class ActionCard extends Card {
 		}
 	}
 
-	public void ActionEffect(Player you, Player opponent, CreatureCard opponentCreature)
+	public Boolean ActionEffect(Player you, Player opponent, CreatureCard opponentCreature)
 	{
+		if(mPlayer.get_mana() - _mana < 0)  {
+			return false;
+		}
+		
 		switch(state) {
 		case Weapon:
 			opponent.set_hp(opponent.get_hp() - _damage);
@@ -84,6 +88,9 @@ public class ActionCard extends Card {
 			this.ACTIONDEAD = isDead();
 			break;
 		}
+		
+		mPlayer.set_mana(mPlayer.get_mana() - _mana);
+		return true;
 	}
 	
 	public void set_damageOpponentDoes(int damage ) {
