@@ -152,10 +152,12 @@ public class CreatureCard extends Card {
 		
 		if(attackValue < 0) {
 			target.setHP(0);
+			opponent.set_hp(opponent.get_hp() + attackValue - effectValue);
 		}
 		else if(attackValue == 0) {
 			target.setHP(attackValue);
 			//damage opponent
+			opponent.set_hp(opponent.get_hp() - effectValue);
 		}
 		else {
 			target.setHP(attackValue);
