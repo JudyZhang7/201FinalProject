@@ -76,10 +76,10 @@ public class ThisGame {
 			((CreatureCard)selected).Attack((CreatureCard)target, target.getmPlayer());
 		}
 		else if(selectedtype.equalsIgnoreCase("magic")) {
-			((MagicCard)selected).Attack((CreatureCard)target, target.getmPlayer());
+			((MagicCard)selected).AstroEffect();
 		}
 		else if(selectedtype.equalsIgnoreCase("action")) {
-			
+			((ActionCard)selected).ActionEffect(selected.getmPlayer(), target.getmPlayer(), (CreatureCard)target);
 		}
 	}
 	
