@@ -19,6 +19,7 @@ public class MagicCard extends Card{
 	private int turnCounter;
 	private Texture _texture;
 	private Boolean ADEAD;
+	private CardType _cardtype;
 	
 	private static enum Astro {
 		Scorpio,
@@ -284,5 +285,10 @@ public class MagicCard extends Card{
 	@Override
 	public String getCardname() {
 		return _astrological;
+	}
+
+	@Override
+	public CardType getType() {
+		return _cardtype;
 	}
 }
