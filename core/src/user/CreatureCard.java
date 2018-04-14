@@ -183,6 +183,32 @@ public class CreatureCard extends Card {
 				effectValue = 0;
 			}
 			
+			if(target.getState() == _Creature.goat) {
+				int retaliation = this.getHP() - effectValue;
+				if(retaliation < 0) {
+					this.setHP(0);
+					mPlayer.set_hp(mPlayer.get_hp() + retaliation);
+				}
+				else {
+					this.setHP(retaliation);
+				}
+			}
+			else {
+				
+			}
+			
+			if(target.getState() == _Creature.dog && target.getTargetedFirst() && target.getHP() != 0) {
+				int retaliation = this.getHP() - 2;
+				if(retaliation < 0) {
+					this.setHP(0);
+					mPlayer.set_hp(mPlayer.get_hp() + retaliation);
+				}
+				else {
+					this.setHP(retaliation);
+				}
+			}
+			
+			
 		}
 		
 		if(this.getState() == _Creature.monkey) {
@@ -190,6 +216,9 @@ public class CreatureCard extends Card {
 				mPlayer.set_hp(mPlayer.get_hp() + 1);
 			}
 		}
+		
+		firstTurn = false;
+		target.setTargetedFirst(false);
 	}
 	
 }
