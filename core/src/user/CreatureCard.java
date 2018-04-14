@@ -6,13 +6,6 @@ public class CreatureCard extends Card {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7502974519273870078L;
-	private int _hp;
-	private int _damage;
-	private int _manaCost;
-	private Sprite _mSprite;
-	private String creature;
-	
 	private static enum _Creature {
 		rat, 
 		ox, 
@@ -28,14 +21,124 @@ public class CreatureCard extends Card {
 		pig;
 	}
 	
-	
+	private static final long serialVersionUID = 7502974519273870078L;
+	private int _hp;
+	private int _maxhp;
+	private int _damage;
+	private int _manaCost;
+	private Sprite _mSprite;
+	private _Creature state;
+	private Boolean burn;
+	private Boolean targetedFirst;
+	private Boolean firstTurn;
+
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Sprite sprite) {
 		super(type);
 		_hp = hp;
+		_maxhp = hp;
 		_damage = damage;
 		_manaCost = manaCost;
-		creature = cre;
+		//creature = cre;
 		_mSprite = sprite;
+		burn = false;
+		targetedFirst = true;
+		firstTurn = true;
+		
+		if(cre.equalsIgnoreCase("rat")) {
+			state = _Creature.rat;
+		}
+		else if(cre.equalsIgnoreCase("ox")) {
+			state = _Creature.ox;
+		}
+		else if(cre.equalsIgnoreCase("tiger")) {
+			state = _Creature.tiger;
+		}
+		else if(cre.equalsIgnoreCase("rabbit")) {
+			state = _Creature.rabbit;
+		}
+		else if(cre.equalsIgnoreCase("dragon")) {
+			state = _Creature.dragon;
+		}
+		else if(cre.equalsIgnoreCase("snake")) {
+			state = _Creature.snake;
+		}
+		else if(cre.equalsIgnoreCase("horse")) {
+			state = _Creature.horse;
+		}
+		else if(cre.equalsIgnoreCase("goat")) {
+			state = _Creature.goat;
+		}
+		else if(cre.equalsIgnoreCase("monkey")) {
+			state = _Creature.monkey;
+		}
+		else if(cre.equalsIgnoreCase("rooster")) {
+			state = _Creature.rooster;
+		}
+		else if(cre.equalsIgnoreCase("dog")) {
+			state = _Creature.dog;
+		}
+		else if(cre.equalsIgnoreCase("pig")) {
+			state = _Creature.pig;
+		}
+	}
+	
+	public _Creature getState() {
+		return state;
+	}
+	public Boolean getBurn() {
+		return burn;
+	}
+	public void burn() {
+		burn = true;
+	}
+	public Boolean getTargetedFirst() {
+		return targetedFirst;
+	}
+	public Boolean getFirstTurn() {
+		return firstTurn;
+	}
+	public int getHP() {
+		return _hp;
+	}
+	
+	
+	@Override
+	public void Attack(CreatureCard target, Player opponent) {
+		int attackValue = target.getHP() - _damage;
+		int effectValue = 0;
+		
+		switch(state) {
+		case rat:
+			effectValue = _damage;
+		case ox:
+			_damage += 3;
+			effectValue = _damage;
+		case dragon:
+			target.burn();
+		case horse:
+			if(firstTurn) {
+				effectValue = _damage;
+			}
+		case rooster:
+			_damage *= 2;
+			effectValue = _damage;
+		}
+		
+		if(target.getBurn()) {
+			effectValue += 1;
+		}
+		
+		if(attackValue < 0) {
+			
+		}
+		else if(attackValue == 0) {
+			
+		}
+		else {
+			
+		}
+		
+		
 	}
 	
 }
@@ -123,7 +226,7 @@ public class CreatureCard extends Card {
 ////		}
 //	}
 //	
-//	@Override
+//@Override
 //	public void Attack() {
 //		switch (this.getCardname()) {
 //		case "RAT":
