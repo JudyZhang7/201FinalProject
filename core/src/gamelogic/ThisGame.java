@@ -3,14 +3,14 @@ package gamelogic;
 import user.*;
 import com.mygdx.game.*;
 
-public class Game {
+public class ThisGame {
 	private Player p1;
 	private Player p2;
 	private int winner = 0;
 	
 	private Player mPlayer;
 	
-	public Game(Player first, Player second) {
+	public ThisGame(Player first, Player second) {
 		p1 = first;
 		p2 = second;
 	}

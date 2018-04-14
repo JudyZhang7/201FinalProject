@@ -25,6 +25,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import gamelogic.AchievementThread;
 
 public class GameBoardPage implements Screen {
+	//THE ACTUAL GAME OBJECT
+	private Game currentGame;
+	//THE ACTUAL GAME OBJECT ^^^
+	
 	private Stage stage;
 	private BitmapFont font;
 	private TextButton endTurnButton;
@@ -42,9 +46,10 @@ public class GameBoardPage implements Screen {
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 	
-	public GameBoardPage(FireplacePebble g) {
+	public GameBoardPage(FireplacePebble g, Game cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
+		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
 		stage = new Stage();
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
 		Gdx.input.setInputProcessor(stage);		

@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import user.Player;
+
 public class StartGameScreen implements Screen {
 	private Stage stage;
 	private FireplacePebble game;
@@ -76,41 +78,48 @@ public class StartGameScreen implements Screen {
 				btnStartClicked();
 			}
 		});
-		btnViewDeck.addListener(new ClickListener(){
+		
+		//PLAY WITH COMPUTER
+		TextButton computer = new TextButton("Play with Computer", textSkin);
+		computer.setPosition(w/14, 4*h/6);
+		computer.setSize(200, 60);
+		stage.addActor(computer);
+		
+		computer.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				btnViewDeckClicked();
+				startGameWithComputer();
 			}
 		});
 		
-		//Adding players
-		if(numPlayers != 0) {
-			TextButton p1 = new TextButton("Simon\n\nLevel 2\n\n0 Wins /10 Losses", textSkin);
-			p1.setPosition(75, 400);
-			p1.setSize(300, 150);
-			stage.addActor(p1);
-			
-			p1.addListener(new ClickListener(){
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-					btnp1Clicked();
-				}
-			});
-		}
-		if(numPlayers == 2) {
-			TextButton p2 = new TextButton("", textSkin);
-			p2.setPosition(75, 200);
-			p2.setSize(300, 150);
-			stage.addActor(p2);
-			
-			p2.addListener(new ClickListener(){
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-					btnp2Clicked();
-				}
-			});
-		}
-
+//	Adding players
+//		if(numPlayers != 0) {
+//			TextButton p1 = new TextButton("", textSkin);
+//			p1.setPosition(w/4, h/2);
+//			p1.setSize(300, 150);
+//			stage.addActor(p1);
+//			
+//			p1.addListener(new ClickListener(){
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//					btnp1Clicked();
+//				}
+//			});
+//		}
+//		if(numPlayers == 2) { //what's this?
+//			TextButton p2 = new TextButton("", textSkin);
+//			p2.setPosition(w/4, h/3);
+//			p2.setSize(300, 150);
+//			stage.addActor(p2);
+//			
+//			p2.addListener(new ClickListener(){
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+//					btnp2Clicked();
+//				}
+//			});
+//		}
+		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
 		stage.addActor(btnStart);
@@ -126,7 +135,12 @@ public class StartGameScreen implements Screen {
 	}
 	
 	public void btnStartClicked() {
-		game.setScreen(new GameBoardPage(game)); // Go to the login page
+		Player computerPlayer = new Player();
+		game.setScreen(new GameBoardPage(game, new Game(game.getUser().get_player(), computerPlayer))); // Go to the login page
+	}
+	
+	public void startGameWithComputer() {
+		
 	}
 	
 	public void btnp1Clicked() {

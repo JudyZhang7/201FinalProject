@@ -39,6 +39,7 @@ public class CreateNewDeckScreen implements Screen {
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
+    private int counter;
     private BitmapFont titleFont;
     
     //BACKEND STUFF
@@ -88,10 +89,11 @@ public class CreateNewDeckScreen implements Screen {
 		// cards
 		this.currentUser = game.getUser();
 		
-		int counter = 0;
+		counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
 //				final Card thisCard = fullDeck[counter]; //why is this final?
+				counter++;
 //				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
 //				TextureRegion cardTR = new TextureRegion(cardT);
 //				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
@@ -114,7 +116,11 @@ public class CreateNewDeckScreen implements Screen {
 							newDeck.addCardDeck(cardDeck);
 							currentUser.addDeck(newDeck);
 						}
+//						Card gotCard = cardClicked(thisCard); //get the Card
+						
+						//MUST WRITE A COPY CONSTRUCTOR
 						addCardToDeck(null);
+//						addCardToDeck(gotCard);
 //						if(!addCardToDeck(thisCard)) { //deck is full!
 //							showMessage("Deck is full. \nIt's been created.");
 //							newDeck.addCardDeck(cardDeck);
@@ -166,7 +172,7 @@ public class CreateNewDeckScreen implements Screen {
 	}
 	
 	public void btnBackClicked() {
-		game.setScreen(new ProfileScreen(game));
+		game.setScreen(new DeckScreen(game));
 	}
 	
 	public void btnLoginClicked() {
