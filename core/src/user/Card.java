@@ -35,6 +35,7 @@ public class Card implements Serializable {
 	protected static CardType type;
 	private Boolean onBoard;
 	private String image;
+	protected Player mPlayer;
 	
 	private String img; //name of the image
 	

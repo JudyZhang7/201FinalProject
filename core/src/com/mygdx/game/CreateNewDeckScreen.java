@@ -39,6 +39,7 @@ public class CreateNewDeckScreen implements Screen {
 	int buttonWidth = 60;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
+    private int counter;
     private BitmapFont titleFont;
     
     //BACKEND STUFF
@@ -88,10 +89,11 @@ public class CreateNewDeckScreen implements Screen {
 		// cards
 		this.currentUser = game.getUser();
 		
-		int counter = 0;
+		counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
 //				final Card thisCard = fullDeck[counter]; //why is this final?
+				counter++;
 //				Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
 //				TextureRegion cardTR = new TextureRegion(cardT);
 //				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
@@ -109,11 +111,16 @@ public class CreateNewDeckScreen implements Screen {
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
 						if(numCards == 20) { //deck is full!
+							System.out.println("Deck is full. \nIt's been created." + numCards);
 							showMessage("Deck is full. \nIt's been created.");
 							newDeck.addCardDeck(cardDeck);
 							currentUser.addDeck(newDeck);
 						}
+//						Card gotCard = cardClicked(thisCard); //get the Card
+						
+						//MUST WRITE A COPY CONSTRUCTOR
 						addCardToDeck(null);
+//						addCardToDeck(gotCard);
 //						if(!addCardToDeck(thisCard)) { //deck is full!
 //							showMessage("Deck is full. \nIt's been created.");
 //							newDeck.addCardDeck(cardDeck);
@@ -136,34 +143,36 @@ public class CreateNewDeckScreen implements Screen {
 	}
 	
 	public boolean deckFinished() {
-		if(cardDeck[20] == null) {
+		if(cardDeck[19] == null) {
 			showMessage("Not enough cards!");
 			return false;
 		}
 		newDeck.addCardDeck(cardDeck);
 		currentUser.addDeck(newDeck);
 		//GOOD!
+		System.out.println("Deck created!");
 		showMessage("Deck created!");
 		return true;
 	}
 	
 	public boolean addCardToDeck(Card c) {
 		//update screen to show how many cards selected
+		batch.begin();
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
+		// rendering code
+		batch.end();
+		
 		if(numCards < 20) {
-			batch.begin();
 			numCards++;
-			BitmapFont titleFont64 = game.titlefont64();
-			titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
-			// rendering code
-			batch.end();
-			cardDeck[numCards] = c;
+			cardDeck[numCards-1] = c;
 			return true;
 		}
 		return false;
 	}
 	
 	public void btnBackClicked() {
-		game.setScreen(new ProfileScreen(game));
+		game.setScreen(new DeckScreen(game));
 	}
 	
 	public void btnLoginClicked() {

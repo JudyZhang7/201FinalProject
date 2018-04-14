@@ -8,14 +8,10 @@ import java.util.Map;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
-import gamelogic.AchievementThread;
-import user.AccessSQLDatabase;
 import user.User;
 
 public class FireplacePebble extends Game{
@@ -23,13 +19,11 @@ public class FireplacePebble extends Game{
 	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;
-	
 	public BitmapFont titlefont128;
 	public BitmapFont titlefont64;
 	public BitmapFont regfont32;
 	public BitmapFont regfont20;
 	public BitmapFont regfont16;
-	
     // NEW TOAST
 	public Map<String, Integer> achievementMap = new HashMap<String, Integer>();
     private Toast.ToastFactory toastFactory;
@@ -62,10 +56,12 @@ public class FireplacePebble extends Game{
 //		this.setScreen(new StartGameScreen(this));
 //		this.setScreen(new DeckScreen(this));
 //		this.setScreen(new ProfileScreen(this));
+		int w = Gdx.graphics.getWidth();
+	    int h = Gdx.graphics.getHeight();
 		
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(735).build();
+	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(9*h/10).build();
 //	    // Add achievements here?
 //	    achievementMap.put("Chosen a card!", 1);
 //	    achievementMap.put("Played a Game!", 1);
@@ -73,7 +69,8 @@ public class FireplacePebble extends Game{
 		// TOAST create factory
 
 		//THIS IS THE START
-		this.setScreen(new GameBoardPage(this));
+		this.setScreen(new FrontPage(this));
+		//this.setScreen(new DragAndDropTutorial(this));
 //		this.setScreen(new CreateNewDeckScreen(this));
 		
 	}
