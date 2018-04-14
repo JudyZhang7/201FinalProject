@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -16,11 +17,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.AchievementThread;
 import gamelogic.ThisGame;
@@ -30,6 +33,7 @@ import user.User;
 public class GameBoardPage implements Screen {
 	//THE ACTUAL GAME OBJECT
 	private ThisGame currentGame;
+	//private ArrayList<Card>
 	//THE ACTUAL GAME OBJECT ^^^
 	private Player player;
 	private Player otherPlayer;
@@ -40,6 +44,11 @@ public class GameBoardPage implements Screen {
 	public static Texture texture;
 	public static TextureRegion mainBackground;
 	private SpriteBatch batch = new SpriteBatch();
+	private ArrayList<ImageButton> myCards;
+	private int numCardsRow = 1;
+	private int numCardsCol = 3;
+	private int ch = 125;
+	private int cw = 125;
 	
 	private Skin skin;
 	private FireplacePebble game;
@@ -118,6 +127,63 @@ public class GameBoardPage implements Screen {
 			game.achievementMap.put("Card Picked!", 1);
 			game.achievementMap.put("Played a Game!", 1);
 			new AchievementThread(game);
+		}
+		
+		myCards = new ArrayList<ImageButton>(); // This is the arrayList that stores the cards
+		
+		//stage.setDebugAll(true); // Weird
+		
+		// Create Deck Button
+		
+		Texture DECK_T = new Texture(Gdx.files.internal("Cards/Dog.png"));
+		TextureRegion DECK_TR = new TextureRegion(DECK_T);
+		TextureRegionDrawable DECK_TRD = new TextureRegionDrawable(DECK_TR);
+		ImageButton DeckButton = new ImageButton(DECK_TRD);
+		
+		// Set position of Deck Button to Bottom Right Corner and Clickable
+		System.out.println("w in this computer is: " + w);
+		System.out.println("h in this computer is: " + h);
+		DeckButton.setPosition(cw + (w/2 + 400), h/12); // Should edit to fit others' resolution
+		DeckButton.setSize(cw, ch);
+		DeckButton.addListener(new ClickListener() {
+			@Override
+			public void touchUp(InputEvent e, float x, float y, int point, int button)
+			{
+				System.out.println("Deck Clicked, Draw a Card!");
+			}
+			@Override
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+			{
+				return true;
+			}
+		});
+		stage.addActor(DeckButton);
+		
+		int counter = 0;
+		
+		for (int i = 0; i < numCardsCol; i++) {
+//			final Card thisCard = fullDeck[counter]; //why is this final?
+//			Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
+//			TextureRegion cardTR = new TextureRegion(cardT);
+//			TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+//			ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+				
+			Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+			TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+			TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+			ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
+			/*if (i == 1) // Dog
+			{
+				cardButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("Cards/Dog.png")))));
+			}*/
+			cardButton.setPosition(cw * i + 550, h/4 + 50); // Should edit to fit others' resolution
+			cardButton.setSize(cw, ch);
+			//currCards.setItems(cardButton);
+			myCards.add(cardButton);
+			counter++; //increment the card
+		}
+		for (int i = 0; i < myCards.size(); i++) {
+			stage.addActor(myCards.get(i));
 		}
 	}
 	public void btnBackClicked() {

@@ -49,8 +49,8 @@ public class ThisGame {
 //		yourCard.Attack(opponentCard, opponentCard.getmPlayer()); 
 //	}
 	
-	public void playActionCard(ActionCard yourCard, Player opponent) {
-		
+	public void playActionCard(ActionCard yourCard, Player opponent, CreatureCard opponentCreature) {
+		yourCard.ActionEffect(yourCard.getmPlayer(), opponent, opponentCreature);
 	}
 	
 	public void setWinner(int winner) {
@@ -65,15 +65,30 @@ public class ThisGame {
 		this.mPlayer = mPlayer;
 	}
 
+	public void Act(Card selected, Card target) {
+		String selectedtype = selected.getMytype();
+		String targetedtype = target.getMytype();
+		
+		if(selectedtype.equalsIgnoreCase("creature")) {
+			((CreatureCard)selected).Attack((CreatureCard)target, target.getmPlayer());
+		}
+		else if(selectedtype.equalsIgnoreCase("magic")) {
+			((MagicCard)selected).AstroEffect();
+		}
+		else if(selectedtype.equalsIgnoreCase("action")) {
+			((ActionCard)selected).ActionEffect(selected.getmPlayer(), target.getmPlayer(), (CreatureCard)target);
+		}
+	}
+	
 	public void run() {
 		while(winner == 0) {
-//			p1.Act();
-//			p2.Act();
+			p1.Act();
+			p2.Act();
 			
-			if(p1.get_hp() <= 0) {
+			if(p1.isDead()) {
 				winner = 2;
 			}
-			else if(p2.get_hp() <= 0) {
+			else if(p2.isDead()) {
 				winner = 1;
 			}
 			UpdateWL();
