@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.ThisGame;
 import user.Card;
+import user.CreatureCard;
 import user.Deck;
 import user.User;
 
@@ -118,6 +119,16 @@ public class CreateNewDeckScreen implements Screen {
 //						Card gotCard = cardClicked(thisCard); //get the Card
 						
 						//MUST WRITE A COPY CONSTRUCTOR
+						Card newCard;
+						if (thisCard.getMyType().equals("creature"))
+						{
+							int hp = (CreatureCard)thisCard.getHp();
+							int damage = (CreatureCard)thisCard.getDamage();
+							int manaCost = (CreatureCard)thisCard.getMana();
+							String name = (CreatureCard)thisCard.getName();
+							Texture text = (CreatureCard)thisCard.getTexture();
+							newCard = new CreatureCard (hp, damage, manaCost, name, text);
+						}
 						addCardToDeck(null);
 //						addCardToDeck(gotCard);
 //						if(!addCardToDeck(thisCard)) { //deck is full!
