@@ -54,8 +54,9 @@ public class ActionCard extends Card {
 			opponent.set_hp(opponent.get_hp() - _damage);
 			break;
 		case Shield:
-			// if the opponent/opponent creature is attacking, set their attack damage to 0
-			
+			// check if opponent attacked you
+			// store damage inflicted to add back to your hp
+			// if yes, add the damage the opponent inflicted back into your hp
 			break;
 		case Heal:
 			you.set_hp(you.get_hp() + _hpReplenish);
