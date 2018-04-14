@@ -293,9 +293,4 @@ public class MagicCard extends Card{
 	public String getCardname() {
 		return _astrological;
 	}
-
-	@Override
-	public CardType getType() {
-		return _cardtype;
-	}
 }

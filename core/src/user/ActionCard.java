@@ -111,8 +111,4 @@ public class ActionCard extends Card {
 		return null;
 	}
 
-	@Override
-	public CardType getType() {
-		return _cardtype;
-	}
 }
