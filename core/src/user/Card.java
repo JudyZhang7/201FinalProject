@@ -40,16 +40,10 @@ public abstract class Card implements Serializable {
 	private String image;
 	protected Player mPlayer;
 	protected String mytype;
-	
-<<<<<<< HEAD
-=======
+
 	public String getMytype() {
 		return mytype;
 	}
-
-	private String img; //name of the image
-	
->>>>>>> c41f75a75e3ea53df25b82995ba57318de24f0ff
 	public static enum TargetType {OWNER, 
 								  OPPONENT, 
 								  ANY};

@@ -44,7 +44,7 @@ public class MagicCard extends Card{
 		_astrological = cre;
 
 		//_mSprite = sprite;
-		mytype = "magic";
+//		mytype = "magic";
 		_texture = img;
 		
 		if(cre.equalsIgnoreCase("Scorpio")) {
