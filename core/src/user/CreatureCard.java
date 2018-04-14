@@ -194,7 +194,14 @@ public class CreatureCard extends Card {
 				}
 			}
 			else {
-				
+				int effectiveDamage = target.getHP() - effectValue;
+				if(effectiveDamage < 0) {
+					target.setHP(0);
+					opponent.set_hp(opponent.get_hp() + effectiveDamage);
+				}
+				else {
+					target.setHP(effectiveDamage);
+				}
 			}
 			
 			if(target.getState() == _Creature.dog && target.getTargetedFirst() && target.getHP() != 0) {
