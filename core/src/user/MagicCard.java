@@ -81,7 +81,8 @@ public class MagicCard extends Card{
 		}
 	}
 
-	public void AstroAttack() {
+	@Override
+	public void Attack() {
 		
 		switch (state) {
 		case Scorpio:
@@ -208,14 +209,32 @@ public class MagicCard extends Card{
 			}
 			break;
 		case Virgo:
-			
+			if (game.getUser().get_player().getmHand().isEmpty() == false) {
+				Random rand = null;
+				int min = 1;
+				int max = game.getUser().get_player().getPlayerBoard().size() - 1;
+				int randomNum = rand.nextInt((max - min) + 1) + min;
+				
+				game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getmHand().get(randomNum));
+				game.getUser().get_player().getmHand().remove(randomNum);
+			}
 			break;
 		case Libra:
-			Random rand = null;
-			int min = 1;
-			int max = 4;
-		    int randomNum = rand.nextInt((max - min) + 1) + min;
+			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
+				Random rand = null;
+				int min = 1;
+				int max = 4;
+				int randomNum = rand.nextInt((max - min) + 1) + min;
 		    // randomly select target
+				
+				Random rand1 = null;
+				int min1 = 1;
+				int creatureHP = game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).getLife();
+				int randomNum1 = rand1.nextInt((creatureHP - min1) + 1) + min1;
+
+				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(creatureHP - randomNum1);
+			}
+		    
 			break;
 		default:
 			break;
