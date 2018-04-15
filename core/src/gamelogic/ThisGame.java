@@ -129,10 +129,10 @@ public class ThisGame {
 	}
 	
 	public void GameStart() {
-		if (User.get_Username().equals("Guest")) {
-			// don't load from database
-		}
-		//mPlayer = new Player();
+//		if (User.get_Username().equals("Guest")) {
+//			// don't load from database
+//		}
+//		//mPlayer = new Player();
 	}
 	
 }

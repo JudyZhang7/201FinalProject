@@ -3,6 +3,10 @@ package user;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import user.*;
+import gamelogic.*;
+
+import com.mygdx.game.GameBoardPage;
 
 public class ActionCard extends Card {
 
@@ -24,7 +28,9 @@ public class ActionCard extends Card {
 	private Action state;
 	private static enum Action {
 		Weapon,
+		Weapon2,
 		Heal,
+		Heal2,
 		DoubleDamage,
 		Preparation;
 	}
@@ -91,20 +97,39 @@ public class ActionCard extends Card {
 		
 		switch(state) {
 		case Weapon:
-			opponent.set_hp(opponent.get_hp() - _damage);
-			this.ACTIONDEAD = isDead();
+			if (you.get_mana() >= 3) {
+				opponent.set_hp(opponent.get_hp() - _damage);
+				you.set_mana(you.get_mana() - 3);
+				this.ACTIONDEAD = isDead();
+			}
 			break;
 		case Heal:
-			you.set_hp(you.get_hp() + _hpReplenish);
-			this.ACTIONDEAD = isDead();
+			if (you.get_mana() >= 3) {
+				you.set_hp(you.get_hp() + _hpReplenish);
+				you.set_mana(you.get_mana() - 3);
+				this.ACTIONDEAD = isDead();
+			}
 			break;
-		case DoubleDamage:
-			opponent.set_hp(opponent.get_hp() - 2 * _damage);
-			this.ACTIONDEAD = isDead();
+		case Weapon2:
+			if (you.get_mana() >= 4) {
+				opponent.set_hp(opponent.get_hp() - _damage - _damage);
+				you.set_mana(you.get_mana() - 4);
+				this.ACTIONDEAD = isDead();
+			}
 			break;
-		case Preparation:
-			you.set_mana(you.get_mana() + _mana);
-			this.ACTIONDEAD = isDead();
+//		case Preparation:
+//			if (you.get_mana() >= 3) {
+//				you.set_mana(you.get_mana() + _mana);
+//				you.set_mana(you.get_mana() - 3);
+//				this.ACTIONDEAD = isDead();
+//			}
+//			break;
+		case Heal2:
+			if (you.get_mana() >= 4) {
+				you.set_hp(you.get_hp() + _hpReplenish + _hpReplenish);
+				you.set_mana(you.get_mana() - 4);
+				this.ACTIONDEAD = isDead();
+			}
 			break;
 		}
 		

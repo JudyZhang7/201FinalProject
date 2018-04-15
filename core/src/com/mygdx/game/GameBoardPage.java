@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -28,6 +29,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import gamelogic.AchievementThread;
 import gamelogic.ThisGame;
 import user.Card;
+import user.CreatureCard;
+import user.MagicCard;
 import user.Player;
 import user.User;
 
@@ -69,8 +72,30 @@ public class GameBoardPage implements Screen {
 		System.out.println("GAME BOARD!");
 		game = g;
 		
+		// Creating a new player for testing
+		Player dummyPlayer = new Player(10);
+		// Max 20 cards in a deck, create that deck in the Player
+		List<Card> dummyDeck = new ArrayList<Card>();
+		// Add 10 GOATS
+		CreatureCard dummyCCard = game.creatureCards.get("goat");
+		for (int i = 0; i < 10; i++)
+		{
+			Card toAdd = new CreatureCard(dummyCCard);
+			dummyDeck.add(toAdd);
+		}
+		// Add 10 Libras
+		MagicCard dummyMCard = game.magicCards.get("libra");
+		for (int i = 0; i < 10; i++)
+		{
+			Card toAdd = new MagicCard(dummyMCard);
+			dummyDeck.add(toAdd);
+		}
+		// Now, we have a deck with 20 cards. Add it to the Player
+		dummyPlayer.set_cardDeck(dummyDeck);
+		this.player = dummyPlayer;
+		
 		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
-		this.player = currentGame.getP1();
+//		this.player = currentGame.getP1();
 		this.otherPlayer = currentGame.getP2();
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
         font = game.regfont32();
@@ -138,7 +163,7 @@ public class GameBoardPage implements Screen {
 		
 		//stage.setDebugAll(true); // Weird
 		
-		// DECK BUTTON
+		// DECK BUTTON BELOW
 		// Create Deck Button
 		Texture DECK_T = new Texture(Gdx.files.internal("Cards/Dog.png")); // Make this deck picture
 		TextureRegion DECK_TR = new TextureRegion(DECK_T);
@@ -163,48 +188,47 @@ public class GameBoardPage implements Screen {
 			}
 		});
 		stage.addActor(DeckButton);
-		// DECK BUTTON
+		// DECK BUTTON ABOVE
 		
-		// HAND BUTTONS
+		// HAND BUTTONS BELOW
 		// Draw the first 5 cards
-//		for (int i = 1; i <= 5; i++)
-//		{
-//			currentGame.getmPlayer().drawCards();
-//		}
-//		// Get the Hand
-//		ArrayList<Card> currHand = currentGame.getmPlayer().getmHand();
-//		// Get the Textures of the cards to output them
-//		for (int i = 0; i < currHand.size(); i++)
-//		{
-//			final Card cardToAddToGameBoard = currHand.get(i);
-//			Texture currCard = currHand.get(i).getTexture();
-//			TextureRegion TEMP_C = new TextureRegion(currCard);
-//			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
-//			final ImageButton HandButton = new ImageButton(TEMP_CARD);
-//			HandButton.setPosition(cw * i + (w/2 + 200), h/12); 
-//			HandButton.setSize(cw, ch);
-//			HandButton.addListener(new ClickListener() {
-//				@Override
-//				public void touchUp(InputEvent e, float x, float y, int point, int button)
-//				{
-//					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
-//					HandButtonClicked(cardToAddToGameBoard, HandButton);
-//				}
-//				@Override
-//				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
-//				{
-//					return true;
-//				}
-//			});
-//			handImages.add(HandButton);
-//		}
-//		for (int i = 0; i < handImages.size(); i++) 
-//		{
-//			stage.addActor(handImages.get(i));
-//		}
-		// HAND BUTTONS
-		// When user enters a game, here are the cards drawn and on the hand. No cards on the
-		// gameboard yet
+		for (int i = 1; i <= 5; i++)
+		{
+			dummyPlayer.drawCards();
+		}
+		// Get the Hand
+		ArrayList<Card> currHand = dummyPlayer.getmHand();
+		// Get the Textures of the cards to output them
+		for (int i = 0; i < currHand.size(); i++)
+		{
+			final Card cardToAddToGameBoard = currHand.get(i);
+			Texture currCard = currHand.get(i).getTexture();
+			TextureRegion TEMP_C = new TextureRegion(currCard);
+			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+			final ImageButton HandButton = new ImageButton(TEMP_CARD);
+			HandButton.setPosition(cw * i + (w/2 + 200), h/12); 
+			HandButton.setSize(cw, ch);
+			HandButton.addListener(new ClickListener() {
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button)
+				{
+					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
+					HandButtonClicked(cardToAddToGameBoard, HandButton);
+				}
+				@Override
+				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+				{
+					return true;
+				}
+			});
+			handImages.add(HandButton);
+		}
+		for (int i = 0; i < handImages.size(); i++) 
+		{
+			stage.addActor(handImages.get(i));
+		}
+		// HAND BUTTONS ABOVE
+		// WHEN USER ENTERS A GAME, HERE ARE THE CARDS DRAWN AND ON THE HAND. NO CARDS ON THE GAMEBOARD YET
 		
 //		// GameBoard Cards
 //		// Get your GameBoard, and get the Opponent's Gameboard
@@ -267,43 +291,43 @@ public class GameBoardPage implements Screen {
 //		{
 //			stage.addActor(opponentImages.get(i));
 //		}
-		myCards = new ArrayList<ImageButton>(); // This is the arrayList that stores the cards
-		int counter = 0;
-		
-		for (int i = 0; i < numCardsCol; i++) {
-//			final Card thisCard = fullDeck[counter]; //why is this final?
-//			Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
-//			TextureRegion cardTR = new TextureRegion(cardT);
-//			TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-//			ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
-				
-			Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
-			TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
-			TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
-			final ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
-
-			cardButton.setPosition(cw * i + (w/2 + 100), h/12); // Hand Position
-			cardButton.setSize(cw, ch);
-			cardButton.addListener(new ClickListener() {
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button)
-				{
-					System.out.println("Clicked!");
-					HandButtonClicked(null, cardButton);
-				}
-				@Override
-				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
-				{
-					return true;
-				}
-			});
-			//currCards.setItems(cardButton);
-			myCards.add(cardButton);
-			counter++; //increment the card
-		}
-		for (int i = 0; i < myCards.size(); i++) {
-			stage.addActor(myCards.get(i));
-		}
+//		myCards = new ArrayList<ImageButton>(); // This is the arrayList that stores the cards
+//		int counter = 0;
+//		
+//		for (int i = 0; i < numCardsCol; i++) {
+////			final Card thisCard = fullDeck[counter]; //why is this final?
+////			Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
+////			TextureRegion cardTR = new TextureRegion(cardT);
+////			TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+////			ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+//				
+//			Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+//			TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+//			TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+//			final ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
+//
+//			cardButton.setPosition(cw * i + (w/2 + 100), h/12); // Hand Position
+//			cardButton.setSize(cw, ch);
+//			cardButton.addListener(new ClickListener() {
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button)
+//				{
+//					System.out.println("Clicked!");
+//					HandButtonClicked(null, cardButton);
+//				}
+//				@Override
+//				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+//				{
+//					return true;
+//				}
+//			});
+//			//currCards.setItems(cardButton);
+//			myCards.add(cardButton);
+//			counter++; //increment the card
+//		}
+//		for (int i = 0; i < myCards.size(); i++) {
+//			stage.addActor(myCards.get(i));
+//		}
 	}
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
