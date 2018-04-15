@@ -84,8 +84,12 @@ public class ThisGame {
 	
 	public void run() {
 		while(winner == 0) {
+			// if player-card interaction chosen
 			p1.Act(p2, p1Card);
 			p2.Act(p1, p2Card);
+			// if card-card interaction chosen
+			Act(p1Card, p2Card);
+			Act(p2Card, p1Card);
 			
 			if(p1.isDead()) {
 				winner = 2;

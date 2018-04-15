@@ -18,7 +18,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import user.ActionCard;
 import user.Card;
 import user.CreatureCard;
+import user.Decks;
 import user.MagicCard;
+import user.Player;
 import user.User;
 
 public class FireplacePebble extends Game{
@@ -126,6 +128,9 @@ public class FireplacePebble extends Game{
 		return user.getUsername();
 	}
 	
+	public String getCurrentPassword() {
+		return user.get_Password();
+	}
 	public int getCurrentWins() {
 		return (user.get_wins());
 	}
@@ -138,6 +143,12 @@ public class FireplacePebble extends Game{
 		return (user.get_level());
 	}
 	
+	public Player getCurrentPlayer() {
+		return user.get_player();
+	}
+	public Decks getCurrentDecks() {
+		return user.get_decks();
+	}
 	// Displays long toast
 	public void toastLong(String text) 
 	{

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -137,6 +138,7 @@ public class DeckScreen implements Screen {
 		}
 	}
 	public void deckClicked(Card[]c) {
+		currentUser.get_player().set_cardDeck(Arrays.asList(c));
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {

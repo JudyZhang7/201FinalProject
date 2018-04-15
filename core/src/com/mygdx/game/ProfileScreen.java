@@ -20,6 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import user.AddToSQLDatabase;
+import user.Decks;
+import user.Player;
+
 public class ProfileScreen implements Screen 
 {
 	// Private Variables
@@ -29,7 +33,7 @@ public class ProfileScreen implements Screen
 	private BitmapFont usernameFont;
 	private BitmapFont statsFont;
 	private Skin skin;
-	private Image profPic;
+//	private Image profPic;
 	private TextButton startGameButton;
 
 	// Public Variables
@@ -83,6 +87,13 @@ public class ProfileScreen implements Screen
 		stage.addActor(logout);
 	}
 	public void logoutClicked() {
+		if(game.getCurrentUsername().equals("Guest")) {
+			return;
+		}
+		AddToSQLDatabase ATSD = new AddToSQLDatabase();
+
+		//refreshToDatabase(String username, String password, int wins, int losses, int level, Player player, Decks decks) 
+		ATSD.refreshToDatabase(game.getCurrentUsername(), game.getCurrentPassword(), game.getCurrentWins(), game.getCurrentLoses(), game.getCurrentLevel(), game.getCurrentPlayer(), game.getCurrentDecks());
 		game.setUser(null);
 		game.setScreen(new FrontPage(game));
 	}
