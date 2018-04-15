@@ -29,6 +29,35 @@ public class ActionCard extends Card {
 		Preparation;
 	}
 	
+	// Copy Constructor
+	public ActionCard(ActionCard ac)
+	{
+		super(type);
+		_manaCost = ac._manaCost;
+		_damage = ac._damage;
+		_hpReplenish = ac._hpReplenish;
+		_mana = ac._mana;
+		_actionName = ac._actionName;
+		//_mSprite = mSprite;
+		mytype = "action";
+		_texture = ac._texture;
+//		_mSprite = mSprite;
+
+			
+		if(ac._actionName.equalsIgnoreCase("Weapon")) {
+			state = Action.Weapon;
+		}
+		else if(ac._actionName.equalsIgnoreCase("Heal")) {
+			state = Action.Heal;
+		}
+		else if(ac._actionName.equalsIgnoreCase("DoubleDamage")) {
+			state = Action.DoubleDamage;
+		}
+		else if(ac._actionName.equalsIgnoreCase("Preparation")) {
+			state = Action.Preparation;
+		}
+	}
+	
 	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
 		super(type);
 		_manaCost = manaCost;

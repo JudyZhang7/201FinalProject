@@ -35,6 +35,59 @@ public class MagicCard extends Card{
 		Libra;
 	}
 	
+	// Copy Constructor
+	public MagicCard(MagicCard mc)
+	{
+		super(type);
+		this.game = mc.game;
+		_hpRep = mc._hpRep;
+		_damage = mc._damage;
+		_manaCost = mc._manaCost;
+		_astrological = mc._astrological;
+
+		//_mSprite = sprite;
+		mytype = "magic";
+		_texture = mc._texture;
+		
+		if(mc._astrological.equalsIgnoreCase("Scorpio")) {
+			state = Astro.Scorpio;
+			turnCounter = 3;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Sagitarius")) {
+			state = Astro.Sagittarius;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Capricorn")) {
+			state = Astro.Capricorn;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Aquarius")) {
+			state = Astro.Aquarius;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Pisces")) {
+			state = Astro.Pisces;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Aries")) {
+			state = Astro.Aries;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Taurus")) {
+			state = Astro.Taurus;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Gemini")) {
+			state = Astro.Gemini;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Cancer")) {
+			state = Astro.Cancer;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Leo")) {
+			state = Astro.Leo;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Virgo")) {
+			state = Astro.Virgo;
+		}
+		else if(mc._astrological.equalsIgnoreCase("Libra")) {
+			state = Astro.Libra;
+		}
+	}
+	
 	public MagicCard(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
 		super(type);
 		this.game = game;
