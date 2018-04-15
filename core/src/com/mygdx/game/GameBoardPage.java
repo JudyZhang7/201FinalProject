@@ -53,6 +53,9 @@ public class GameBoardPage implements Screen {
 	
 	ArrayList<ImageButton> handImages = new ArrayList<ImageButton>();
 	ArrayList<ImageButton> GameBoardImages = new ArrayList<ImageButton>();
+	private boolean attackInMotion = false;
+	private Card yourCardToAttack = null;
+	private Card opponentCardToAttack = null;
 	
 	private Skin skin;
 	private FireplacePebble game;
@@ -347,7 +350,11 @@ public class GameBoardPage implements Screen {
 	public void deckButtonClicked()
 	{
 		// Draw a card from the deck in thisGame and output it on the Screen.
-		//currentGame.getmPlayer().drawCards();
+		int currHandSize = currentGame.getCurrentPlayer().getmHand().size();
+		if (currHandSize < 5)
+		{
+			currentGame.getCurrentPlayer().drawCards();
+		}
 	}
 	
 	// Hand Button Clicked()
@@ -410,15 +417,30 @@ public class GameBoardPage implements Screen {
 	}
 	
 	// GameBoard Card Clicked
-	public void GameBoardCardClicked()
+	public void GameBoardCardClicked(Card yourCard, ImageButton yourButton)
 	{
 		// Now the user has to click a card on the opponent's Gameboard to attack
+		attackInMotion = true;
+		yourCardToAttack = yourCard;
 	}
 	
 	// GameBoard Card Clicked
-	public void EnemyGameBoardCardClicked()
+	public void EnemyGameBoardCardClicked(Card opponentCard, ImageButton enemyButton)
 	{
 		// the user has to click a card on the opponent's Gameboard to attack
+		if (attackInMotion)
+		{
+			opponentCardToAttack = opponentCard;
+			//currentGame.Act(yourCardToAttack, opponentCardToAttack);
+			// Set the cards to be not null
+			currentGame.setCards(yourCardToAttack, opponentCardToAttack);
+			if (opponentCardToAttack.isDead())
+			{
+				enemyButton.remove();
+			}
+			yourCardToAttack = null;
+			opponentCardToAttack = null;
+		}
 	}
 	
 	@Override
