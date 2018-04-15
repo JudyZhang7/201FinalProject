@@ -20,7 +20,85 @@ public class AddToSQLDatabase
 	 * is not taken, add the new user into the database, with level 1 and 0 wins and losses. 
 	 * If the username is taken, let the new user know that the username is taken, and don't update the
 	 * database */
-	public User addToDatabase(String userToAdd, String passwordToAdd) {
+	public void refreshToDatabase(String username, String password, int wins, int losses, int level, Player player, Decks decks) {
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			String yourPassword = "Equyi86V"; // Write your password here to access the database
+			
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
+			// How to access the database in other users' computers?
+			ps = conn.prepareStatement("DELETE FROM ProjectUserTable " + 
+					" WHERE username=?;");
+			ps.setString(1, username);
+			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("DELETE FROM PlayerObject " + 
+					" WHERE username=?;");
+			ps.setString(1, username);
+			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("DELETE FROM DecksObject " + 
+					" WHERE username=?;");
+			ps.setString(1, username);
+			ps.executeUpdate();
+			
+			ps = conn.prepareStatement(" INSERT INTO ProjectUserTable (username, "
+					+ "userPassword, userLevel, userWins, userLosses) " + " VALUES "
+					+ "(?, ?, ?, ?, ?);");
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setInt(3, level);
+			ps.setInt(4, wins);
+			ps.setInt(5, losses);
+			ps.executeUpdate();
+			
+			STD.serializeJavaObjectToDB(conn, player, username, SQL_SERIALIZE_OBJECT_PLAYER);
+			STD.serializeJavaObjectToDB(conn, decks, username, SQL_SERIALIZE_OBJECT_DECKS);
+			System.out.println("User successfully added!");
+		}
+		catch (SQLException io)
+		{
+			System.out.println("Username taken! Please choose another.");
+			System.out.println("sqle: " + io.getMessage());
+		}
+		catch (ClassNotFoundException io)
+		{
+			System.out.println("cnfe: " + io.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				if (ps != null)
+				{
+					ps.close();
+				}
+				if (rs != null)
+				{
+					rs.close();
+				}
+				if (st != null)
+				{
+					st.close();
+				}
+				if (conn != null)
+				{
+					conn.close();
+				}
+			}
+			catch (SQLException io)
+			{
+				System.out.println("Error in closing stream: " + io.getMessage());
+			}
+		}
+	}
+	
+ 	public User addToDatabase(String userToAdd, String passwordToAdd) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
