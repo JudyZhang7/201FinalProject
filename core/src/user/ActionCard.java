@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ActionCard extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 938784132360408501L;
 	private int _manaCost;
 	private int _damage;
 	private int _hpReplenish;

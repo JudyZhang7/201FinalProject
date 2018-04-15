@@ -190,17 +190,17 @@ public class FireplacePebble extends Game{
 	
 	public void loadDefaultDeck() {
 		CreatureCard ratCard = new CreatureCard(3, 1, 2, "rat", Assets.myTexturesList.get(8));
-		CreatureCard oxCard = new CreatureCard(3, 1, 2, "ox", Assets.myTexturesList.get(5));
-		CreatureCard tigerCard = new CreatureCard(3, 1, 2, "tiger", Assets.myTexturesList.get(11));
-		CreatureCard rabbitCard = new CreatureCard(3, 1, 2, "rabbit", Assets.myTexturesList.get(7));
-		CreatureCard dragonCard = new CreatureCard(3, 1, 2, "dragon", Assets.myTexturesList.get(1));
-		CreatureCard snakeCard = new CreatureCard(3, 1, 2, "snake", Assets.myTexturesList.get(10));
-		CreatureCard horseCard = new CreatureCard(3, 1, 2, "horse", Assets.myTexturesList.get(3));
-		CreatureCard goatCard = new CreatureCard(3, 1, 2, "goat", Assets.myTexturesList.get(2));
-		CreatureCard monkeyCard = new CreatureCard(3, 1, 2, "monkey", Assets.myTexturesList.get(4));
-		CreatureCard roosterCard = new CreatureCard(3, 1, 2, "rooster", Assets.myTexturesList.get(9));
-		CreatureCard dogCard = new CreatureCard(3, 1, 2, "dog", Assets.myTexturesList.get(0));
-		CreatureCard pigCard = new CreatureCard(3, 1, 2, "pig", Assets.myTexturesList.get(6));
+		CreatureCard oxCard = new CreatureCard(5, 3, 5, "ox", Assets.myTexturesList.get(5));
+		CreatureCard tigerCard = new CreatureCard(3, 3, 3, "tiger", Assets.myTexturesList.get(11));
+		CreatureCard rabbitCard = new CreatureCard(2, 1, 2, "rabbit", Assets.myTexturesList.get(7));
+		CreatureCard dragonCard = new CreatureCard(3, 3, 5, "dragon", Assets.myTexturesList.get(1));
+		CreatureCard snakeCard = new CreatureCard(2, 2, 3, "snake", Assets.myTexturesList.get(10));
+		CreatureCard horseCard = new CreatureCard(2, 2, 3, "horse", Assets.myTexturesList.get(3));
+		CreatureCard goatCard = new CreatureCard(2, 2, 2, "goat", Assets.myTexturesList.get(2));
+		CreatureCard monkeyCard = new CreatureCard(1, 3, 2, "monkey", Assets.myTexturesList.get(4));
+		CreatureCard roosterCard = new CreatureCard(2, 3, 4, "rooster", Assets.myTexturesList.get(9));
+		CreatureCard dogCard = new CreatureCard(3, 3, 4, "dog", Assets.myTexturesList.get(0));
+		CreatureCard pigCard = new CreatureCard(1, 1, 1, "pig", Assets.myTexturesList.get(6));
 		//PUT IN CREATURE CARD MAP
 		creatureCards.put("rat", ratCard);
 		creatureCards.put("ox", oxCard);

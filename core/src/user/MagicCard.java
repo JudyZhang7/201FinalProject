@@ -212,7 +212,12 @@ public class MagicCard extends Card{
 			break;
 		case Taurus:
 			if (this.game.getUser().get_player().get_mana() > 0) {
-				_damage += 3;
+				Random rand = null;
+				int min = 1;
+				int max = game.getUser().get_player().getOpponent().getOpponentBoard().size() - 1;
+				int randomNum = rand.nextInt((max - min) + 1) + min;
+
+				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(game.getUser().get_player().getOpponentBoard().get(randomNum).getLife() - 3);
 				this.ADEAD = isDead();
 				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 			}
