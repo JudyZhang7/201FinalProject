@@ -82,9 +82,7 @@ public class CreateNewDeckScreen implements Screen {
 		deckFinish.addListener(new ClickListener(){
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				if(!deckFinished()) {
-					
-				}
+				if(!deckFinished()) {}
 			}
 			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
 				return true;
@@ -112,16 +110,9 @@ public class CreateNewDeckScreen implements Screen {
 				cardButton.addListener(new ClickListener(){
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
-						if(numCards == 20) { //deck is full!
-							System.out.println("Deck is full. \nIt's been created." + numCards);
-							showMessage("Deck is full. \nIt's been created.");
-							newDeck.addCardDeck(cardDeck);
-							currentUser.addDeck(newDeck);
-						}
 //						Card gotCard = cardClicked(thisCard); //get the Card
 						Card newCard = copyCard(thisCard);
 						
-						addCardToDeck(newCard);
 						if(!addCardToDeck(thisCard)) { //deck is full!
 							deckFinished();
 						}
