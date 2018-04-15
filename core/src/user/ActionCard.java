@@ -100,10 +100,37 @@ public class ActionCard extends Card {
 		// TODO Auto-generated method stub
 		return _actionName;
 	}
+	public String getMyType() {
+		return mytype;
+	}
 	public Texture getTexture() {
-		System.out.println("getTexturing!");
 		return _texture;
 	}
+	
+	public int get_manaCost() {
+		return _manaCost;
+	}
+
+	public int get_damage() {
+		return _damage;
+	}
+
+	public int get_hpReplenish() {
+		return _hpReplenish;
+	}
+
+	public int get_mana() {
+		return _mana;
+	}
+
+	public String get_actionName() {
+		return _actionName;
+	}
+
+	public Texture get_texture() {
+		return _texture;
+	}
+
 	@Override
 	public Boolean isDead() {
 		// TODO Auto-generated method stub

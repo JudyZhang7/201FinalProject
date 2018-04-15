@@ -1,6 +1,7 @@
 package user;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Decks implements Serializable{
@@ -9,7 +10,9 @@ public class Decks implements Serializable{
 	public Decks(List <Deck> decks) {
 		this._decks = decks;
 	}
-	public Decks() {}
+	public Decks() {
+		this._decks = new ArrayList<Deck>();
+	}
 	
 	public List<Deck> get_decks() {
 		return _decks;

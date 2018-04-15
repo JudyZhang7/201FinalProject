@@ -20,9 +20,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.ThisGame;
+import user.ActionCard;
 import user.Card;
 import user.CreatureCard;
 import user.Deck;
+import user.MagicCard;
 import user.User;
 
 public class CreateNewDeckScreen implements Screen {
@@ -46,7 +48,7 @@ public class CreateNewDeckScreen implements Screen {
     
     //BACKEND STUFF
     private User currentUser;
-    private Deck newDeck;
+    private Deck newDeck = new Deck();
     private Card [] cardDeck = new Card[20];
     private Card [] fullDeck = new Card[28];
     private int numCards = 0;
@@ -117,25 +119,12 @@ public class CreateNewDeckScreen implements Screen {
 							currentUser.addDeck(newDeck);
 						}
 //						Card gotCard = cardClicked(thisCard); //get the Card
+						Card newCard = copyCard(thisCard);
 						
-						//MUST WRITE A COPY CONSTRUCTOR
-						Card newCard;
-						if (thisCard.getMyType().equals("creature"))
-						{
-							int hp = (CreatureCard)thisCard.getHp();
-							int damage = (CreatureCard)thisCard.getDamage();
-							int manaCost = (CreatureCard)thisCard.getMana();
-							String name = (CreatureCard)thisCard.getName();
-							Texture text = (CreatureCard)thisCard.getTexture();
-							newCard = new CreatureCard (hp, damage, manaCost, name, text);
+						addCardToDeck(newCard);
+						if(!addCardToDeck(thisCard)) { //deck is full!
+							deckFinished();
 						}
-						addCardToDeck(null);
-//						addCardToDeck(gotCard);
-//						if(!addCardToDeck(thisCard)) { //deck is full!
-//							showMessage("Deck is full. \nIt's been created.");
-//							newDeck.addCardDeck(cardDeck);
-//							currentUser.addDeck(newDeck);
-//						}
 					}
 					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
 						return true;
@@ -161,7 +150,7 @@ public class CreateNewDeckScreen implements Screen {
 		currentUser.addDeck(newDeck);
 		//GOOD!
 		System.out.println("Deck created!");
-		showMessage("Deck created!");
+		game.setScreen(new DeckScreen(game));
 		return true;
 	}
 	
@@ -179,6 +168,38 @@ public class CreateNewDeckScreen implements Screen {
 			return true;
 		}
 		return false;
+	}
+	
+	public Card copyCard(Card thisCard) {
+		Card newCard = null;
+		if (thisCard.getMytype().equals("creature"))
+		{
+			int hp = ((CreatureCard)thisCard).get_hp();
+			int damage = ((CreatureCard)thisCard).get_damage();
+			int manaCost = ((CreatureCard)thisCard).get_manaCost();
+			String name = ((CreatureCard)thisCard).getName();
+			Texture text =((CreatureCard)thisCard).get_texture();
+			newCard = new CreatureCard (hp, damage, manaCost, name, text);
+		}
+		else if(thisCard.getMytype().equals("magic")) {
+			//(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
+			int hp = ((MagicCard)thisCard).get_hpRep();
+			int damage = ((MagicCard)thisCard).get_damage();
+			int manaCost = ((MagicCard)thisCard).get_manaCost();
+			String name = ((MagicCard)thisCard).get_astrological();
+			Texture text =((MagicCard)thisCard).get_texture();
+			newCard = new MagicCard (hp, damage, manaCost, name, text, game);
+		}
+		else if(thisCard.getMytype().equals("action")) {
+			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
+			int hp = ((ActionCard)thisCard).get_hpReplenish();
+			int damage = ((ActionCard)thisCard).get_damage();
+			int manaCost = ((ActionCard)thisCard).get_manaCost();
+			String name = ((ActionCard)thisCard).getCardname();
+			Texture text =((ActionCard)thisCard).get_texture();
+			newCard = new ActionCard (manaCost, damage, hp, 0, name, text);
+		}
+		return newCard;
 	}
 	
 	public void btnBackClicked() {

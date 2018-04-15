@@ -88,7 +88,6 @@ public class CreatureCard extends Card {
 		}
 	}
 	public Texture getTexture() {
-		System.out.println("getTexturing!");
 		return _texture;
 	}
 	public _Creature getState() {
@@ -256,5 +255,26 @@ public class CreatureCard extends Card {
 		// TODO Auto-generated method stub
 		return name;
 	}
-
+	public String getMyType() {
+		return mytype;
+	}
+	public int get_hp() {
+		return _hp;
+	}
+	public int get_maxhp() {
+		return _maxhp;
+	}
+	public int get_damage() {
+		return _damage;
+	}
+	public int get_manaCost() {
+		return _manaCost;
+	}
+	public Texture get_texture() {
+		return _texture;
+	}
+	public String getName() {
+		return name;
+	}
+	
 }

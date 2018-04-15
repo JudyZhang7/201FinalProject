@@ -44,7 +44,7 @@ public class MagicCard extends Card{
 		_astrological = cre;
 
 		//_mSprite = sprite;
-//		mytype = "magic";
+		mytype = "magic";
 		_texture = img;
 		
 		if(cre.equalsIgnoreCase("Scorpio")) {
@@ -273,9 +273,43 @@ public class MagicCard extends Card{
 		System.out.println("getTexturing!");
 		return _texture;
 	}
-	
+	public String getMyType() {
+		return mytype;
+	}
 	public FireplacePebble getGame() {
 		return game;
+	}
+
+	public int get_hpRep() {
+		return _hpRep;
+	}
+
+	public int get_manaCost() {
+		return _manaCost;
+	}
+
+	public int get_damage() {
+		return _damage;
+	}
+
+	public String get_astrological() {
+		return _astrological;
+	}
+
+	public Astro getState() {
+		return state;
+	}
+
+	public int getTurnCounter() {
+		return turnCounter;
+	}
+
+	public Texture get_texture() {
+		return _texture;
+	}
+
+	public Boolean getADEAD() {
+		return ADEAD;
 	}
 
 	public void setGame(FireplacePebble game) {

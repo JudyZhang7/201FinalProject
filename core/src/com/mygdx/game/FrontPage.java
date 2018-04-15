@@ -129,7 +129,7 @@ public class FrontPage implements Screen
 	public void GuestButtonClicked()
 	{
 		System.out.println("Guest Button Clicked!");
-		game.setUser(new User(null, "Guest", "", new Player(10, 10), 0, 0, 1));
+		game.setUser(new User("Guest", ""));
 		game.setScreen(new StartGameScreen(game)); // Go to the Game Board page
 	}
 	

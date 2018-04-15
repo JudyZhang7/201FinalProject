@@ -6,7 +6,7 @@ public class User {
 	//object that holds all of the user's decks
 	private Decks _decks;
 	
-	private static String _Username;
+	private String _Username;
 	private String _Password;
 	private Player _player;
 	
@@ -34,9 +34,19 @@ public class User {
 		this._Username = username;
 		this._Password = password;
 		this._player = new Player();
+		this._decks = new Decks();
+		this._wins = 0;
+		this._losses = 0;
+		this._level = 1;
 	}
 	
 	public void addDeck(Deck d) {
+		if(_decks == null) {
+			System.out.println("decks is null");
+		}
+		if(d == null) {
+			System.out.println("deck is null - the object");
+		}
 		_decks.addDeck(d);
 	}
 	
@@ -57,7 +67,7 @@ public class User {
 		this._decks = _decks;
 	}
 
-	public static String get_Username() {
+	public String get_Username() {
 		return _Username;
 	}
 
