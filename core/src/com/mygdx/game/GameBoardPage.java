@@ -51,6 +51,9 @@ public class GameBoardPage implements Screen {
 	private int ch = 125;
 	private int cw = 125;
 	
+	ArrayList<ImageButton> handImages = new ArrayList<ImageButton>();
+	ArrayList<ImageButton> GameBoardImages = new ArrayList<ImageButton>();
+	
 	private Skin skin;
 	private FireplacePebble game;
 	
@@ -161,42 +164,41 @@ public class GameBoardPage implements Screen {
 		
 		// HAND BUTTONS
 		// Draw the first 5 cards
-		for (int i = 1; i <= 5; i++)
-		{
-			currentGame.getmPlayer().drawCards();
-		}
-		// Get the Hand
-		ArrayList<Card> currHand = currentGame.getmPlayer().getmHand();
-		// Get the Textures of the cards to output them
-		ArrayList<ImageButton> handImages = new ArrayList<ImageButton>();
-		for (int i = 0; i < currHand.size(); i++)
-		{
-			Texture currCard = currHand.get(i).getTexture();
-			TextureRegion TEMP_C = new TextureRegion(currCard);
-			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
-			final ImageButton HandButton = new ImageButton(TEMP_CARD);
-			HandButton.setPosition(cw * i + (w/2 + 200), h/12); 
-			HandButton.setSize(cw, ch);
-			HandButton.addListener(new ClickListener() {
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button)
-				{
-					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
-					HandButton.remove();
-					HandButtonClicked();
-				}
-				@Override
-				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
-				{
-					return true;
-				}
-			});
-			handImages.add(HandButton);
-		}
-		for (int i = 0; i < handImages.size(); i++) 
-		{
-			stage.addActor(handImages.get(i));
-		}
+//		for (int i = 1; i <= 5; i++)
+//		{
+//			currentGame.getmPlayer().drawCards();
+//		}
+//		// Get the Hand
+//		ArrayList<Card> currHand = currentGame.getmPlayer().getmHand();
+//		// Get the Textures of the cards to output them
+//		for (int i = 0; i < currHand.size(); i++)
+//		{
+//			final Card cardToAddToGameBoard = currHand.get(i);
+//			Texture currCard = currHand.get(i).getTexture();
+//			TextureRegion TEMP_C = new TextureRegion(currCard);
+//			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+//			final ImageButton HandButton = new ImageButton(TEMP_CARD);
+//			HandButton.setPosition(cw * i + (w/2 + 200), h/12); 
+//			HandButton.setSize(cw, ch);
+//			HandButton.addListener(new ClickListener() {
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button)
+//				{
+//					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
+//					HandButtonClicked(cardToAddToGameBoard, HandButton);
+//				}
+//				@Override
+//				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+//				{
+//					return true;
+//				}
+//			});
+//			handImages.add(HandButton);
+//		}
+//		for (int i = 0; i < handImages.size(); i++) 
+//		{
+//			stage.addActor(handImages.get(i));
+//		}
 		// HAND BUTTONS
 		// When user enters a game, here are the cards drawn and on the hand. No cards on the
 		// gameboard yet
@@ -266,25 +268,25 @@ public class GameBoardPage implements Screen {
 		int counter = 0;
 		
 		for (int i = 0; i < numCardsCol; i++) {
-			final Card thisCard = fullDeck[counter]; //why is this final?
-			Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
-			TextureRegion cardTR = new TextureRegion(cardT);
-			TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-			ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+//			final Card thisCard = fullDeck[counter]; //why is this final?
+//			Texture cardT = new Texture(Gdx.files.internal("Cards/" +thisCard.getImg()));
+//			TextureRegion cardTR = new TextureRegion(cardT);
+//			TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+//			ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
 				
-//			Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
-//			TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
-//			TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
-//			final ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
+			Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
+			TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
+			TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
+			final ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 
-			cardButton.setPosition(cw * i + 550, h/4 + 50); // Should edit to fit others' resolution
+			cardButton.setPosition(cw * i + (w/2 + 100), h/12); // Hand Position
 			cardButton.setSize(cw, ch);
 			cardButton.addListener(new ClickListener() {
 				@Override
 				public void touchUp(InputEvent e, float x, float y, int point, int button)
 				{
 					System.out.println("Clicked!");
-					cardButton.remove();
+					HandButtonClicked(null, cardButton);
 				}
 				@Override
 				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
@@ -349,14 +351,61 @@ public class GameBoardPage implements Screen {
 	}
 	
 	// Hand Button Clicked()
-	public void HandButtonClicked()
+	public void HandButtonClicked(Card cardToAdd, ImageButton handButton)
 	{
+		// Remove the card from the hand, and
 		// Add the card to the Gameboard if the gameboard is not full
-		ArrayList<Card> yourGameBoard = currentGame.getcurrentPlayer().getPlayerBoard();
-		ArrayList<Card> yourHand = currentGame.getcurrentPlayer().getmHand();
-		if (yourGameBoard.size() < 3)
+//		ArrayList<Card> yourGameBoard = currentGame.getCurrentPlayer().getPlayerBoard();
+//		ArrayList<Card> yourHand = currentGame.getCurrentPlayer().getmHand();
+		// if Gameboard Size is less than 3, then remove the Card from yourHand, 
+		// and add it to your GameBoard
+		// Testing
+		ArrayList<Integer> yourGameBoard = new ArrayList<Integer>();
+		yourGameBoard.add(1);
+		yourGameBoard.add(2);
+		
+		if (yourGameBoard.size() < 3 && GameBoardImages.size() < 3)
 		{
-			
+//			yourHand.remove(cardToAdd);
+//			yourGameBoard.add(cardToAdd);
+			handButton.remove();
+//			Texture currCard = cardToAdd.getTexture();
+			Texture currCard = new Texture(Gdx.files.internal("Cards/Pig.png"));
+			TextureRegion TEMP_C = new TextureRegion(currCard);
+			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+			final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
+			if (yourGameBoard.size() == 0) // Nothing on Gameboard
+			{
+				GameBoardButton.setPosition(cw + (w/4), h/3); // Gameboard 1st Position
+				GameBoardButton.setSize(cw, ch);
+			}
+			else if (yourGameBoard.size() == 1) // 1 card already on Gameboard
+			{
+				GameBoardButton.setPosition(cw * 3 + (w/4), h/3);  // Gameboard 2nd Position
+				GameBoardButton.setSize(cw, ch);
+			}
+			else if (yourGameBoard.size() == 2) // 2 cards already on Gameboard
+			{
+				GameBoardButton.setPosition(cw * 5 + (w/4), h/3);  // Gameboard 3rd Position
+				GameBoardButton.setSize(cw, ch);
+			}
+			GameBoardButton.addListener(new ClickListener() {
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button)
+				{
+					System.out.println("GameBoard Button Clicked, User now clicks enemy Gameboard!");
+				}
+				@Override
+				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+				{
+					return true;
+				}
+			});
+			GameBoardImages.add(GameBoardButton);
+		}
+		for (int i = 0; i < GameBoardImages.size(); i++)
+		{
+			stage.addActor(GameBoardImages.get(i));
 		}
 	}
 	
