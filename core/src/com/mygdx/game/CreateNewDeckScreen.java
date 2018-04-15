@@ -137,7 +137,13 @@ public class CreateNewDeckScreen implements Screen {
 			showMessage("Not enough cards!");
 			return false;
 		}
-		newDeck.addCardDeck(cardDeck);
+		
+		//Trying to instantiate the correct user???
+		for(int i = 0; i < 20; i++) {
+			cardDeck[i].setmPlayer(currentUser.get_player());
+		}
+		
+		newDeck.addCardDeck(cardDeck);		
 		currentUser.addDeck(newDeck);
 		//GOOD!
 		System.out.println("Deck created!");
