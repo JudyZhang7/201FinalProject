@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import user.Card;
 import user.Deck;
+import user.Decks;
 import user.User;
 
 public class DeckScreen implements Screen {
@@ -30,6 +32,7 @@ public class DeckScreen implements Screen {
 	private TextField txfUsername;
 	private TextField txfPassword;
 	private ArrayList<ImageButton> myCards;
+	private ArrayList<ImageButton> myDecks;
 	private int numCardsRow = 4;
 	private int numCardsCol = 5;
 	private int ch = 125;
@@ -45,6 +48,7 @@ public class DeckScreen implements Screen {
     User currentUser;
 	Deck currentDeck;
 	Card [] cardDeck;
+	List<Deck> currentDecks;
 	public DeckScreen(FireplacePebble g) {
 		myCards = new ArrayList<ImageButton>();
 		this.game = g;
@@ -85,7 +89,7 @@ public class DeckScreen implements Screen {
 			return;
 		}
 		cardDeck = currentUser.getTopDeck().getCardDeck();
-		
+		currentDecks = currentUser.get_decks().get_decks();
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
@@ -114,9 +118,53 @@ public class DeckScreen implements Screen {
 		for (int i = 0; i < myCards.size() ; i++) {
 			stage.addActor(myCards.get(i));
 		}
-		
+		System.out.println("Current deck size: " + currentDecks.size());
+		for(int i = 0; i < currentDecks.size(); i++) {
+			final Card [] theseCards = currentDecks.get(i).getCardDeck();
+			TextButton thisDeck = new TextButton ("Deck " + i, textSkin);
+			thisDeck.setPosition(15*w/20, (12*h/20 - ch*i/2));
+			thisDeck.setSize(buttonHeight, buttonWidth);
+			thisDeck.addListener(new ClickListener(){
+				@Override
+				public void touchUp(InputEvent e, float x, float y, int point, int button) {
+					deckClicked(theseCards);
+				}
+				public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+					return true;
+				}
+			});
+			stage.addActor(thisDeck);
+		}
 	}
-
+	public void deckClicked(Card[]c) {
+		int counter = 0;
+		for (int j = 0; j < numCardsRow; j++) {
+			for (int i = 0; i < numCardsCol; i++) {
+				final Card thisCard = c[counter]; //why is this final?
+				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
+				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
+				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+		        				
+				cardButton.setPosition(((i*(150)) % w)+100, (j*150)+50);
+				cardButton.setSize(cw, ch);
+				
+				cardButton.addListener(new ClickListener(){
+					@Override
+					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+						Card gotCard = cardClicked(thisCard); //get the Card
+					}
+					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
+						return true;
+					}
+				});
+				myCards.add(cardButton);
+				counter++; //increment the card
+			}
+		}
+		for (int i = 0; i < myCards.size() ; i++) {
+			stage.addActor(myCards.get(i));
+		}
+	}
 	public Card cardClicked(Card c) {
 		return c;
 	}

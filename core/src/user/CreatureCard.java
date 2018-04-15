@@ -29,11 +29,11 @@ public class CreatureCard extends Card {
 	private int _manaCost;
 	private Texture _texture;
 	private _Creature state;
-	private CardType _cardtype;
 	private Boolean burn;
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
 	private String name;
+	
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;
@@ -88,7 +88,6 @@ public class CreatureCard extends Card {
 		}
 	}
 	public Texture getTexture() {
-		System.out.println("getTexturing!");
 		return _texture;
 	}
 	public _Creature getState() {
@@ -237,8 +236,6 @@ public class CreatureCard extends Card {
 					this.setHP(retaliation);
 				}
 			}
-			
-			
 		}
 		
 		if(this.getState() == _Creature.monkey) {
@@ -258,9 +255,25 @@ public class CreatureCard extends Card {
 		// TODO Auto-generated method stub
 		return name;
 	}
-	@Override
-	public CardType getType() {
-		// TODO Auto-generated method stub
-		return _cardtype;
+	public String getMyType() {
+		return mytype;
+	}
+	public int get_hp() {
+		return _hp;
+	}
+	public int get_maxhp() {
+		return _maxhp;
+	}
+	public int get_damage() {
+		return _damage;
+	}
+	public int get_manaCost() {
+		return _manaCost;
+	}
+	public Texture get_texture() {
+		return _texture;
+	}
+	public String getName() {
+		return name;
 	}
 }
