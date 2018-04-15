@@ -34,6 +34,62 @@ public class CreatureCard extends Card {
 	private Boolean firstTurn;
 	private String name;
 	
+	// Copy Constructor
+	public CreatureCard(CreatureCard cc)
+	{
+		super(type);
+		_hp = cc._hp;
+		_maxhp = cc._maxhp;
+		_damage = cc._damage;
+		_manaCost = cc._manaCost;
+		_texture = cc._texture;
+		burn = false;
+		targetedFirst = true;
+		firstTurn = true;
+		mPlayer = null;
+
+		name = cc.name;
+
+		mytype = "creature";
+		
+		if(cc.name.equalsIgnoreCase("rat")) {
+			state = _Creature.rat;
+		}
+		else if(cc.name.equalsIgnoreCase("ox")) {
+			state = _Creature.ox;
+		}
+		else if(cc.name.equalsIgnoreCase("tiger")) {
+			state = _Creature.tiger;
+		}
+		else if(cc.name.equalsIgnoreCase("rabbit")) {
+			state = _Creature.rabbit;
+		}
+		else if(cc.name.equalsIgnoreCase("dragon")) {
+			state = _Creature.dragon;
+		}
+		else if(cc.name.equalsIgnoreCase("snake")) {
+			state = _Creature.snake;
+		}
+		else if(cc.name.equalsIgnoreCase("horse")) {
+			state = _Creature.horse;
+		}
+		else if(cc.name.equalsIgnoreCase("goat")) {
+			state = _Creature.goat;
+		}
+		else if(cc.name.equalsIgnoreCase("monkey")) {
+			state = _Creature.monkey;
+		}
+		else if(cc.name.equalsIgnoreCase("rooster")) {
+			state = _Creature.rooster;
+		}
+		else if(cc.name.equalsIgnoreCase("dog")) {
+			state = _Creature.dog;
+		}
+		else if(cc.name.equalsIgnoreCase("pig")) {
+			state = _Creature.pig;
+		}
+	}
+	
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img) {
 		super(type);
 		_hp = hp;
