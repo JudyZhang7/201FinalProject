@@ -11,6 +11,15 @@ public class ThisGame {
 
 	private Player p1;
 	private Player p2;
+	private Player currentPlayer;
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	private int winner = 0;
 	FireplacePebble game;
 	

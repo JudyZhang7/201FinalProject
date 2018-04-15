@@ -352,8 +352,8 @@ public class GameBoardPage implements Screen {
 	public void HandButtonClicked()
 	{
 		// Add the card to the Gameboard if the gameboard is not full
-		ArrayList<Card> yourGameBoard = currentGame.getmPlayer().getPlayerBoard();
-		ArrayList<Card> yourHand = currentGame.getmPlayer().getmHand();
+		ArrayList<Card> yourGameBoard = currentGame.getcurrentPlayer().getPlayerBoard();
+		ArrayList<Card> yourHand = currentGame.getcurrentPlayer().getmHand();
 		if (yourGameBoard.size() < 3)
 		{
 			
