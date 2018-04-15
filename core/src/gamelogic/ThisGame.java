@@ -14,7 +14,7 @@ public class ThisGame {
 	private int winner = 0;
 	FireplacePebble game;
 	
-	private Player mPlayer;
+	//private Player mPlayer;
 	private Card p1Card;
 	private Card p2Card;
 	
@@ -114,7 +114,7 @@ public class ThisGame {
 		if (User.get_Username().equals("Guest")) {
 			// don't load from database
 		}
-		mPlayer = new Player();
+		//mPlayer = new Player();
 	}
 	
 }
