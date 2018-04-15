@@ -20,7 +20,6 @@ public class ActionCard extends Card {
 	private Action state;
 	private static enum Action {
 		Weapon,
-		Shield,
 		Heal,
 		DoubleDamage,
 		Preparation;
@@ -42,9 +41,6 @@ public class ActionCard extends Card {
 		if(actionName.equalsIgnoreCase("Weapon")) {
 			state = Action.Weapon;
 		}
-		else if(actionName.equalsIgnoreCase("Shield")) {
-			state = Action.Shield;
-		}
 		else if(actionName.equalsIgnoreCase("Heal")) {
 			state = Action.Heal;
 		}
@@ -65,13 +61,6 @@ public class ActionCard extends Card {
 		switch(state) {
 		case Weapon:
 			opponent.set_hp(opponent.get_hp() - _damage);
-			this.ACTIONDEAD = isDead();
-			break;
-		case Shield:
-			// check if opponent attacked you
-			// store damage inflicted to add back to your hp
-			// if yes, add the damage the opponent inflicted back into your hp
-			opponent.set_hp(opponent.get_hp() - _damageOpponentDoes);
 			this.ACTIONDEAD = isDead();
 			break;
 		case Heal:
