@@ -16,6 +16,18 @@ public class Player implements Serializable{
 	private User myUser;
 	private Boolean newPlayer;
 	private int handSize;
+	
+	// Dummy Constructor for Dummy
+	public Player(int hp)
+	{
+		this._hp = hp;
+		this._mana = _mana;
+		_turn = true;
+		myUser = null;
+		handSize = 3;
+		_cardDeck = null;
+	}
+	
 	public ArrayList<Card> getmHand() {
 		return mHand;
 	}
@@ -24,11 +36,11 @@ public class Player implements Serializable{
 		this.mHand = mHand;
 	}
 
-	private ArrayList<Card> mHand;
-	private ArrayList<Card> opponentHand;
+	private ArrayList<Card> mHand = new ArrayList<Card>();
+	private ArrayList<Card> opponentHand = new ArrayList<Card>();
 	private Player opponent;
 	
-	private ArrayList<Card> playerBoard;
+	private ArrayList<Card> playerBoard = new ArrayList<Card>();
 	public ArrayList<Card> getPlayerBoard() {
 		return playerBoard;
 	}
