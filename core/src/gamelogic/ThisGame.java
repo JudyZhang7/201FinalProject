@@ -59,14 +59,6 @@ public class ThisGame {
 		this.winner = winner;
 	}
 
-	public Player getmPlayer() {
-		return mPlayer;
-	}
-
-	public void setmPlayer(Player mPlayer) {
-		this.mPlayer = mPlayer;
-	}
-
 	public void Act(Card selected, Card target) {
 		String selectedtype = selected.getMytype();
 		String targetedtype = target.getMytype();
