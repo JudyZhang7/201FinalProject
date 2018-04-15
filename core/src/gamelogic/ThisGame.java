@@ -27,6 +27,13 @@ public class ThisGame {
 	private Card p1Card;
 	private Card p2Card;
 	
+	// set p1 card and p2 card to be played
+	public void setCards(Card p1Card, Card p2Card)
+	{
+		this.p1Card = p1Card;
+		this.p2Card = p2Card;
+	}
+	
 	public ThisGame(Player first, Player second) {
 		//first will always be the current player, second computer.
 		p1 = first;
@@ -89,7 +96,13 @@ public class ThisGame {
 			p1.Act(p2, p1Card);
 			p2.Act(p1, p2Card);
 			// if card-card interaction chosen
+			if (p1Card == null || p2Card == null)
+			{
+				continue;
+			}
 			Act(p1Card, p2Card);
+			p1Card = null;
+			p2Card = null;
 			Act(p2Card, p1Card);
 			
 			if(p1.isDead()) {
