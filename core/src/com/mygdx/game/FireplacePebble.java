@@ -259,7 +259,6 @@ public class FireplacePebble extends Game{
 		Set<Entry<String, CreatureCard>> cc = creatureCards.entrySet();   
 		for (Map.Entry< String,CreatureCard> me:cc)
 	    {
-			System.out.print(me.getValue().getCardname());
 	        allCards[counter] = me.getValue();
 	        counter++;
 	    }

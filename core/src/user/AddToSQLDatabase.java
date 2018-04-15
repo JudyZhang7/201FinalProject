@@ -32,11 +32,6 @@ public class AddToSQLDatabase
 			
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 			// How to access the database in other users' computers?
-			ps = conn.prepareStatement("DELETE FROM ProjectUserTable " + 
-					" WHERE username=?;");
-			ps.setString(1, username);
-			ps.executeUpdate();
-			
 			ps = conn.prepareStatement("DELETE FROM PlayerObject " + 
 					" WHERE username=?;");
 			ps.setString(1, username);
@@ -46,6 +41,12 @@ public class AddToSQLDatabase
 					" WHERE username=?;");
 			ps.setString(1, username);
 			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("DELETE FROM ProjectUserTable " + 
+					" WHERE username=?;");
+			ps.setString(1, username);
+			ps.executeUpdate();
+
 			
 			ps = conn.prepareStatement(" INSERT INTO ProjectUserTable (username, "
 					+ "userPassword, userLevel, userWins, userLosses) " + " VALUES "

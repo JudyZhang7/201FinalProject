@@ -88,6 +88,7 @@ public class ProfileScreen implements Screen
 	}
 	public void logoutClicked() {
 		if(game.getCurrentUsername().equals("Guest")) {
+			game.setScreen(new FrontPage(game));
 			return;
 		}
 		AddToSQLDatabase ATSD = new AddToSQLDatabase();
