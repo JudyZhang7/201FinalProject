@@ -92,19 +92,18 @@ public class CreateNewDeckScreen implements Screen {
 		// cards
 		this.currentUser = game.getUser();
 		
+		int counterr = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
-				final Card thisCard = fullDeck[i+j]; //why is this final?
+				final Card thisCard = fullDeck[counterr]; //why is this final?
+				System.out.println(thisCard.getMytype());
+
+				counterr++;
 				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
 				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
-				
-//				Texture TEMP_T = new Texture(Gdx.files.internal("Cards/Pig.png"));
-//				TextureRegion TEMP_TR = new TextureRegion(TEMP_T);
-//				TextureRegionDrawable TEMP_TRD = new TextureRegionDrawable(TEMP_TR);
-//				ImageButton cardButton = new ImageButton(TEMP_TRD); //Set the button up
 		        				
-				cardButton.setPosition(((i*(128)) % w), (j*150) + h/4);
+				cardButton.setPosition(((i*(128)) % w), (j*150));
 				cardButton.setSize(cw, ch);
 				
 				cardButton.addListener(new ClickListener(){
@@ -137,13 +136,7 @@ public class CreateNewDeckScreen implements Screen {
 			showMessage("Not enough cards!");
 			return false;
 		}
-		
-		//Trying to instantiate the correct user???
-		for(int i = 0; i < 20; i++) {
-			cardDeck[i].setmPlayer(currentUser.get_player());
-		}
-		
-		newDeck.addCardDeck(cardDeck);		
+		newDeck.addCardDeck(cardDeck);
 		currentUser.addDeck(newDeck);
 		//GOOD!
 		System.out.println("Deck created!");
@@ -155,7 +148,7 @@ public class CreateNewDeckScreen implements Screen {
 		//update screen to show how many cards selected
 		batch.begin();
 		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/2, 6*h/30);
+		titleFont64.draw(batch, "Cards in \nNew Deck: \n" + numCards, 3*w/4, 18*h/30);
 		// rendering code
 		batch.end();
 		
@@ -236,7 +229,7 @@ public class CreateNewDeckScreen implements Screen {
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
 		
 		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Cards in New Deck: " + numCards, w/6, 6*h/30);
+		titleFont64.draw(batch, "Cards in \nNew Deck: \n" + numCards, 3*w/4, 18*h/30);
 		// rendering code
 		batch.end();
 	}
