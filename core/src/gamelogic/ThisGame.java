@@ -15,6 +15,8 @@ public class ThisGame {
 	FireplacePebble game;
 	
 	private Player mPlayer;
+	private Card p1Card;
+	private Card p2Card;
 	
 	public ThisGame(Player first, Player second) {
 		//first will always be the current player, second computer.
@@ -82,8 +84,8 @@ public class ThisGame {
 	
 	public void run() {
 		while(winner == 0) {
-			p1.Act();
-			p2.Act();
+			p1.Act(p2, p1Card);
+			p2.Act(p1, p2Card);
 			
 			if(p1.isDead()) {
 				winner = 2;
