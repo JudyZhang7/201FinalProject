@@ -276,5 +276,4 @@ public class CreatureCard extends Card {
 	public String getName() {
 		return name;
 	}
-	
 }

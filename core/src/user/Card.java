@@ -75,6 +75,10 @@ public abstract class Card implements Serializable {
 
 	public abstract String getCardname();
 
+	public String getMyType() {
+		return mytype;
+	}
+
 	public void setName(String name) {
 		this.cardName = name;
 	}
