@@ -40,6 +40,7 @@ public abstract class Card implements Serializable {
 	private String image;
 	protected Player mPlayer;
 	protected String mytype;
+	private boolean lastedATurn = false;
 
 	public String getMytype() {
 		return mytype;

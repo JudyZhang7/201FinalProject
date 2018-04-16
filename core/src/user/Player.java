@@ -17,11 +17,18 @@ public class Player implements Serializable{
 	private Boolean newPlayer;
 	private int handSize;
 	
+	private ArrayList<Card> mHand = new ArrayList<Card>();
+	private ArrayList<Card> opponentHand = new ArrayList<Card>();
+	private Player opponent;
+	private ArrayList<Card> playerBoard = new ArrayList<Card>();
+	private ArrayList<Card> opponentBoard = new ArrayList<Card>();
+	
 	// Dummy Constructor for Dummy
 	public Player(int hp)
 	{
+		System.out.println("In Constructor!");
 		this._hp = hp;
-		this._mana = _mana;
+		this._mana = 5;
 		_turn = true;
 		myUser = null;
 		handSize = 3;
@@ -36,11 +43,6 @@ public class Player implements Serializable{
 		this.mHand = mHand;
 	}
 
-	private ArrayList<Card> mHand = new ArrayList<Card>();
-	private ArrayList<Card> opponentHand = new ArrayList<Card>();
-	private Player opponent;
-	
-	private ArrayList<Card> playerBoard = new ArrayList<Card>();
 	public ArrayList<Card> getPlayerBoard() {
 		return playerBoard;
 	}
@@ -48,8 +50,6 @@ public class Player implements Serializable{
 	public void setPlayerBoard(ArrayList<Card> playerBoard) {
 		this.playerBoard = playerBoard;
 	}
-
-	private ArrayList<Card> opponentBoard;
 	
 	public Player(int hp, int mana) {
 		_hp = hp;
@@ -123,7 +123,7 @@ public class Player implements Serializable{
 	
 	public void drawCards() {
 		if (this.get_turn()) {
-			if (handSize == 5) {
+			if (mHand.size() == 3) {
 				double rangeMin = 0.0f;
 				double rangeMax = 1.0f;
 				Random r = new Random();
