@@ -44,7 +44,6 @@ public class ActionCard extends Card {
 		_hpReplenish = ac._hpReplenish;
 		_mana = ac._mana;
 		_actionName = ac._actionName;
-		//_mSprite = mSprite;
 		mytype = "action";
 		_texture = ac._texture;
 //		_mSprite = mSprite;
@@ -71,7 +70,6 @@ public class ActionCard extends Card {
 		_hpReplenish = hpReplenish;
 		_mana = mana;
 		_actionName = actionName;
-		//_mSprite = mSprite;
 		mytype = "action";
 		_texture = img;
 //		_mSprite = mSprite;
