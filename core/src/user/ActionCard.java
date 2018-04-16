@@ -113,9 +113,9 @@ public class ActionCard extends Card {
 			}
 			break;
 		case Weapon2:
-			if (you.get_mana() >= 4) {
+			if (you.get_mana() >= 5) {
 				opponent.set_hp(opponent.get_hp() - _damage - _damage);
-				you.set_mana(you.get_mana() - 4);
+				you.set_mana(you.get_mana() - 5);
 				this.ACTIONDEAD = isDead();
 			}
 			break;
