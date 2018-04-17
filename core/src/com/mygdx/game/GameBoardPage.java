@@ -3,6 +3,7 @@ package com.mygdx.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
@@ -28,11 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.AchievementThread;
 import gamelogic.ThisGame;
-import user.Card;
-import user.CreatureCard;
-import user.MagicCard;
-import user.Player;
-import user.User;
+import user.*;
 
 public class GameBoardPage implements Screen {
 	//THE ACTUAL GAME OBJECT
@@ -43,6 +40,7 @@ public class GameBoardPage implements Screen {
 	private Player otherPlayer;
 	private boolean playerTurn;
 	private boolean opponentTurn;
+	private int opponentAttackCount = 0;
 	
 	private Stage stage = new Stage();
 	private BitmapFont font;
@@ -80,6 +78,9 @@ public class GameBoardPage implements Screen {
 		// Creating a new player for testing
 		player = new Player(10);
 		otherPlayer = new Player(10);
+		
+		final Player p1 = player;
+		final Player p2 = otherPlayer;
 		// Max 20 cards in a deck, create that deck in the Player
 		List<Card> dummyDeck = new ArrayList<Card>();
 		List<Card> opponentDummyDeck = new ArrayList<Card>();
@@ -123,7 +124,7 @@ public class GameBoardPage implements Screen {
 		endTurnButton.addListener(new ClickListener() {
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
 				System.out.println("End turn bttn");
-				endTurnButtonClicked();
+				endTurnButtonClicked(p1, p2);
 			}
 		});
 		
@@ -321,15 +322,51 @@ public class GameBoardPage implements Screen {
 		game.setScreen(new ProfileScreen(game));
 	}
 	
-	public void endTurnButtonClicked() {
+	public void endTurnButtonClicked(Player p1, Player p2) {
 		batch.begin();
 		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Healthfds - " + (player.get_hp()-1), w/2, (h)/2);
-		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
+		titleFont64.draw(batch, "Healthfds - " + (p1.get_hp()-1), w/2, (h)/2);
+		font.draw(batch, "Mana - " + p1.get_mana(), w/8, (h)/6);
+		
+		playerTurn = !playerTurn;
+		opponentAttackCount++;
+		
+		if (playerTurn == false) {
+			
+			p2.drawCards();
+			Random rand = null;
+			int min = 1;
+			int max = p2.getOpponentHand().size() - 1;
+			int randomNum = rand.nextInt((max - min) + 1) + min;
+			
+			//
+			p2.getOpponentBoard().add(p2.getOpponentHand().get(randomNum));
+			// display all cards from opponent board arraylist
+			
+			//
+			if (p2.getOpponentBoard().size() > 0) {
+				if (opponentAttackCount % 2 == 0 && p1.getPlayerBoard().size() > 0) {
+					Random rand1 = null;
+//					int min1 = 1;
+//					int max1 = p2.getOpponentBoard().size() - 1;
+//					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
+					//
+					Random rand2 = null;
+					int min2 = 1;
+					int max2 = p1.getPlayerBoard().size() - 1;
+					int randomNum2 = rand2.nextInt((max - min) + 1) + min;
+					// attack
+					yourCardToAttack.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
+					opponentAttackCount = 0;
+				}
+			}
+			
+			playerTurn = !playerTurn;
+		}
 		
 		//OPPONENT
-		font.draw(batch, "Health - " + otherPlayer.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
-		font.draw(batch, "Mana - " + otherPlayer.get_mana(), 6*w/8, (5*h)/6);
+		font.draw(batch, "Health - " + p2.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
+		font.draw(batch, "Mana - " + p2.get_mana(), 6*w/8, (5*h)/6);
 		batch.end();
 		numTurnsSoFar++;
 	}
