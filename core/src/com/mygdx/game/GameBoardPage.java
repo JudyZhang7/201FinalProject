@@ -42,11 +42,8 @@ public class GameBoardPage implements Screen {
 	private Player player;
 	private Player otherPlayer;
 	private boolean playerTurn;
-<<<<<<< HEAD
 	private boolean opponentTurn;
-=======
 	
->>>>>>> 1cae5b6ef10f6f48e6ea333c396f107f3c6b8720
 	private Stage stage = new Stage();
 	private BitmapFont font;
 	private TextButton yourDeckButton;
