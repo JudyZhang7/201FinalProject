@@ -30,6 +30,10 @@ public class User {
 		_level = level;
 	}
 	
+	public User(Player player) {
+		_player = player;
+	}
+	
 	public User(String username, String password) {
 		this._Username = username;
 		this._Password = password;

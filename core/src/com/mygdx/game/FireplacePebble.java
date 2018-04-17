@@ -24,7 +24,8 @@ import user.Player;
 import user.User;
 
 public class FireplacePebble extends Game{
-	private User user;
+	public User user;
+	public User oppo;
 	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;

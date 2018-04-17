@@ -81,6 +81,10 @@ public class GameBoardPage implements Screen {
 		
 		final Player p1 = player;
 		final Player p2 = otherPlayer;
+		game.user = new User(p1);
+		game.oppo = new User(p2);
+		final User myUser = game.user;
+		final User yourUser = game.oppo;
 		// Max 20 cards in a deck, create that deck in the Player
 		List<Card> dummyDeck = new ArrayList<Card>();
 		List<Card> opponentDummyDeck = new ArrayList<Card>();
