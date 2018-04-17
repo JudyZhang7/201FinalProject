@@ -42,6 +42,7 @@ public class GameBoardPage implements Screen {
 	private Player player;
 	private Player otherPlayer;
 	private boolean playerTurn;
+	private boolean opponentTurn;
 	private Stage stage = new Stage();
 	private BitmapFont font;
 	private TextButton yourDeckButton;
@@ -76,14 +77,17 @@ public class GameBoardPage implements Screen {
 		
 		// Creating a new player for testing
 		player = new Player(10);
+		otherPlayer = new Player(10);
 		// Max 20 cards in a deck, create that deck in the Player
 		List<Card> dummyDeck = new ArrayList<Card>();
+		List<Card> opponentDummyDeck = new ArrayList<Card>();
 		// Add 10 GOATS
 		CreatureCard dummyCCard = game.creatureCards.get("goat");
 		for (int i = 0; i < 10; i++)
 		{
 			Card toAdd = new CreatureCard(dummyCCard);
 			dummyDeck.add(toAdd);
+			opponentDummyDeck.add(toAdd);
 		}
 		// Add 10 Libras
 		MagicCard dummyMCard = game.magicCards.get("libra");
@@ -91,12 +95,16 @@ public class GameBoardPage implements Screen {
 		{
 			Card toAdd = new MagicCard(dummyMCard);
 			dummyDeck.add(toAdd);
+			opponentDummyDeck.add(toAdd);
 		}
 		// Now, we have a deck with 20 cards. Add it to the Player
 		player.set_cardDeck(dummyDeck);
+		otherPlayer.set_cardDeck(opponentDummyDeck);
 		//List<Card> a = dummyPlayer.get_cardDeck();
 		// Hard Set it to this player's turn first
 		playerTurn = true;
+		opponentTurn = false;
+		
 		
 		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
 //		this.player = currentGame.getP1();
