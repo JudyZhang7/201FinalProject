@@ -21,7 +21,7 @@ public class ActionCard extends Card {
 	private String _actionName;
 
 	private Texture _texture;
-
+	private Texture _clickedTexture;
 	private Boolean ACTIONDEAD;
 	
 	private int _damageOpponentDoes = 0;
@@ -63,7 +63,7 @@ public class ActionCard extends Card {
 		}
 	}
 	
-	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
+	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img, Texture clicked) {
 		super(type);
 		_manaCost = manaCost;
 		_damage = damage;
@@ -72,6 +72,7 @@ public class ActionCard extends Card {
 		_actionName = actionName;
 		mytype = "action";
 		_texture = img;
+		_clickedTexture = clicked;
 //		_mSprite = mSprite;
 
 		
@@ -175,7 +176,9 @@ public class ActionCard extends Card {
 	public Texture get_texture() {
 		return _texture;
 	}
-
+	public Texture getClickedTexture() {
+		return _clickedTexture;
+	}
 	@Override
 	public Boolean isDead() {
 		// TODO Auto-generated method stub

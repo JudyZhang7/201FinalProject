@@ -65,8 +65,6 @@ public class GameBoardPage implements Screen {
 	
 	private Skin skin;
 	private FireplacePebble game;
-	ShapeRenderer sr = new ShapeRenderer();
-
 	
 	int buttonHeight = 100;
 	int buttonWidth = 100;
@@ -392,7 +390,7 @@ public class GameBoardPage implements Screen {
 
 		player = game.getUser().get_player();
 		otherPlayer = game.getUser().get_player();
-		
+
 		batch.begin();
 		batch.draw(mainBackground, 0, 0, w, h);
 		
@@ -405,7 +403,9 @@ public class GameBoardPage implements Screen {
 		
 		batch.end();
 		stage.act(delta);
+		
 		stage.draw();
+		
 	}
 	
 	// Deck Button Clicked
@@ -541,9 +541,10 @@ public class GameBoardPage implements Screen {
 		// 3) Player needs enough mana to attack
 		// 4) Check if all cards on the gameboard is dead. If dead, then remvove the image and card completely
 		// 5) If opponent has no card on the gameboard, attack the opponent directly
-		sr.begin(ShapeType.Line);
-		sr.setColor(new Color(0,0,1,0));
-		sr.rect(cw, ch, cw, ch);
+
+		TextureRegion TEMP_C = new TextureRegion(yourCard.getClickedTexture());
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		yourButton.setBackground(TEMP_CARD);
 		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{

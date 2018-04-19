@@ -58,6 +58,41 @@ public class Assets {
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Preparation.png")));
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Shield.png")));
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Weapon.png")));
+		
+		//CLICKED TEXTURES
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Dogc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Dragonc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Goatc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Horsec.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Monkeyc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/OXc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Pigc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Rabbitc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/RATc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Roosterc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Snakec.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Zodiac/Tigerc.png")));
+		
+		//
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Aquariusc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Ariesc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Cancerc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Capricornc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Geminic.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Leoc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Librac.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Piscesc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Sagittariusc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Scorpioc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Taurusc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Astro/[D]Card-Virgoc.png")));
+		//
+		
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]DoubleDamagec.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Healc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Preparationc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Shieldc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Weaponc.png")));
 	}
 	
 //	public static void loadWithString(String textureName) {

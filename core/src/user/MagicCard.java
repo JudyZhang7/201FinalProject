@@ -18,6 +18,7 @@ public class MagicCard extends Card{
 	private FireplacePebble game;
 	private int turnCounter;
 	private Texture _texture;
+	private Texture _clickedTexture;
 	private Boolean ADEAD;
 	
 	private enum Astro {
@@ -88,7 +89,7 @@ public class MagicCard extends Card{
 		}
 	}
 	
-	public MagicCard(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
+	public MagicCard(int hp, int damage, int manaCost, String cre, Texture img, Texture clicked, FireplacePebble game) {
 		super(type);
 		this.game = game;
 		_hpRep = hp;
@@ -99,6 +100,7 @@ public class MagicCard extends Card{
 		//_mSprite = sprite;
 		mytype = "magic";
 		_texture = img;
+		_clickedTexture = clicked;
 		
 		if(cre.equalsIgnoreCase("Scorpio")) {
 			state = Astro.Scorpio;
@@ -412,6 +414,10 @@ public class MagicCard extends Card{
 
 	public void setGame(FireplacePebble game) {
 		this.game = game;
+	}
+	
+	public Texture getClickedTexture() {
+		return _clickedTexture;
 	}
 
 	@Override

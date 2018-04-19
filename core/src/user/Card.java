@@ -79,7 +79,9 @@ public abstract class Card implements Serializable {
 	public String getMyType() {
 		return mytype;
 	}
-
+	
+	public abstract Texture getClickedTexture();
+	
 	public void setName(String name) {
 		this.cardName = name;
 	}
