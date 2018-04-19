@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -70,47 +74,45 @@ public class GameBoardPage implements Screen {
 	int buttonWidth = 100;
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
-	
+    Label.LabelStyle labelStyle = new Label.LabelStyle();
+    
+    Label labelhealth;
+    Label labelmana;
+    Label oplabelhealth;
+    Label oplabelmana;
+    public void updateStats() {
+    		labelhealth.setText("Health -- " + player.get_hp());
+    		labelmana.setText("Mana -- " + player.get_mana());
+    		oplabelhealth.setText("Health -- " + otherPlayer.get_hp());
+    		oplabelmana.setText("Mana -- " + otherPlayer.get_mana());
+    }
 	public GameBoardPage(FireplacePebble g, ThisGame cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
 		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
-		
+		BitmapFont fontLabl = game.regfont32;
+		fontLabl.setColor(Color.BLACK);
+		labelStyle.font = fontLabl;
 		// Creating a new player for testing
 		player = cg.getP1();
 		otherPlayer = cg.getP2();
-//		player = new Player(10);
-//		otherPlayer = new Player(10);
-//		
+		//LABELS FOR STATS, HEALTH AND MANA
+		labelhealth = new Label("Health - " + player.get_hp() ,labelStyle);
+	    labelmana = new Label("Mana - " + player.get_mana(), labelStyle);
+	    oplabelhealth = new Label("Health - " + otherPlayer.get_hp() ,labelStyle);
+	    oplabelmana = new Label("Mana - " + otherPlayer.get_mana(), labelStyle);
+	    labelhealth.setPosition(w/8, (h)/6 - buttonHeight/2);
+	    labelmana.setPosition(w/8, (h)/6);
+	    oplabelhealth.setPosition(6*w/8, (5*h)/6 + buttonHeight/2);
+	    oplabelmana.setPosition(6*w/8, (5*h)/6);
+	    stage.addActor(labelhealth);
+	    stage.addActor(oplabelhealth);
+	    stage.addActor(labelmana);
+	    stage.addActor(oplabelmana);
+
 		final Player p1 = player;
 		final Player p2 = otherPlayer;
-//		game.user = new User(p1);
-//		game.oppo = new User(p2);
-//		final User myUser = game.user;
-//		final User yourUser = game.oppo;
-//		// Max 20 cards in a deck, create that deck in the Player
-//		List<Card> dummyDeck = new ArrayList<Card>();
-//		List<Card> opponentDummyDeck = new ArrayList<Card>();
-//		// Add 10 GOATS
-//		CreatureCard dummyCCard = game.creatureCards.get("goat");
-//		for (int i = 0; i < 10; i++)
-//		{
-//			Card toAdd = new CreatureCard(dummyCCard);
-//			dummyDeck.add(toAdd);
-//			opponentDummyDeck.add(toAdd);
-//		}
-//		// Add 10 Libras
-//		MagicCard dummyMCard = game.magicCards.get("libra");
-//		for (int i = 0; i < 10; i++)
-//		{
-//			Card toAdd = new MagicCard(dummyMCard);
-//			dummyDeck.add(toAdd);
-//			opponentDummyDeck.add(toAdd);
-//		}
-//		// Now, we have a deck with 20 cards. Add it to the Player
-//		player.set_cardDeck(dummyDeck);
-//		otherPlayer.set_cardDeck(opponentDummyDeck);
-		//List<Card> a = dummyPlayer.get_cardDeck();
+
 		// Hard Set it to this player's turn first
 		playerTurn = true;
 		opponentTurn = false;
@@ -121,7 +123,6 @@ public class GameBoardPage implements Screen {
 		final ThisGame gg = currentGame;
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
         font = game.regfont32();
-        font.setColor(Color.BLACK);
 		Gdx.input.setInputProcessor(stage);		
 		// End Turn button setup
 		TextButton endTurnButton = new TextButton("END TURN", skin);
@@ -129,9 +130,15 @@ public class GameBoardPage implements Screen {
 		endTurnButton.setSize(buttonWidth, buttonHeight);
 				
 		endTurnButton.addListener(new ClickListener() {
+			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
 				System.out.println("End turn bttn");
+				updateStats();
 				endTurnButtonClicked(p1, p2, gg);
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+			{
+				return true;
 			}
 		});
 		
@@ -237,6 +244,7 @@ public class GameBoardPage implements Screen {
 				@Override
 				public void touchUp(InputEvent e, float x, float y, int point, int button)
 				{
+					updateStats();
 					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
 					HandButtonClicked(cardToAddToGameBoard, HandButton, p);
 				}
@@ -333,11 +341,6 @@ public class GameBoardPage implements Screen {
 	}
 	
 	public void endTurnButtonClicked(Player p1, Player p2, ThisGame cg) {
-		batch.begin();
-		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Healthfds - " + (p1.get_hp()-1), w/2, (h)/2);
-		font.draw(batch, "Mana - " + p1.get_mana(), w/8, (h)/6);
-		
 		playerTurn = !playerTurn;
 		opponentAttackCount++;
 		
@@ -387,7 +390,7 @@ public class GameBoardPage implements Screen {
 					@Override
 					public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
 					{
-						return true;
+						return false;
 					}
 				});
 				opponentImages.add(GameBoardButton);
@@ -421,39 +424,34 @@ public class GameBoardPage implements Screen {
 			
 			playerTurn = !playerTurn;
 		}
-		
-		//OPPONENT
-		font.draw(batch, "Health - " + p2.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
-		font.draw(batch, "Mana - " + p2.get_mana(), 6*w/8, (5*h)/6);
-		batch.end();
 		numTurnsSoFar++;
+		return;
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		texture = new Texture("GamePage.png");
 		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
 
 		player = game.getUser().get_player();
 		otherPlayer = game.getUser().get_player();
-
+		
 		batch.begin();
 		batch.draw(mainBackground, 0, 0, w, h);
 		
-		font.draw(batch, "Health - " + player.get_hp(), w/8, (h)/6 + buttonHeight/2);
-		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
-		
-		//OPPONENT
-		font.draw(batch, "Health - " + otherPlayer.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
-		font.draw(batch, "Mana - " + otherPlayer.get_mana(), 6*w/8, (5*h)/6);
+//		font.draw(batch, "Health - " + player.get_hp(), w/8, (h)/6 + buttonHeight/2);
+//		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
+//		
+//		//OPPONENT
+//		font.draw(batch, "Health - " + otherPlayer.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
+//		font.draw(batch, "Mana - " + otherPlayer.get_mana(), 6*w/8, (5*h)/6);
 		
 		batch.end();
 		stage.act(delta);
-		
 		stage.draw();
-		
 	}
 	
 	// Deck Button Clicked
@@ -593,6 +591,12 @@ public class GameBoardPage implements Screen {
 		TextureRegion TEMP_C = new TextureRegion(yourCard.getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 		yourButton.setBackground(TEMP_CARD);
+		stage.addActor(yourButton);
+		
+		ImageButtonStyle _oldStyle = yourButton.getStyle();
+		_oldStyle.imageUp = TEMP_CARD;
+		yourButton.setStyle(_oldStyle);
+		
 		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{
@@ -604,6 +608,12 @@ public class GameBoardPage implements Screen {
 	// Enemy GameBoard Card Clicked
 	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt, ThisGame gg)
 	{
+		TextureRegion TEMP_C = new TextureRegion(opponentCard.getClickedTexture());
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		ImageButtonStyle _oldStyle = enemyButton.getStyle();
+		_oldStyle.imageUp = TEMP_CARD;
+		enemyButton.setStyle(_oldStyle);
+		
 		System.out.println("In Enemy Game Board Card Clicked Function");
 		// Once here, the user wants to attack 
 		if (attackInMotion)
