@@ -111,7 +111,7 @@ public class CreateNewDeckScreen implements Screen {
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
 //						Card gotCard = cardClicked(thisCard); //get the Card
 						Card newCard = copyCard(thisCard);
-						
+//						if(!showMessage("CATS", thisCard)) {}
 						if(!addCardToDeck(thisCard)) { //deck is full!
 							deckFinished();
 						}
@@ -133,7 +133,7 @@ public class CreateNewDeckScreen implements Screen {
 	
 	public boolean deckFinished() {
 		if(cardDeck[19] == null) {
-			showMessage("Not enough cards!");
+//			showMessage("Not enough cards!");
 			return false;
 		}
 		newDeck.addCardDeck(cardDeck);
@@ -210,13 +210,13 @@ public class CreateNewDeckScreen implements Screen {
 		
 	}
 
-	public void showMessage(String message) {
+	public boolean showMessage(String message, Card thisCard) {
 		batch.begin();
-		titleFont = game.regfont32();
-		titleFont.setColor(Color.WHITE);
-		titleFont.draw(batch, message, 3*w/4, 4*h/30);
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Cards in \nNew Deck: \n" + numCards, 3*w/4, 28*h/30);
 		// rendering code
 		batch.end();
+		return false;
 	}
 	@Override
 	public void render(float delta) {

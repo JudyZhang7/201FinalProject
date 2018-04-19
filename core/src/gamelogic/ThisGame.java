@@ -134,5 +134,4 @@ public class ThisGame {
 //		}
 //		//mPlayer = new Player();
 	}
-	
 }
