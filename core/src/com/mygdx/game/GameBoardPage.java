@@ -65,6 +65,8 @@ public class GameBoardPage implements Screen {
 	
 	private Skin skin;
 	private FireplacePebble game;
+	ShapeRenderer sr = new ShapeRenderer();
+
 	
 	int buttonHeight = 100;
 	int buttonWidth = 100;
@@ -260,6 +262,8 @@ public class GameBoardPage implements Screen {
 		for (int i = 0; i < opponentBoard.size(); i++)
 		{
 			final Card oppCard = opponentBoard.get(i);
+			final Player opp = otherPlayer;
+			final Card youCard = yourCard;
 			Texture currCard = opponentBoard.get(i).getTexture();
 			TextureRegion TEMP_C = new TextureRegion(currCard);
 			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
@@ -271,7 +275,7 @@ public class GameBoardPage implements Screen {
 				public void touchUp(InputEvent e, float x, float y, int point, int button)
 				{
 					System.out.println("Enemy GameBoard Card Clicked!");
-					EnemyGameBoardCardClicked(oppCard, GameBoardButton);
+					EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton, opp);
 				}
 				@Override
 				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
@@ -353,17 +357,18 @@ public class GameBoardPage implements Screen {
 			//
 			if (p2.getPlayerBoard().size() > 0) {
 				if (opponentAttackCount % 2 == 0 && p1.getPlayerBoard().size() > 0) {
-//					Random rand1 = new Random();
-//					int min1 = 1;
-//					int max1 = p2.getOpponentBoard().size() - 1;
-//					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
+					Random rand1 = new Random();
+					int min1 = 1;
+					int max1 = p2.getPlayerBoard().size() - 1;
+					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
 					//
 					Random rand2 = new Random();
 					int min2 = 1;
 					int max2 = p1.getPlayerBoard().size() - 1;
 					int randomNum2 = rand2.nextInt((max - min) + 1) + min;
 					// attack
-					yourCardToAttack.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
+					Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
+					p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
 					opponentAttackCount = 0;
 				}
 			}
@@ -536,11 +541,14 @@ public class GameBoardPage implements Screen {
 		// 3) Player needs enough mana to attack
 		// 4) Check if all cards on the gameboard is dead. If dead, then remvove the image and card completely
 		// 5) If opponent has no card on the gameboard, attack the opponent directly
+		sr.begin(ShapeType.Line);
+		sr.setColor(new Color(0,0,1,0));
+		sr.rect(cw, ch, cw, ch);
 		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{
 			attackInMotion = true;
-			yourCard = (CreatureCard) yourCard;
+			this.yourCard = (CreatureCard) yourCard;
 		}
 	}
 	
@@ -561,8 +569,8 @@ public class GameBoardPage implements Screen {
 			{
 				enemyButton.remove();
 			}
-			yourCard = null;
-			opponentCardToAttack = null;
+			this.yourCard = null;
+			this.opponentCardToAttack = null;
 		}
 	}
 	
