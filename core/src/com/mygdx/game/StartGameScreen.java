@@ -190,7 +190,7 @@ public class StartGameScreen implements Screen {
 	}
 	
 	public void startGameWithComputer() {
-		Player computerPlayer = new Player(10);
+		Player computerPlayer = new Player(100);
 //		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
 		List<Card> comDeck = new ArrayList<Card>();
 		Iterator<Map.Entry<String, CreatureCard>> it = game.creatureCards.entrySet().iterator();

@@ -153,7 +153,7 @@ public class ActionCard extends Card {
 		return _texture;
 	}
 	
-	public int get_manaCost() {
+	public int get_manaCost(){
 		return _manaCost;
 	}
 

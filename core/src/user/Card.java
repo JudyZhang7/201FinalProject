@@ -103,9 +103,8 @@ public abstract class Card implements Serializable {
 		this.hp -= dec;
 	}
 	
-	public int getCost() {
-		return manaCost;
-	}
+	public abstract int get_manaCost();
+	
 	public void setCost(int cost) {
 		this.manaCost = cost;
 	}

@@ -89,7 +89,7 @@ public class MagicCard extends Card{
 		}
 	}
 	
-	public MagicCard(int hp, int damage, int manaCost, String cre, Texture img, Texture clicked, FireplacePebble game) {
+	public MagicCard(int hp, int manaCost, int damage, String cre, Texture img, Texture clicked, FireplacePebble game) {
 		super(type);
 		this.game = game;
 		_hpRep = hp;
