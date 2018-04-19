@@ -65,6 +65,8 @@ public class GameBoardPage implements Screen {
 	
 	private Skin skin;
 	private FireplacePebble game;
+	ShapeRenderer sr = new ShapeRenderer();
+
 	
 	int buttonHeight = 100;
 	int buttonWidth = 100;
@@ -357,7 +359,7 @@ public class GameBoardPage implements Screen {
 				if (opponentAttackCount % 2 == 0 && p1.getPlayerBoard().size() > 0) {
 					Random rand1 = new Random();
 					int min1 = 1;
-					int max1 = p2.getOpponentBoard().size() - 1;
+					int max1 = p2.getPlayerBoard().size() - 1;
 					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
 					//
 					Random rand2 = new Random();
@@ -539,6 +541,9 @@ public class GameBoardPage implements Screen {
 		// 3) Player needs enough mana to attack
 		// 4) Check if all cards on the gameboard is dead. If dead, then remvove the image and card completely
 		// 5) If opponent has no card on the gameboard, attack the opponent directly
+		sr.begin(ShapeType.Line);
+		sr.setColor(new Color(0,0,1,0));
+		sr.rect(cw, ch, cw, ch);
 		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{
