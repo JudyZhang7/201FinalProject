@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -189,7 +191,20 @@ public class StartGameScreen implements Screen {
 	
 	public void startGameWithComputer() {
 		Player computerPlayer = new Player(10);
-		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
+//		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
+		List<Card> comDeck = new ArrayList<Card>();
+		Iterator<Map.Entry<String, CreatureCard>> it = game.creatureCards.entrySet().iterator();
+		while (it.hasNext()) 
+		{
+		    Map.Entry<String, CreatureCard> pair = it.next();
+		    CreatureCard cx = new CreatureCard(pair.getValue());
+		    comDeck.add(cx);
+		}
+		for (int i = 0; i < 8; i++)
+		{
+			comDeck.add(game.creatureCards.get("pig"));
+		}
+		computerPlayer.set_cardDeck(comDeck);
 		//or game could just have a default computer player thing
 		game.getUser().get_player().set_cardDeck(getCopyOfDefaultDeck());
 		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page
