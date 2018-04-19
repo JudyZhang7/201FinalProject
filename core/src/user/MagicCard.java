@@ -20,7 +20,7 @@ public class MagicCard extends Card{
 	private Texture _texture;
 	private Boolean ADEAD;
 	
-	private static enum Astro {
+	private enum Astro {
 		Scorpio,
 		Sagittarius,
 		Capricorn,
@@ -205,27 +205,27 @@ public class MagicCard extends Card{
 			break;
 		case Sagittarius:
 			
-			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
+			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
 				if (this.game.getUser().get_player().get_mana() > 0) {
 					Random rand = null;
 					int min = 1;
 					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 					int randomNum = rand.nextInt((max - min) + 1) + min;
 					
-					game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(0);
+					game.getOpponent().getPlayerBoard().get(randomNum).setLife(0);
 					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 				}
 			}
 			this.ADEAD = isDead();
 			break;
 		case Capricorn:
-			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
+			if (game.getOpponent().getmHand().isEmpty() == false) {
 				if (this.game.getUser().get_player().get_mana() > 0) {
 					Random rand = null;
 					int min = 1;
-					int max = game.getUser().get_player().getOpponent().getmHand().size() - 1;
+					int max = game.getOpponent().getmHand().size() - 1;
 					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
+					game.getOpponent().getmHand().remove(randomNum);
 					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 				}
 			}
@@ -233,9 +233,9 @@ public class MagicCard extends Card{
 			break;
 		case Aquarius:
 			if (this.game.getUser().get_player().get_mana() > 0) {
-				int boardSize = game.getUser().get_player().getOpponent().getOpponentBoard().size();
+				int boardSize = game.getOpponent().getmHand().size();
 				for (int i = 0; i < boardSize; i++) {
-					game.getUser().get_player().getOpponent().getOpponentBoard().get(i).setLife(game.getUser().get_player().getOpponent().getOpponentBoard().get(i).getLife() - 1);
+					game.getOpponent().getmHand().get(i).setLife(game.getOpponent().getmHand().get(i).getLife() - 1);
 				}
 				this.ADEAD = isDead();
 				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
@@ -258,10 +258,10 @@ public class MagicCard extends Card{
 			if (this.game.getUser().get_player().get_mana() > 0) {
 				Random rand = null;
 				int min = 1;
-				int max = game.getUser().get_player().getOpponent().getOpponentBoard().size() - 1;
+				int max = game.getOpponent().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 
-				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(game.getUser().get_player().getOpponentBoard().get(randomNum).getLife() - 5);
+				game.getOpponent().getPlayerBoard().get(randomNum).setLife(game.getOpponent().getPlayerBoard().get(randomNum).getLife() - 5);
 				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() - 5);
 				this.ADEAD = isDead();
 				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
@@ -271,10 +271,10 @@ public class MagicCard extends Card{
 			if (this.game.getUser().get_player().get_mana() > 0) {
 				Random rand = null;
 				int min = 1;
-				int max = game.getUser().get_player().getOpponent().getOpponentBoard().size() - 1;
+				int max = game.getOpponent().getPlayerBoard().size() - 1;
 				int randomNum = rand.nextInt((max - min) + 1) + min;
 
-				game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(game.getUser().get_player().getOpponentBoard().get(randomNum).getLife() - 3);
+				game.getOpponent().getPlayerBoard().get(randomNum).setLife(game.getOpponent().getPlayerBoard().get(randomNum).getLife() - 3);
 				this.ADEAD = isDead();
 				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 			}
@@ -293,29 +293,29 @@ public class MagicCard extends Card{
 			}
 			break;
 		case Cancer:
-			if (game.getUser().get_player().getOpponent().getOpponentHand().isEmpty() == false) {
+			if (game.getOpponent().getmHand().isEmpty() == false) {
 				if (this.game.getUser().get_player().get_mana() > 0) {
 					Random rand = null;
 					int min = 1;
 					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getUser().get_player().getmHand().add(game.getUser().get_player().getOpponent().getOpponentHand().get(randomNum));
-					game.getUser().get_player().getOpponent().getOpponentHand().remove(randomNum);
+					game.getUser().get_player().getmHand().add(game.getOpponent().getmHand().get(randomNum));
+					game.getOpponent().getmHand().remove(randomNum);
 					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 					this.ADEAD = isDead();
 				}
 			}
 			break;
 		case Leo:
-			if (game.getUser().get_player().getOpponentBoard().isEmpty() == false) {
+			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
 				if (this.game.getUser().get_player().get_mana() > 0) {
 					Random rand = null;
 					int min = 1;
 					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
 					int randomNum = rand.nextInt((max - min) + 1) + min;
 					
-					game.getUser().get_player().getOpponent().getOpponentHand().add(game.getUser().get_player().getOpponentBoard().get(randomNum));
-					game.getUser().get_player().getOpponent().getOpponentBoard().remove(randomNum);
+					game.getOpponent().getmHand().add(game.getOpponent().getPlayerBoard().get(randomNum));
+					game.getOpponent().getPlayerBoard().remove(randomNum);
 					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 					this.ADEAD = isDead();
 				}
@@ -337,7 +337,7 @@ public class MagicCard extends Card{
 			}
 			break;
 		case Libra:
-			if (game.getUser().get_player().getOpponent().getOpponentBoard().isEmpty() == false) {
+			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
 				if (this.game.getUser().get_player().get_mana() > 0) {
 					Random rand = null;
 					int min = 1;
@@ -347,10 +347,10 @@ public class MagicCard extends Card{
 					
 					Random rand1 = null;
 					int min1 = 1;
-					int creatureHP = game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).getLife();
+					int creatureHP = game.getOpponent().getPlayerBoard().get(randomNum).getLife();
 					int randomNum1 = rand1.nextInt((creatureHP - min1) + 1) + min1;
 	
-					game.getUser().get_player().getOpponent().getOpponentBoard().get(randomNum).setLife(creatureHP - randomNum1);
+					game.getOpponent().getPlayerBoard().get(randomNum).setLife(creatureHP - randomNum1);
 					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
 					this.ADEAD = isDead();
 				}

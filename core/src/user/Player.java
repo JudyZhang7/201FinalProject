@@ -156,6 +156,7 @@ public class Player implements Serializable{
 		mHand.remove(null);
 	}
 
+
 //	public Player getOpponent() {
 //		return opponent;
 //	}

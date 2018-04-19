@@ -304,4 +304,9 @@ public class FireplacePebble extends Game{
 	    }
 		return allCards;
 	}
+
+	public Player getOpponent() {
+		// TODO Auto-generated method stub
+		return oppo.get_player();
+	}
 }
