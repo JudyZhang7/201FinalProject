@@ -10,7 +10,6 @@ public class Deck implements Serializable{
 	
 	public void shuffle() {
 		Collections.shuffle(Arrays.asList(cardDeck));
-
 	}
 
 	public Card[] getCardDeck() {

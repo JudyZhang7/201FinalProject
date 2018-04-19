@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import user.ActionCard;
 import user.Card;
 import user.CreatureCard;
+import user.Deck;
 import user.Decks;
 import user.MagicCard;
 import user.Player;
@@ -41,6 +42,7 @@ public class FireplacePebble extends Game{
 	HashMap< String,CreatureCard> creatureCards = new HashMap< String,CreatureCard>();
 	HashMap< String,ActionCard> actionCards = new HashMap< String,ActionCard>();
 	HashMap< String,MagicCard> magicCards = new HashMap< String,MagicCard>();
+	List<Card>defaultCardDeck = new ArrayList<Card>();
     // NEW TOAST
 
 	@Override
@@ -253,7 +255,32 @@ public class FireplacePebble extends Game{
 		actionCards.put("heal", Heal);
 		actionCards.put("doubleDamage", DoubleDamage);
 		actionCards.put("preparation", Preparation);
+		
+		defaultCardDeck.add(ratCard);
+		defaultCardDeck.add(oxCard);
+		defaultCardDeck.add(tigerCard);
+		defaultCardDeck.add(rabbitCard);
+		defaultCardDeck.add(snakeCard);
+		defaultCardDeck.add(monkeyCard);
+		defaultCardDeck.add(roosterCard);
+		defaultCardDeck.add(dogCard);
+		defaultCardDeck.add(pigCard);
+		defaultCardDeck.add(Scorpio);
+		defaultCardDeck.add(Sagittarius);
+		defaultCardDeck.add(Capricorn);
+		defaultCardDeck.add(Aquarius);
+		defaultCardDeck.add(Pisces);
+		defaultCardDeck.add(Aries);
+		defaultCardDeck.add(Taurus);
+		defaultCardDeck.add(Gemini);
+		defaultCardDeck.add(Cancer);
+		defaultCardDeck.add(Weapon);
+		defaultCardDeck.add( Heal);
 	}
+	public List<Card> getDefaultCardDeck(){
+		return defaultCardDeck;
+	}
+	
 	public Card [] getAllCards(){
 		Card [] allCards = new Card[28];
 		int counter = 0;

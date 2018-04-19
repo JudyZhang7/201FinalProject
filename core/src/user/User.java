@@ -37,7 +37,7 @@ public class User {
 	public User(String username, String password) {
 		this._Username = username;
 		this._Password = password;
-		this._player = new Player();
+		this._player = new Player(10);
 		this._decks = new Decks();
 		this._wins = 0;
 		this._losses = 0;

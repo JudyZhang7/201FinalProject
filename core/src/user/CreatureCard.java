@@ -225,7 +225,9 @@ public class CreatureCard extends Card {
 	public void setHP(int newHP) {
 		_hp = newHP;
 	}
-	
+	public void setPlayer(Player p) {
+		mPlayer = p;
+	}
 	@Override
 	public Boolean isDead() {
 		if(_hp <= 0) {
@@ -278,7 +280,7 @@ public class CreatureCard extends Card {
 			mPlayer.drawCards();
 			break;
 		}
-		
+		System.out.println("mana - " + mPlayer.get_mana());
 		if(mPlayer.get_mana() - _manaCost < 0) {
 			return false;
 		}

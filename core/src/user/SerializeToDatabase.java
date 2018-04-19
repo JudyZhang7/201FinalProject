@@ -92,7 +92,7 @@ public class SerializeToDatabase {
 		connection = DriverManager.getConnection("jdbc:mysql://localhost/ProjectUserDatabase?user=root&password=" + yourPassword + "&useSSL=false");
 
 		// a sample java object to serialize
-		Player player = new Player();
+		Player player = new Player(10);
 		long serialized_id = serializeJavaObjectToDB(connection, player, "Judy", SQL_SERIALIZE_OBJECT_PLAYER);
 
 		// serializing java object to mysql database

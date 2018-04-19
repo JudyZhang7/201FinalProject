@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,6 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import gamelogic.ThisGame;
+import user.ActionCard;
+import user.Card;
+import user.CreatureCard;
+import user.MagicCard;
 import user.Player;
 
 public class StartGameScreen implements Screen {
@@ -137,10 +144,51 @@ public class StartGameScreen implements Screen {
 	public void btnStartClicked() {
 
 	}
+	public Card copyCard(Card thisCard) {
+		Card newCard = null;
+		if (thisCard.getMytype().equals("creature"))
+		{
+			int hp = ((CreatureCard)thisCard).get_hp();
+			int damage = ((CreatureCard)thisCard).get_damage();
+			int manaCost = ((CreatureCard)thisCard).get_manaCost();
+			String name = ((CreatureCard)thisCard).getName();
+			Texture text =((CreatureCard)thisCard).get_texture();
+			newCard = new CreatureCard (hp, damage, manaCost, name, text);
+		}
+		else if(thisCard.getMytype().equals("magic")) {
+			//(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
+			int hp = ((MagicCard)thisCard).get_hpRep();
+			int damage = ((MagicCard)thisCard).get_damage();
+			int manaCost = ((MagicCard)thisCard).get_manaCost();
+			String name = ((MagicCard)thisCard).get_astrological();
+			Texture text =((MagicCard)thisCard).get_texture();
+			newCard = new MagicCard (hp, damage, manaCost, name, text, game);
+		}
+		else if(thisCard.getMytype().equals("action")) {
+			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
+			int hp = ((ActionCard)thisCard).get_hpReplenish();
+			int damage = ((ActionCard)thisCard).get_damage();
+			int manaCost = ((ActionCard)thisCard).get_manaCost();
+			String name = ((ActionCard)thisCard).getCardname();
+			Texture text =((ActionCard)thisCard).get_texture();
+			newCard = new ActionCard (manaCost, damage, hp, 0, name, text);
+		}
+		return newCard;
+	}
+	
+	public List<Card> getCopyOfDefaultDeck(){
+		List<Card> newDeck = new ArrayList<Card>();
+		for(int i = 0; i < game.getDefaultCardDeck().size(); i++) {
+			newDeck.add(copyCard(game.getDefaultCardDeck().get(i)));
+		}
+		return newDeck;
+	}
 	
 	public void startGameWithComputer() {
-		Player computerPlayer = new Player();
+		Player computerPlayer = new Player(10);
+		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
 		//or game could just have a default computer player thing
+		game.getUser().get_player().set_cardDeck(getCopyOfDefaultDeck());
 		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page
 	}
 	

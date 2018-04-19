@@ -155,7 +155,7 @@ public class AddToSQLDatabase
 			ps.setString(2, passwordToAdd);
 			
 			ps.executeUpdate();
-			Player player = new Player();
+			Player player = new Player(10);
 			STD.serializeJavaObjectToDB(conn, player, userToAdd, SQL_SERIALIZE_OBJECT_PLAYER);
 			Decks decks = new Decks();
 			STD.serializeJavaObjectToDB(conn, decks, userToAdd, SQL_SERIALIZE_OBJECT_DECKS);

@@ -35,6 +35,10 @@ public class Player implements Serializable{
 		_cardDeck = null;
 	}
 	
+	public void setCardDeck(List<Card> cardDeck) {
+		_cardDeck = cardDeck;
+	}
+	
 	public ArrayList<Card> getmHand() {
 		return mHand;
 	}
@@ -56,9 +60,6 @@ public class Player implements Serializable{
 		_mana = mana;
 	}
 	
-	public Player () {
-		
-	}
 	public Boolean isNew() {
 		return newPlayer;
 	}

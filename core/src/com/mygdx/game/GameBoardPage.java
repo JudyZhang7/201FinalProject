@@ -60,7 +60,7 @@ public class GameBoardPage implements Screen {
 	ArrayList<ImageButton> opponentImages = new ArrayList<ImageButton>();
 	private int numTurnsSoFar = 0; // Counting the number of turns so far
 	private boolean attackInMotion = false;
-	private CreatureCard yourCardToAttack = null;
+	private CreatureCard yourCard = null;
 	private CreatureCard opponentCardToAttack = null;
 	
 	private Skin skin;
@@ -74,46 +74,48 @@ public class GameBoardPage implements Screen {
 	public GameBoardPage(FireplacePebble g, ThisGame cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
+		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
 		
 		// Creating a new player for testing
-		player = new Player(10);
-		otherPlayer = new Player(10);
-		
+		player = cg.getP1();
+		otherPlayer = cg.getP2();
+//		player = new Player(10);
+//		otherPlayer = new Player(10);
+//		
 		final Player p1 = player;
 		final Player p2 = otherPlayer;
-		game.user = new User(p1);
-		game.oppo = new User(p2);
-		final User myUser = game.user;
-		final User yourUser = game.oppo;
-		// Max 20 cards in a deck, create that deck in the Player
-		List<Card> dummyDeck = new ArrayList<Card>();
-		List<Card> opponentDummyDeck = new ArrayList<Card>();
-		// Add 10 GOATS
-		CreatureCard dummyCCard = game.creatureCards.get("goat");
-		for (int i = 0; i < 10; i++)
-		{
-			Card toAdd = new CreatureCard(dummyCCard);
-			dummyDeck.add(toAdd);
-			opponentDummyDeck.add(toAdd);
-		}
-		// Add 10 Libras
-		MagicCard dummyMCard = game.magicCards.get("libra");
-		for (int i = 0; i < 10; i++)
-		{
-			Card toAdd = new MagicCard(dummyMCard);
-			dummyDeck.add(toAdd);
-			opponentDummyDeck.add(toAdd);
-		}
-		// Now, we have a deck with 20 cards. Add it to the Player
-		player.set_cardDeck(dummyDeck);
-		otherPlayer.set_cardDeck(opponentDummyDeck);
+//		game.user = new User(p1);
+//		game.oppo = new User(p2);
+//		final User myUser = game.user;
+//		final User yourUser = game.oppo;
+//		// Max 20 cards in a deck, create that deck in the Player
+//		List<Card> dummyDeck = new ArrayList<Card>();
+//		List<Card> opponentDummyDeck = new ArrayList<Card>();
+//		// Add 10 GOATS
+//		CreatureCard dummyCCard = game.creatureCards.get("goat");
+//		for (int i = 0; i < 10; i++)
+//		{
+//			Card toAdd = new CreatureCard(dummyCCard);
+//			dummyDeck.add(toAdd);
+//			opponentDummyDeck.add(toAdd);
+//		}
+//		// Add 10 Libras
+//		MagicCard dummyMCard = game.magicCards.get("libra");
+//		for (int i = 0; i < 10; i++)
+//		{
+//			Card toAdd = new MagicCard(dummyMCard);
+//			dummyDeck.add(toAdd);
+//			opponentDummyDeck.add(toAdd);
+//		}
+//		// Now, we have a deck with 20 cards. Add it to the Player
+//		player.set_cardDeck(dummyDeck);
+//		otherPlayer.set_cardDeck(opponentDummyDeck);
 		//List<Card> a = dummyPlayer.get_cardDeck();
 		// Hard Set it to this player's turn first
 		playerTurn = true;
 		opponentTurn = false;
 		
 		
-		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
 //		this.player = currentGame.getP1();
 //		this.otherPlayer = currentGame.getP2();
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
@@ -338,24 +340,25 @@ public class GameBoardPage implements Screen {
 		if (playerTurn == false) {
 			
 			p2.drawCards();
-			Random rand = null;
+			Random rand = new Random();
 			int min = 1;
-			int max = p2.getOpponentHand().size() - 1;
-			int randomNum = rand.nextInt((max - min) + 1) + min;
+			int max = p2.getmHand().size();
+			System.out.println("maxxxx: " + max);
+			int randomNum = rand.nextInt(max) + 1;
 			
 			//
-			p2.getOpponentBoard().add(p2.getOpponentHand().get(randomNum));
+			p2.getPlayerBoard().add(p2.getmHand().get(randomNum-1));
 			// display all cards from opponent board arraylist
 			
 			//
-			if (p2.getOpponentBoard().size() > 0) {
+			if (p2.getPlayerBoard().size() > 0) {
 				if (opponentAttackCount % 2 == 0 && p1.getPlayerBoard().size() > 0) {
-					Random rand1 = null;
+//					Random rand1 = new Random();
 //					int min1 = 1;
 //					int max1 = p2.getOpponentBoard().size() - 1;
 //					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
 					//
-					Random rand2 = null;
+					Random rand2 = new Random();
 					int min2 = 1;
 					int max2 = p1.getPlayerBoard().size() - 1;
 					int randomNum2 = rand2.nextInt((max - min) + 1) + min;
@@ -537,27 +540,28 @@ public class GameBoardPage implements Screen {
 		if (numTurnsSoFar != 0)
 		{
 			attackInMotion = true;
-			yourCardToAttack = (CreatureCard) yourCard;
+			yourCard = (CreatureCard) yourCard;
 		}
 	}
 	
 	// Enemy GameBoard Card Clicked
-	public void EnemyGameBoardCardClicked(Card opponentCard, ImageButton enemyButton)
+	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt)
 	{
 		System.out.println("In Enemy Game Board Card Clicked Function");
 		// Once here, the user wants to attack 
 		if (attackInMotion)
 		{
 			opponentCardToAttack = (CreatureCard) opponentCard;
-			if (yourCardToAttack != null)
+			opponentCardToAttack.setPlayer(playerThatGetsHurt);
+			if (yourCard != null)
 			{
-				yourCardToAttack.Attack(opponentCardToAttack, otherPlayer);
+				yourCard.Attack(opponentCardToAttack, otherPlayer);
 			}
 			if (opponentCardToAttack.isDead())
 			{
 				enemyButton.remove();
 			}
-			yourCardToAttack = null;
+			yourCard = null;
 			opponentCardToAttack = null;
 		}
 	}
