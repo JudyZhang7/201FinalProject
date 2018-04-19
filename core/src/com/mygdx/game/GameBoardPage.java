@@ -118,6 +118,7 @@ public class GameBoardPage implements Screen {
 		
 //		this.player = currentGame.getP1();
 //		this.otherPlayer = currentGame.getP2();
+		final ThisGame gg = currentGame;
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
         font = game.regfont32();
         font.setColor(Color.BLACK);
@@ -130,7 +131,7 @@ public class GameBoardPage implements Screen {
 		endTurnButton.addListener(new ClickListener() {
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
 				System.out.println("End turn bttn");
-				endTurnButtonClicked(p1, p2);
+				endTurnButtonClicked(p1, p2, gg);
 			}
 		});
 		
@@ -254,39 +255,40 @@ public class GameBoardPage implements Screen {
 		}
 		// HAND BUTTONS ABOVE
 		// WHEN USER ENTERS A GAME, HERE ARE THE CARDS DRAWN AND ON THE HAND. NO CARDS ON THE GAMEBOARD YET
-		ArrayList<Card> opponentBoard = new ArrayList<Card>();
-		CreatureCard cd = game.creatureCards.get("pig");
-		opponentBoard.add(new CreatureCard(cd));
-		for (int i = 0; i < opponentBoard.size(); i++)
-		{
-			final Card oppCard = opponentBoard.get(i);
-			final Player opp = otherPlayer;
-			final Card youCard = yourCard;
-			Texture currCard = opponentBoard.get(i).getTexture();
-			TextureRegion TEMP_C = new TextureRegion(currCard);
-			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
-			final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
-			GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
-			GameBoardButton.setSize(cw, ch);
-			GameBoardButton.addListener(new ClickListener() {
-				@Override
-				public void touchUp(InputEvent e, float x, float y, int point, int button)
-				{
-					System.out.println("Enemy GameBoard Card Clicked!");
-					EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton, opp);
-				}
-				@Override
-				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
-				{
-					return true;
-				}
-			});
-			opponentImages.add(GameBoardButton);
-		}
-		for (int i = 0; i < opponentImages.size(); i++) 
-		{
-			stage.addActor(opponentImages.get(i));
-		}
+//		ArrayList<Card> opponentBoard = new ArrayList<Card>();
+//		CreatureCard cd = game.creatureCards.get("pig");
+//		opponentBoard.add(new CreatureCard(cd));
+//		for (int i = 0; i < opponentBoard.size(); i++)
+//		{
+//			final Card oppCard = opponentBoard.get(i);
+//			final Player opp = otherPlayer;
+//			final Card youCard = yourCard;
+//			final ThisGame gg = currentGame;
+//			Texture currCard = opponentBoard.get(i).getTexture();
+//			TextureRegion TEMP_C = new TextureRegion(currCard);
+//			TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+//			final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
+//			GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
+//			GameBoardButton.setSize(cw, ch);
+//			GameBoardButton.addListener(new ClickListener() {
+//				@Override
+//				public void touchUp(InputEvent e, float x, float y, int point, int button)
+//				{
+//					System.out.println("Enemy GameBoard Card Clicked!");
+//					EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton, opp, gg);
+//				}
+//				@Override
+//				public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+//				{
+//					return true;
+//				}
+//			});
+//			opponentImages.add(GameBoardButton);
+//		}
+//		for (int i = 0; i < opponentImages.size(); i++) 
+//		{
+//			stage.addActor(opponentImages.get(i));
+//		}
 		
 //		myCards = new ArrayList<ImageButton>(); // This is the arrayList that stores the cards
 //		int counter = 0;
@@ -330,7 +332,7 @@ public class GameBoardPage implements Screen {
 		game.setScreen(new ProfileScreen(game));
 	}
 	
-	public void endTurnButtonClicked(Player p1, Player p2) {
+	public void endTurnButtonClicked(Player p1, Player p2, ThisGame cg) {
 		batch.begin();
 		BitmapFont titleFont64 = game.titlefont64();
 		titleFont64.draw(batch, "Healthfds - " + (p1.get_hp()-1), w/2, (h)/2);
@@ -340,34 +342,80 @@ public class GameBoardPage implements Screen {
 		opponentAttackCount++;
 		
 		if (playerTurn == false) {
-			
-			p2.drawCards();
+			// Output P2's cards on the gameboard
+			// If opponent's first turn
+			if (opponentAttackCount == 1)
+			{
+				p2.drawCards();
+				p2.drawCards();
+				p2.drawCards();
+			}
+			else
+			{
+				p2.drawCards();
+			}
 			Random rand = new Random();
 			int min = 1;
 			int max = p2.getmHand().size();
 			System.out.println("maxxxx: " + max);
 			int randomNum = rand.nextInt(max) + 1;
 			
-			//
-			p2.getPlayerBoard().add(p2.getmHand().get(randomNum-1));
+			// Add to the Player 2 Gameboard, and remove from Player 2 hand
+			Card chosenOne = p2.getmHand().get(randomNum-1);
+			p2.getPlayerBoard().add(chosenOne);
+			p2.getmHand().remove(chosenOne);
 			// display all cards from opponent board arraylist
-			
-			//
+			for (int i = 0; i < p2.getPlayerBoard().size(); i++)
+			{
+				final Card oppCard = p2.getPlayerBoard().get(i);
+				final Player opp = otherPlayer;
+				final Card youCard = yourCard;
+				final ThisGame gg = cg;
+				Texture currCard = p2.getPlayerBoard().get(i).getTexture();
+				TextureRegion TEMP_C = new TextureRegion(currCard);
+				TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+				final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
+				GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
+				GameBoardButton.setSize(cw, ch);
+				GameBoardButton.addListener(new ClickListener() {
+					@Override
+					public void touchUp(InputEvent e, float x, float y, int point, int button)
+					{
+						System.out.println("Enemy GameBoard Card Clicked!");
+						EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton, opp, gg);
+					}
+					@Override
+					public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+					{
+						return true;
+					}
+				});
+				opponentImages.add(GameBoardButton);
+				// Need to remove all the images of dead creatures
+			}
+			for (int i = 0; i < opponentImages.size(); i++) 
+			{
+				stage.addActor(opponentImages.get(i));
+			}
+			// if p2 has cards on its gameboard, it can attack
 			if (p2.getPlayerBoard().size() > 0) {
+				// if p1 has cards on the gameboard, it can attack
 				if (opponentAttackCount % 2 == 0 && p1.getPlayerBoard().size() > 0) {
+					// Select a random card from the computer's gameboard
 					Random rand1 = new Random();
 					int min1 = 1;
 					int max1 = p2.getPlayerBoard().size() - 1;
-					int randomNum1 = rand1.nextInt((max - min) + 1) + min;
-					//
+					int randomNum1 = rand1.nextInt((max1 - min1) + 1) + min1;
+					// Select a random card from the player's gameboard to attack
 					Random rand2 = new Random();
 					int min2 = 1;
 					int max2 = p1.getPlayerBoard().size() - 1;
-					int randomNum2 = rand2.nextInt((max - min) + 1) + min;
+					int randomNum2 = rand2.nextInt((max2 - min2) + 1) + min2;
 					// attack
-					Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
-					p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
-					opponentAttackCount = 0;
+					cg.Act(p2.getPlayerBoard().get(randomNum1), p1.getPlayerBoard().get(randomNum2));
+//					Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
+//					p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
+//					opponentAttackCount = 0;
 				}
 			}
 			
@@ -554,7 +602,7 @@ public class GameBoardPage implements Screen {
 	}
 	
 	// Enemy GameBoard Card Clicked
-	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt)
+	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt, ThisGame gg)
 	{
 		System.out.println("In Enemy Game Board Card Clicked Function");
 		// Once here, the user wants to attack 
@@ -564,7 +612,8 @@ public class GameBoardPage implements Screen {
 			opponentCardToAttack.setPlayer(playerThatGetsHurt);
 			if (yourCard != null)
 			{
-				yourCard.Attack(opponentCardToAttack, otherPlayer);
+//				yourCard.Attack(opponentCardToAttack, otherPlayer);
+				gg.Act(yourCard, opponentCard);
 			}
 			if (opponentCardToAttack.isDead())
 			{
