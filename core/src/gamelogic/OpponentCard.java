@@ -33,4 +33,9 @@ public class OpponentCard extends Card {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Texture getClickedTexture() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

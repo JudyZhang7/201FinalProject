@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -593,6 +594,12 @@ public class GameBoardPage implements Screen {
 		TextureRegion TEMP_C = new TextureRegion(yourCard.getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 		yourButton.setBackground(TEMP_CARD);
+		stage.addActor(yourButton);
+		
+		ImageButtonStyle _oldStyle = yourButton.getStyle();
+		_oldStyle.imageUp = TEMP_CARD;
+		yourButton.setStyle(_oldStyle);
+		
 		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{
