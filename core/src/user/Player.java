@@ -18,10 +18,10 @@ public class Player implements Serializable{
 	private int handSize;
 	
 	private ArrayList<Card> mHand = new ArrayList<Card>();
-	private ArrayList<Card> opponentHand = new ArrayList<Card>();
-	private Player opponent;
+//	private ArrayList<Card> opponentHand = new ArrayList<Card>();
+//	private Player opponent;
 	private ArrayList<Card> playerBoard = new ArrayList<Card>();
-	private ArrayList<Card> opponentBoard = new ArrayList<Card>();
+//	private ArrayList<Card> opponentBoard = new ArrayList<Card>();
 	
 	// Dummy Constructor for Dummy
 	public Player(int hp)
@@ -156,29 +156,29 @@ public class Player implements Serializable{
 		mHand.remove(null);
 	}
 
-	public Player getOpponent() {
-		return opponent;
-	}
-
-	public void setOpponent(Player opponent) {
-		this.opponent = opponent;
-	}
-
-	public ArrayList<Card> getOpponentBoard() {
-		return opponentBoard;
-	}
-
-	public void setOpponentBoard(ArrayList<Card> opponentBoard) {
-		this.opponentBoard = opponentBoard;
-	}
-
-	public ArrayList<Card> getOpponentHand() {
-		return opponentHand;
-	}
-
-	public void setOpponentHand(ArrayList<Card> opponentHand) {
-		this.opponentHand = opponentHand;
-	}
+//	public Player getOpponent() {
+//		return opponent;
+//	}
+//
+//	public void setOpponent(Player opponent) {
+//		this.opponent = opponent;
+//	}
+//
+//	public ArrayList<Card> getOpponentBoard() {
+//		return opponentBoard;
+//	}
+//
+//	public void setOpponentBoard(ArrayList<Card> opponentBoard) {
+//		this.opponentBoard = opponentBoard;
+//	}
+//
+//	public ArrayList<Card> getOpponentHand() {
+//		return opponentHand;
+//	}
+//
+//	public void setOpponentHand(ArrayList<Card> opponentHand) {
+//		this.opponentHand = opponentHand;
+//	}
 	
 }
 
