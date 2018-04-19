@@ -72,6 +72,13 @@ public class GameBoardPage implements Screen {
 	float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 	
+    public void updateStats() {
+    		batch.begin();
+		BitmapFont titleFont64 = game.titlefont64();
+		titleFont64.draw(batch, "Healthfds - " + 5, w/2, (h)/2);
+		font.draw(batch, "Mana - " + 5, w/8, (h)/6);
+		batch.end();
+    }
 	public GameBoardPage(FireplacePebble g, ThisGame cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
@@ -130,9 +137,15 @@ public class GameBoardPage implements Screen {
 		endTurnButton.setSize(buttonWidth, buttonHeight);
 				
 		endTurnButton.addListener(new ClickListener() {
+			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
 				System.out.println("End turn bttn");
 				endTurnButtonClicked(p1, p2, gg);
+			}
+			public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+			{
+				updateStats();
+				return true;
 			}
 		});
 		
@@ -239,6 +252,7 @@ public class GameBoardPage implements Screen {
 				public void touchUp(InputEvent e, float x, float y, int point, int button)
 				{
 					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
+					
 					HandButtonClicked(cardToAddToGameBoard, HandButton, p);
 				}
 				@Override
@@ -334,11 +348,6 @@ public class GameBoardPage implements Screen {
 	}
 	
 	public void endTurnButtonClicked(Player p1, Player p2, ThisGame cg) {
-		batch.begin();
-		BitmapFont titleFont64 = game.titlefont64();
-		titleFont64.draw(batch, "Healthfds - " + (p1.get_hp()-1), w/2, (h)/2);
-		font.draw(batch, "Mana - " + p1.get_mana(), w/8, (h)/6);
-		
 		playerTurn = !playerTurn;
 		opponentAttackCount++;
 		
@@ -424,24 +433,29 @@ public class GameBoardPage implements Screen {
 		}
 		
 		//OPPONENT
+		batch.begin();
 		font.draw(batch, "Health - " + p2.get_hp(), 6*w/8, (5*h)/6 + buttonHeight/2);
 		font.draw(batch, "Mana - " + p2.get_mana(), 6*w/8, (5*h)/6);
 		batch.end();
 		numTurnsSoFar++;
+		return;
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		texture = new Texture("GamePage.png");
-		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
+//		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
+//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		texture = new Texture("GamePage.png");
+//		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
 
 		player = game.getUser().get_player();
 		otherPlayer = game.getUser().get_player();
 
+		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
-		batch.draw(mainBackground, 0, 0, w, h);
+//		batch.draw(mainBackground, 0, 0, w, h);
 		
 		font.draw(batch, "Health - " + player.get_hp(), w/8, (h)/6 + buttonHeight/2);
 		font.draw(batch, "Mana - " + player.get_mana(), w/8, (h)/6);
@@ -452,9 +466,7 @@ public class GameBoardPage implements Screen {
 		
 		batch.end();
 		stage.act(delta);
-		
 		stage.draw();
-		
 	}
 	
 	// Deck Button Clicked
@@ -611,6 +623,12 @@ public class GameBoardPage implements Screen {
 	// Enemy GameBoard Card Clicked
 	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt, ThisGame gg)
 	{
+		TextureRegion TEMP_C = new TextureRegion(opponentCard.getClickedTexture());
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		ImageButtonStyle _oldStyle = enemyButton.getStyle();
+		_oldStyle.imageUp = TEMP_CARD;
+		enemyButton.setStyle(_oldStyle);
+		
 		System.out.println("In Enemy Game Board Card Clicked Function");
 		// Once here, the user wants to attack 
 		if (attackInMotion)
