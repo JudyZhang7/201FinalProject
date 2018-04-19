@@ -1,7 +1,10 @@
 package user;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import gamelogic.ThisGame;
 
 public class CreatureCard extends Card {
 	/**
@@ -33,6 +36,7 @@ public class CreatureCard extends Card {
 	private Boolean targetedFirst;
 	private Boolean firstTurn;
 	private String name;
+	private int winner;
 	
 	// Copy Constructor
 	public CreatureCard(CreatureCard cc)
@@ -363,6 +367,16 @@ public class CreatureCard extends Card {
 		mPlayer.set_mana(mPlayer.get_mana() - _manaCost);
 		return true;
 	}
+	
+	public void AttackPlayer(Player p1) {
+		if(p1.get_hp() > 0) {
+			p1.set_hp(p1.get_hp() - _damage);
+			if (p1.isDead()) {
+				winner = 1;
+			}
+		}
+	}
+	
 	@Override
 	public String getCardname() {
 		// TODO Auto-generated method stub
