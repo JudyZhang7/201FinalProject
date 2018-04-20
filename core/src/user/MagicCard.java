@@ -49,6 +49,7 @@ public class MagicCard extends Card{
 		//_mSprite = sprite;
 		mytype = "magic";
 		_texture = mc._texture;
+		_clickedTexture = mc._clickedTexture;
 		
 		if(mc._astrological.equalsIgnoreCase("Scorpio")) {
 			state = Astro.Scorpio;
@@ -91,6 +92,7 @@ public class MagicCard extends Card{
 	
 	public MagicCard(int hp, int manaCost, int damage, String cre, Texture img, Texture clicked, FireplacePebble game) {
 		super(type);
+		System.out.println("Magic card manaCost: " + manaCost);
 		this.game = game;
 		_hpRep = hp;
 		_damage = damage;
@@ -141,226 +143,122 @@ public class MagicCard extends Card{
 		}
 	}
 
-	@Override
-	public void Attack() {
-		
-		switch (state) {
-		case Scorpio:
-			break;
-		case Sagittarius:
-			//
-			break;
-		case Capricorn:
-			
-			break;
-		case Aquarius:
-			
-			break;
-		case Pisces:
-			
-			break;
-		case Aries:
-			
-			break;
-		case Taurus:
-
-			break;
-		case Gemini:
-			
-			break;
-		case Cancer:
-			
-			break;
-		case Leo:
-			
-			break;
-		case Virgo:
-			
-			break;
-		case Libra:
-			
-			break;
-		default:
-			break;
+	public Boolean AstroEffect(Player you, Player opponent) {
+		//MANA IS SUBTRACTED IN GAMEBOARDPAGE
+		Random rand = new Random();
+		int yourmax = 1;
+		if(!you.getPlayerBoard().isEmpty())
+		{
+			yourmax = you.getPlayerBoard().size();
 		}
-	}
-	
-	public Boolean AstroEffect() {
+		int yourrandomNum = rand.nextInt(yourmax);
 		
-//		if(mPlayer.get_mana() - _manaCost < 0) {
-//			return false;
-//		}
-		
+		int opmax = 1;
+		if(!opponent.getPlayerBoard().isEmpty())
+		{
+			opmax = opponent.getPlayerBoard().size();
+		}
+		int oprandomNum = rand.nextInt(opmax);
+		if (turnCounter != 0) {
+			turnCounter--;
+			// need player hp to increase by 2;
+			you.set_hp(you.get_hp() + 2);
+		}
 		switch (state) {
-		case Scorpio:
+		case Scorpio: //DOES NOT NEED RANDOM NUMBER
 			// need player turn
-			if (this.game.getUser().get_player().get_turn() && turnCounter != 0) {
-				
-				if (this.game.getUser().get_player().get_mana() > 0) {
-				turnCounter--;
-				// need player hp to increase by 2;
-				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() + 2);
-				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-				this.ADEAD = isDead();
-				}
+			turnCounter = 3;
+			break;
+		case Sagittarius: //NEEDS RANDOM NUMBER for opponent
+			if (opponent.getPlayerBoard().isEmpty() == false) {				
+				opponent.getPlayerBoard().get(oprandomNum).setLife(0);
+			}else {
+				return false;
 			}
 			break;
-		case Sagittarius:
-			
-			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					
-					game.getOpponent().getPlayerBoard().get(randomNum).setLife(0);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-				}
-			}
-			this.ADEAD = isDead();
-			break;
-		case Capricorn:
-			if (game.getOpponent().getmHand().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getOpponent().getmHand().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getOpponent().getmHand().remove(randomNum);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-				}
-			}
-			this.ADEAD = isDead();
-			break;
-		case Aquarius:
-			if (this.game.getUser().get_player().get_mana() > 0) {
-				int boardSize = game.getOpponent().getmHand().size();
-				for (int i = 0; i < boardSize; i++) {
-					game.getOpponent().getmHand().get(i).setLife(game.getOpponent().getmHand().get(i).getLife() - 1);
-				}
-				this.ADEAD = isDead();
-				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
+		case Capricorn: //NEEDS RANDOM NUMBER for opponent
+			if (opponent.getmHand().isEmpty() == false) {
+				opponent.getmHand().remove(oprandomNum);
+			}else {
+				return false;
 			}
 			break;
-		case Pisces:
-			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getUser().get_player().getPlayerBoard().get(randomNum).setLife(game.getUser().get_player().getPlayerBoard().get(randomNum).getLife() * 2);
-					this.ADEAD = isDead();
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-				}
+		case Aquarius: //NO RANDOM NUMBER
+			int boardSize = opponent.getmHand().size();
+			for (int i = 0; i < boardSize; i++) {
+				opponent.getmHand().get(i).setLife(opponent.getmHand().get(i).getLife() - 1);
+			}
+			break;
+		case Pisces: //NEEDS YOUR RANDOM NUMBER, SET
+			if (you.getPlayerBoard().isEmpty() == false) {
+				you.getPlayerBoard().get(yourrandomNum).setLife(you.getPlayerBoard().get(yourrandomNum).getLife() * 2);
+			}else {
+				return false;
 			}
 			break;
 		case Aries:
-			if (this.game.getUser().get_player().get_mana() > 0) {
-				Random rand = null;
-				int min = 1;
-				int max = game.getOpponent().getPlayerBoard().size() - 1;
-				int randomNum = rand.nextInt((max - min) + 1) + min;
-
-				game.getOpponent().getPlayerBoard().get(randomNum).setLife(game.getOpponent().getPlayerBoard().get(randomNum).getLife() - 5);
-				game.getUser().get_player().set_hp(game.getUser().get_player().get_hp() - 5);
-				this.ADEAD = isDead();
-				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
+			if (opponent.getPlayerBoard().isEmpty() == false){ //RANDOM NUMBER FOR OPPONENT
+				opponent.getPlayerBoard().get(oprandomNum).setLife(opponent.getPlayerBoard().get(oprandomNum).getLife() - 5);
+				you.set_hp(you.get_hp() - 5);
+			}else {
+				return false;
 			}
 			break;
 		case Taurus:
-			if (this.game.getUser().get_player().get_mana() > 0) {
-				Random rand = null;
-				int min = 1;
-				int max = game.getOpponent().getPlayerBoard().size() - 1;
-				int randomNum = rand.nextInt((max - min) + 1) + min;
-
-				game.getOpponent().getPlayerBoard().get(randomNum).setLife(game.getOpponent().getPlayerBoard().get(randomNum).getLife() - 3);
-				this.ADEAD = isDead();
-				this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
+			if (opponent.getPlayerBoard().isEmpty() == false) {
+				opponent.getPlayerBoard().get(oprandomNum).setLife(opponent.getPlayerBoard().get(oprandomNum).getLife() - 3);
+			}else {
+				return false;
 			}
 			break;
 		case Gemini:
-			if (game.getUser().get_player().getPlayerBoard().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getPlayerBoard().get(randomNum));
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-					this.ADEAD = isDead();
-				}
+			if (you.getPlayerBoard().isEmpty() == false) {
+				CreatureCard newmc = new CreatureCard((CreatureCard)you.getPlayerBoard().get(yourrandomNum));
+				you.getPlayerBoard().add(newmc);
+			}else {
+				return false;
 			}
 			break;
 		case Cancer:
-			if (game.getOpponent().getmHand().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					game.getUser().get_player().getmHand().add(game.getOpponent().getmHand().get(randomNum));
-					game.getOpponent().getmHand().remove(randomNum);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-					this.ADEAD = isDead();
-				}
+			if (opponent.getmHand().isEmpty() == false) {
+				you.getmHand().add(opponent.getmHand().get(oprandomNum));
+				opponent.getmHand().remove(oprandomNum);
+			}else {
+				return false;
 			}
 			break;
 		case Leo:
-			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					
-					game.getOpponent().getmHand().add(game.getOpponent().getPlayerBoard().get(randomNum));
-					game.getOpponent().getPlayerBoard().remove(randomNum);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-					this.ADEAD = isDead();
-				}
+			if (opponent.getPlayerBoard().isEmpty() == false) {					
+				opponent.getmHand().add(opponent.getPlayerBoard().get(oprandomNum));
+				opponent.getPlayerBoard().remove(oprandomNum);
+			}else {
+				return false;
 			}
 			break;
 		case Virgo:
-			if (game.getUser().get_player().getmHand().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = game.getUser().get_player().getPlayerBoard().size() - 1;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-					
-					game.getUser().get_player().getPlayerBoard().add(game.getUser().get_player().getmHand().get(randomNum));
-					game.getUser().get_player().getmHand().remove(randomNum);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-					this.ADEAD = isDead();
-				}
+			if (you.getmHand().isEmpty() == false) {				
+				you.getPlayerBoard().add(you.getmHand().get(yourrandomNum));
+				you.getmHand().remove(yourrandomNum);
+			}else {
+				return false;
 			}
 			break;
 		case Libra:
-			if (game.getOpponent().getPlayerBoard().isEmpty() == false) {
-				if (this.game.getUser().get_player().get_mana() > 0) {
-					Random rand = null;
-					int min = 1;
-					int max = 4;
-					int randomNum = rand.nextInt((max - min) + 1) + min;
-			    // randomly select target
-					
-					Random rand1 = null;
-					int min1 = 1;
-					int creatureHP = game.getOpponent().getPlayerBoard().get(randomNum).getLife();
-					int randomNum1 = rand1.nextInt((creatureHP - min1) + 1) + min1;
-	
-					game.getOpponent().getPlayerBoard().get(randomNum).setLife(creatureHP - randomNum1);
-					this.game.getUser().get_player().set_mana(this.game.getUser().get_player().get_mana() - _manaCost);
-					this.ADEAD = isDead();
-				}
+			if (opponent.getPlayerBoard().isEmpty() == false) {
+				// randomly select target
+				Random rand1 = new Random();
+				int creatureHP = opponent.getPlayerBoard().get(oprandomNum).getLife();
+				int max = Math.max(creatureHP, 4);
+				int randomAttack = rand1.nextInt(max)+1;
+				opponent.getPlayerBoard().get(oprandomNum).setLife(creatureHP - randomAttack);
+			}else {
+				return false;
 			}
 			break;
 		default:
 			break;
 		}
+		this.ADEAD = isDead(); //THIS CARD IS NOW DEAD
 		return true;
 	}
 	
@@ -370,7 +268,6 @@ public class MagicCard extends Card{
 	}
 
 	public Texture getTexture() {
-		System.out.println("getTexturing!");
 		return _texture;
 	}
 	public String getMyType() {

@@ -90,9 +90,9 @@ public class ActionCard extends Card {
 		}
 	}
 
-	public Boolean ActionEffect(Player you, Player opponent, CreatureCard opponentCreature)
+	public Boolean ActionEffect(Player you, Player opponent)
 	{
-		if(mPlayer.get_mana() - _mana < 0)  {
+		if(you.get_mana() - _mana < 0)  {
 			return false;
 		}
 		
@@ -133,8 +133,6 @@ public class ActionCard extends Card {
 			}
 			break;
 		}
-		
-		mPlayer.set_mana(mPlayer.get_mana() - _mana);
 		return true;
 	}
 	

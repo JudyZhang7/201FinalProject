@@ -93,6 +93,7 @@ public class Assets {
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Preparationc.png")));
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Shieldc.png")));
 		myTexturesList.add(new Texture(Gdx.files.internal("Action/[D]Weaponc.png")));
+		myTexturesList.add(new Texture(Gdx.files.internal("CardBack.png")));
 	}
 	
 //	public static void loadWithString(String textureName) {

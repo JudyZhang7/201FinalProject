@@ -8,8 +8,7 @@ import java.util.HashMap;
 import com.mygdx.game.*;
 
 public class ThisGame {
-
-	private Player p1;
+	private Player p1; //is the currentPlayer
 	private Player p2;
 	private Player currentPlayer;
 	public Player getCurrentPlayer() {
@@ -60,61 +59,31 @@ public class ThisGame {
 		return winner;
 	}
 	
-	public void playMagicCard(MagicCard yourCard) {
-		yourCard.AstroEffect();
-	}
-//	public void playCreatureCard(CreatureCard yourCard, CreatureCard opponentCard) {
-//		yourCard.Attack(opponentCard, opponentCard.getmPlayer()); 
-//	}
-	
-	public void playActionCard(ActionCard yourCard, Player opponent, CreatureCard opponentCreature) {
-		yourCard.ActionEffect(yourCard.getmPlayer(), opponent, opponentCreature);
-	}
-	
 	public void setWinner(int winner) {
 		this.winner = winner;
 	}
 
-	public void Act(Card selected, Card target) {
+	public boolean Act(Card selected, Card target, Player you, Player opp) {
 		String selectedtype = selected.getMytype();
-		String targetedtype = target.getMytype();
-		
 		if(selectedtype.equalsIgnoreCase("creature")) {
-			((CreatureCard)selected).Attack((CreatureCard)target, target.getmPlayer());
+			if(((CreatureCard)selected).Attack((CreatureCard)target, opp, you)){
+				System.out.println("creature card is acting.");
+				return true;
+			}
 		}
 		else if(selectedtype.equalsIgnoreCase("magic")) {
-			((MagicCard)selected).AstroEffect();
+			if(((MagicCard)selected).AstroEffect(you, opp)) {
+				System.out.println("magic card is acting.");
+				return true;
+			}
 		}
 		else if(selectedtype.equalsIgnoreCase("action")) {
-			((ActionCard)selected).ActionEffect(selected.getmPlayer(), target.getmPlayer(), (CreatureCard)target);
+			if(((ActionCard)selected).ActionEffect(you, opp)) {
+				System.out.println("action card is acting.");
+				return true;
+			}
 		}
-	}
-	
-	public void run() {
-		while(winner == 0) {
-			// if player-card interaction chosen
-			p1.Act(p2, p1Card);
-			p2.Act(p1, p2Card);
-			// if card-card interaction chosen
-			if (p1Card == null || p2Card == null)
-			{
-				continue;
-			}
-			Act(p1Card, p2Card);
-			p1Card = null;
-			p2Card = null;
-			Act(p2Card, p1Card);
-			
-			if(p1.isDead()) {
-				winner = 2;
-			}
-			else if(p2.isDead()) {
-				winner = 1;
-			}
-			UpdateWL();
-			GameStart();
-		}
-		
+		return false;
 	}
 	
 	public void UpdateWL() {
@@ -126,12 +95,5 @@ public class ThisGame {
 			p1.getMyUser().AddLoss();
 			p2.getMyUser().AddWin();
 		}
-	}
-	
-	public void GameStart() {
-//		if (User.get_Username().equals("Guest")) {
-//			// don't load from database
-//		}
-//		//mPlayer = new Player();
 	}
 }

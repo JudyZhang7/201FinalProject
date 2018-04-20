@@ -155,7 +155,10 @@ public class StartGameScreen implements Screen {
 			int manaCost = ((CreatureCard)thisCard).get_manaCost();
 			String name = ((CreatureCard)thisCard).getName();
 			Texture text =((CreatureCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
+			Texture clickedText = ((CreatureCard)(thisCard)).getClickedTexture();
+			if(clickedText == null) {
+				System.out.println("Creaturecardnull textureeeeeeeee");
+			}
 			newCard = new CreatureCard (hp, damage, manaCost, name, text, clickedText);
 		}
 		else if(thisCard.getMytype().equals("magic")) {
@@ -165,8 +168,8 @@ public class StartGameScreen implements Screen {
 			int manaCost = ((MagicCard)thisCard).get_manaCost();
 			String name = ((MagicCard)thisCard).get_astrological();
 			Texture text =((MagicCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
-			newCard = new MagicCard (hp, damage, manaCost, name, text, clickedText, game);
+			Texture clickedText = ((MagicCard)(thisCard)).getClickedTexture();
+			newCard = new MagicCard (hp, manaCost, damage, name, text, clickedText, game);
 		}
 		else if(thisCard.getMytype().equals("action")) {
 			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
@@ -175,7 +178,7 @@ public class StartGameScreen implements Screen {
 			int manaCost = ((ActionCard)thisCard).get_manaCost();
 			String name = ((ActionCard)thisCard).getCardname();
 			Texture text =((ActionCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
+			Texture clickedText = ((ActionCard)(thisCard)).getClickedTexture();
 			newCard = new ActionCard (manaCost, damage, hp, 0, name, text, clickedText);
 		}
 		return newCard;
@@ -204,7 +207,7 @@ public class StartGameScreen implements Screen {
 		{
 			comDeck.add(game.creatureCards.get("pig"));
 		}
-		computerPlayer.set_cardDeck(comDeck);
+		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
 		//or game could just have a default computer player thing
 		game.getUser().get_player().set_cardDeck(getCopyOfDefaultDeck());
 		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page

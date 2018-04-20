@@ -169,7 +169,7 @@ public class CreateNewDeckScreen implements Screen {
 			int manaCost = ((CreatureCard)thisCard).get_manaCost();
 			String name = ((CreatureCard)thisCard).getName();
 			Texture text =((CreatureCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
+			Texture clickedText = ((CreatureCard)(thisCard)).getClickedTexture();
 			newCard = new CreatureCard (hp, damage, manaCost, name, text, clickedText);
 		}
 		else if(thisCard.getMytype().equals("magic")) {
@@ -179,8 +179,8 @@ public class CreateNewDeckScreen implements Screen {
 			int manaCost = ((MagicCard)thisCard).get_manaCost();
 			String name = ((MagicCard)thisCard).get_astrological();
 			Texture text =((MagicCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
-			newCard = new MagicCard (hp, damage, manaCost, name, text, clickedText, game);
+			Texture clickedText = ((MagicCard)(thisCard)).getClickedTexture();
+			newCard = new MagicCard (hp, manaCost, damage, name, text, clickedText, game);
 		}
 		else if(thisCard.getMytype().equals("action")) {
 			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
@@ -189,7 +189,7 @@ public class CreateNewDeckScreen implements Screen {
 			int manaCost = ((ActionCard)thisCard).get_manaCost();
 			String name = ((ActionCard)thisCard).getCardname();
 			Texture text =((ActionCard)thisCard).get_texture();
-			Texture clickedText = (thisCard).getClickedTexture();
+			Texture clickedText = ((ActionCard)(thisCard)).getClickedTexture();
 			newCard = new ActionCard (manaCost, damage, hp, 0, name, text, clickedText);
 		}
 		return newCard;

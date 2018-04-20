@@ -51,7 +51,6 @@ public class CreatureCard extends Card {
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
-		mPlayer = cc.mPlayer;
 
 		name = cc.name;
 
@@ -106,7 +105,6 @@ public class CreatureCard extends Card {
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
-		mPlayer = null;
 
 		name = cre;
 
@@ -176,9 +174,6 @@ public class CreatureCard extends Card {
 	public void setHP(int newHP) {
 		_hp = newHP;
 	}
-	public void setPlayer(Player p) {
-		mPlayer = p;
-	}
 	@Override
 	public Boolean isDead() {
 		if(_hp <= 0) {
@@ -188,10 +183,8 @@ public class CreatureCard extends Card {
 			return false;
 		}
 	}
-	
-	
-	@Override
-	public Boolean Attack(CreatureCard target, Player opponent) {
+
+	public Boolean Attack(CreatureCard target, Player opponent, Player player) {
 		int attackValue = target.getHP() - _damage;
 		int effectValue = 0;
 		System.out.println("Here: " + opponent.get_hp());
@@ -228,11 +221,11 @@ public class CreatureCard extends Card {
 		case dog: 
 			break;
 		case pig:
-			mPlayer.drawCards();
+			player.drawCards();
 			break;
 		}
-		System.out.println("mana - " + mPlayer.get_mana());
-		if(mPlayer.get_mana() - _manaCost < 0) {
+		System.out.println("mana - " + player.get_mana());
+		if(player.get_mana() - _manaCost < 0) {
 			return false;
 		}
 		
@@ -273,7 +266,7 @@ public class CreatureCard extends Card {
 				int retaliation = this.getHP() - effectValue;
 				if(retaliation < 0) {
 					this.setHP(0);
-					mPlayer.set_hp(mPlayer.get_hp() + retaliation);
+					player.set_hp(player.get_hp() + retaliation);
 				}
 				else {
 					this.setHP(retaliation);
@@ -294,7 +287,7 @@ public class CreatureCard extends Card {
 				int retaliation = this.getHP() - 2;
 				if(retaliation < 0) {
 					this.setHP(0);
-					mPlayer.set_hp(mPlayer.get_hp() + retaliation);
+					player.set_hp(player.get_hp() + retaliation);
 				}
 				else {
 					this.setHP(retaliation);
@@ -303,14 +296,13 @@ public class CreatureCard extends Card {
 		}
 		
 		if(this.getState() == _Creature.monkey) {
-			if (mPlayer.get_hp() > 0) {
-				mPlayer.set_hp(mPlayer.get_hp() + 1);
+			if (player.get_hp() > 0) {
+				player.set_hp(player.get_hp() + 1);
 			}
 		}
 		
 		firstTurn = false;
 		target.setTargetedFirst(false);
-		mPlayer.set_mana(mPlayer.get_mana() - _manaCost);
 		return true;
 	}
 	

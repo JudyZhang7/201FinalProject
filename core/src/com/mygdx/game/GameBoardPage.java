@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
@@ -55,9 +56,10 @@ public class GameBoardPage implements Screen {
 	private ArrayList<ImageButton> myCards;
 	private int numCardsRow = 1;
 	private int numCardsCol = 3;
-	private int ch = 125;
+	private int ch = 150;
 	private int cw = 125;
-	
+	boolean cardPlaySuccess = false;
+	boolean firstCardPlay = false;
 	ArrayList<ImageButton> handImages = new ArrayList<ImageButton>();
 	ArrayList<ImageButton> GameBoardImages = new ArrayList<ImageButton>();
 	ArrayList<ImageButton> opponentImages = new ArrayList<ImageButton>();
@@ -65,7 +67,8 @@ public class GameBoardPage implements Screen {
 	private boolean attackInMotion = false;
 	private CreatureCard yourCard = null;
 	private CreatureCard opponentCardToAttack = null;
-	
+	private Texture CardBack = Assets.myTexturesList.get(58);
+
 	private Skin skin;
 	private FireplacePebble game;
 	
@@ -79,12 +82,18 @@ public class GameBoardPage implements Screen {
     Label labelmana;
     Label oplabelhealth;
     Label oplabelmana;
+    Label turnLabel;
+    public void displayMessage(String message) {
+    		turnLabel.setText(message);
+    }
+    
     public void updateStats() {
     		labelhealth.setText("Health - " + player.get_hp());
     		labelmana.setText("Mana - " + player.get_mana());
     		oplabelhealth.setText("Health - " + otherPlayer.get_hp());
-    		oplabelmana.setText("Mana -- " + otherPlayer.get_mana());
+    		oplabelmana.setText("Mana - " + otherPlayer.get_mana());
     }
+    
 	public GameBoardPage(FireplacePebble g, ThisGame cg) {
 		System.out.println("GAME BOARD!");
 		game = g;
@@ -100,15 +109,19 @@ public class GameBoardPage implements Screen {
 	    labelmana = new Label("Mana - " + player.get_mana(), labelStyle);
 	    oplabelhealth = new Label("Health - " + otherPlayer.get_hp() ,labelStyle);
 	    oplabelmana = new Label("Mana - " + otherPlayer.get_mana(), labelStyle);
+	    turnLabel = new Label("Your turn!", labelStyle);
 	    
 	    labelhealth.setPosition(w/8, (h)/6 - buttonHeight/2);
 	    labelmana.setPosition(w/8, (h)/6);
 	    oplabelhealth.setPosition(6*w/8, (5*h)/6 + buttonHeight/2);
 	    oplabelmana.setPosition(6*w/8, (5*h)/6);
+	    turnLabel.setPosition(w/2, h/28);
+	    
 	    stage.addActor(labelhealth);
 	    stage.addActor(oplabelhealth);
 	    stage.addActor(labelmana);
 	    stage.addActor(oplabelmana);
+	    stage.addActor(turnLabel);
 
 		// Hard Set it to this player's turn first
 		playerTurn = true;
@@ -124,7 +137,7 @@ public class GameBoardPage implements Screen {
 		endTurnButton.addListener(new ClickListener() {
 			@Override
 			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-				System.out.println("End turn bttn");
+				displayMessage("Opponent turn");
 				endTurnButtonClicked();
 			}
 			public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
@@ -150,19 +163,17 @@ public class GameBoardPage implements Screen {
 		stage.addActor(btnBack);
 		
 		// Thread to run achievements - Will output the achievement that has been unlocked
-		boolean cardPicked = true;
-		if (cardPicked)
+		if (firstCardPlay)
 		{
 			game.achievementMap.put("Card Picked!", 1);
 			game.achievementMap.put("Played a Game!", 1);
-			new AchievementThread(game);
 		}
 		
 		// DECK BUTTON BELOW
 		// Create Deck Button
 		// Make a deck picture
-		Texture DECK_T = new Texture(Gdx.files.internal("Cards/Dog.png"));
-		TextureRegion DECK_TR = new TextureRegion(DECK_T);
+
+		TextureRegion DECK_TR = new TextureRegion(CardBack);
 		TextureRegionDrawable DECK_TRD = new TextureRegionDrawable(DECK_TR);
 		ImageButton DeckButton = new ImageButton(DECK_TRD);
 		// Set position of Deck Button to Bottom Right Corner and Clickable
@@ -198,7 +209,6 @@ public class GameBoardPage implements Screen {
 		// Get the Textures of the cards to output them
 		for (int i = 0; i < currHand.size(); i++)
 		{
-			final Player p = player; // Must be final?
 			final Card cardToAddToGameBoard = currHand.get(i);
 			Texture currCard = currHand.get(i).getTexture();
 			TextureRegion TEMP_C = new TextureRegion(currCard);
@@ -211,6 +221,10 @@ public class GameBoardPage implements Screen {
 				@Override
 				public void touchUp(InputEvent e, float x, float y, int point, int button)
 				{
+					if(firstCardPlay == false) {
+						firstCardPlay = true;
+						new AchievementThread(game);
+					}
 					updateStats();
 					System.out.println("Hand Button Clicked, Put that card on the Gameboard!");
 					HandButtonClicked(cardToAddToGameBoard, HandButton);
@@ -229,10 +243,12 @@ public class GameBoardPage implements Screen {
 			stage.addActor(handImages.get(i));
 		}
 	}
+	
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
 	}
 	
+
 	public void endTurnButtonClicked() {
 		player.set_mana(5); //reset Mana
 		updateStats();
@@ -253,6 +269,23 @@ public class GameBoardPage implements Screen {
 			{
 				otherPlayer.drawCards();
 			}
+			
+			ArrayList<Card> opCurrHand = otherPlayer.getmHand();
+//			System.out.println(currHand.size());
+			// Get the Textures of the cards to output them
+			for (int i = 0; i < opCurrHand.size(); i++)
+			{
+				TextureRegion DECK_TR = new TextureRegion(CardBack);
+				TextureRegionDrawable DECK_TRD = new TextureRegionDrawable(DECK_TR);
+				ImageButton DeckButton = new ImageButton(DECK_TRD);
+				// Set position of Deck Button to Bottom Right Corner and Clickable
+				System.out.println("w in this computer is: " + w);
+				System.out.println("h in this computer is: " + h);
+				DeckButton.setPosition(i*cw + (w/9), 9*h/12); // Should edit to fit others' resolution
+				DeckButton.setSize(cw, ch);
+				stage.addActor(DeckButton);
+			}
+
 			Random rand = new Random();
 			int min = 1;
 			int max = otherPlayer.getmHand().size();
@@ -263,14 +296,14 @@ public class GameBoardPage implements Screen {
 			Card chosenOne = otherPlayer.getmHand().get(randomNum-1);
 			otherPlayer.getPlayerBoard().add(chosenOne);
 			otherPlayer.getmHand().remove(chosenOne);
+			
 			// display all cards from opponent board arraylist
 			for (int i = 0; i < otherPlayer.getPlayerBoard().size(); i++)
 			{
 				final Card oppCard = otherPlayer.getPlayerBoard().get(i);
-				final Player opp = otherPlayer;
 				final Card youCard = yourCard;
 				final ThisGame gg = currentGame;
-				Texture currCard = otherPlayer.getPlayerBoard().get(i).getTexture();
+				Texture currCard = oppCard.getTexture();
 				TextureRegion TEMP_C = new TextureRegion(currCard);
 				TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 				final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
@@ -280,64 +313,56 @@ public class GameBoardPage implements Screen {
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button)
 					{
-						System.out.println("Enemy GameBoard Card Clicked!");
-						EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton, opp, gg);
+						EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton);
 					}
 					@Override
 					public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
 					{
-						return false;
+						return true;
 					}
 				});
 				opponentImages.add(GameBoardButton);
 				// Need to remove all the images of dead creatures
-			}
-			for (int i = 0; i < opponentImages.size(); i++) 
-			{
-				stage.addActor(opponentImages.get(i));
-			}
-			// if p2 has cards on its gameboard, it can attack
-			if (otherPlayer.getPlayerBoard().size() > 0) {
-				// if p1 has cards on the gameboard, it can attack
-				if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
-					// Select a random card from the computer's gameboard
-					Random rand1 = new Random();
-					int min1 = 1;
-					int max1 = otherPlayer.getPlayerBoard().size() - 1;
-					int randomNum1 = rand1.nextInt((max1 - min1) + 1) + min1;
-					// Select a random card from the player's gameboard to attack
-					Random rand2 = new Random();
-					int min2 = 1;
-					int max2 = player.getPlayerBoard().size() - 1;
-					int randomNum2 = rand2.nextInt((max2 - min2) + 1) + min2;
-					// attack
-					currentGame.Act(otherPlayer.getPlayerBoard().get(randomNum1), player.getPlayerBoard().get(randomNum2));
-//					Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
-//					p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
-//					opponentAttackCount = 0;
+				//IF THE CARD CHOSEN IS A CREATURE
+				if(oppCard.getMyType().equalsIgnoreCase("creature")) {
+					stage.addActor(GameBoardButton);
+					// if p2 has cards on its gameboard, it can attack
+					if (otherPlayer.getPlayerBoard().size() > 0) {
+						// if p1 has cards on the gameboard, it can attack
+						if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
+							// Select a random card from the computer's gameboard
+							int max1 = otherPlayer.getPlayerBoard().size();
+							int opRandom = rand.nextInt(max1);
+							// Select a random card from the player's gameboard to attack
+							int max2 = player.getPlayerBoard().size();
+							int yourRandom = rand.nextInt(max2);
+							// attack
+							currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), player.getPlayerBoard().get(yourRandom), otherPlayer, player);
+//							Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
+//							p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
+//							opponentAttackCount = 0;
+						}
+					}
+				}
+				else if(oppCard.getMyType().equalsIgnoreCase("magic")) {
+					currentGame.Act(oppCard, null, otherPlayer, player);
+				}
+				else if(oppCard.getMyType().equalsIgnoreCase("action")) {
+					currentGame.Act(oppCard, null, otherPlayer, player);
 				}
 			}
-			
-			playerTurn = !playerTurn;
 		}
+		playerTurn = !playerTurn;
 		numTurnsSoFar++;
+		System.out.println("Numturnssofar: " + numTurnsSoFar);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		displayMessage("Your turn!");
 		return;
-	}
-
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		texture = new Texture("GamePage.png");
-		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
-		
-		batch.begin();
-		batch.draw(mainBackground, 0, 0, w, h);
-		
-		batch.end();
-		stage.act(delta);
-		stage.draw();
 	}
 	
 	// Deck Button Clicked
@@ -384,6 +409,9 @@ public class GameBoardPage implements Screen {
 				stage.addActor(handImages.get(i));
 			}
 		}
+		else {
+			displayMessage("Cannot draw another card!");
+		}
 	}
 	
 	// Hand Button Clicked()
@@ -391,29 +419,27 @@ public class GameBoardPage implements Screen {
 	{
 		// Check who's turn it is first
 		//player turn and player has enough mana
+		cardPlaySuccess = false;
 		if (playerTurn && (player.get_mana() >= cardToAdd.get_manaCost()))
 		{
-			player.set_mana(player.get_mana() - cardToAdd.get_manaCost());
-			System.out.println("Mana cost: " + cardToAdd.get_manaCost());
-			updateStats();
-			handImages.remove(handButton); // Remove the Image Button from the Hand Space
-			handButton.remove(); // Remove the Picture completely from the stage
 			// If Creature Card, then remove the card from the hand, and add the card to the Gameboard
 			// if the gameboard is not full. If Magic or Action Card, play the effect of that card.
 			if (cardToAdd.getMyType().equalsIgnoreCase("magic"))
 			{
-				// TODO Magic Card Effect
-//				MagicCard mc = (MagicCard) cardToAdd;
-//				mc.AstroEffect();
-
+				if(currentGame.Act(cardToAdd, cardToAdd, player, otherPlayer)) { //second argument is just to satisfy, not actually used.
+					cardPlaySuccess = true; //can remove card now.
+				}
 			}
 			else if (cardToAdd.getMyType().equalsIgnoreCase("action"))
 			{
 				// TODO Action Card Effect
-
+				if(currentGame.Act(cardToAdd, cardToAdd, player, otherPlayer)) {
+					cardPlaySuccess = true;
+				}
 			}
 			else // Creature Card - No effect, just putting card on the gamebaord
 			{
+				cardPlaySuccess = true;
 				ArrayList<Card> yourGameBoard = player.getPlayerBoard();
 				ArrayList<Card> yourHand = player.getmHand();
 				// if the gameBoard is not full, then remove the Card from yourHand, and add it to your GameBoard
@@ -462,10 +488,22 @@ public class GameBoardPage implements Screen {
 					stage.addActor(GameBoardImages.get(i));
 				}
 			}
+			
+			if(cardPlaySuccess) {
+				
+				player.set_mana(player.get_mana() - cardToAdd.get_manaCost());
+				System.out.println("Mana cost: " + cardToAdd.get_manaCost());
+				updateStats();
+				handImages.remove(handButton); // Remove the Image Button from the Hand Space
+				handButton.remove(); // Remove the Picture completely from the stage
+			}
+		}
+		else {
+			displayMessage("Cannot play this card yet!");
 		}
 	}
 	
-	// GameBoard Card Clicked
+	//A CREATURE CARD WAS CLICKED
 	public void GameBoardCardClicked(Card yourCard, ImageButton yourButton, Player currPlayer)
 	{
 		// Now, the card is a Creature, the user has to click a card on the opponent's Gameboard to attack
@@ -497,24 +535,23 @@ public class GameBoardPage implements Screen {
 	}
 	
 	// Enemy GameBoard Card Clicked
-	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton, Player playerThatGetsHurt, ThisGame gg)
+	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton)
 	{
-		TextureRegion TEMP_C = new TextureRegion(opponentCard.getClickedTexture());
+		TextureRegion TEMP_C = new TextureRegion(((CreatureCard)opponentCard).getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 		ImageButtonStyle _oldStyle = enemyButton.getStyle();
 		_oldStyle.imageUp = TEMP_CARD;
 		enemyButton.setStyle(_oldStyle);
-		
-		System.out.println("In Enemy Game Board Card Clicked Function");
 		// Once here, the user wants to attack 
+		System.out.println(attackInMotion);
 		if (attackInMotion)
 		{
+			System.out.println("An attack in motion...");
 			opponentCardToAttack = (CreatureCard) opponentCard;
-			opponentCardToAttack.setPlayer(playerThatGetsHurt);
 			if (yourCard != null)
 			{
-//				yourCard.Attack(opponentCardToAttack, otherPlayer);
-				gg.Act(yourCard, opponentCard);
+				System.out.println("An attack in progress...");
+				currentGame.Act(yourCard, opponentCard, player, otherPlayer);
 			}
 			if (opponentCardToAttack.isDead())
 			{
@@ -523,6 +560,22 @@ public class GameBoardPage implements Screen {
 			this.yourCard = null;
 			this.opponentCardToAttack = null;
 		}
+	}
+
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 120/255f, 180/255f, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		texture = new Texture("GamePage.png");
+		mainBackground = new TextureRegion(texture, 0, 0, 1920, 1080);
+		
+		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
+		
+		batch.end();
+		stage.act(delta);
+		stage.draw();
 	}
 	
 	@Override

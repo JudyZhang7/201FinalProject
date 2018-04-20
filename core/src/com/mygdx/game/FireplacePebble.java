@@ -26,7 +26,7 @@ import user.User;
 
 public class FireplacePebble extends Game{
 	public User user;
-	public User oppo;
+//	public User oppo;
 	private String skin = "clean-crispy/skin/clean-crispy-ui.json";
 	FreeTypeFontGenerator titleText;
 	FreeTypeFontParameter titleParam;
@@ -244,7 +244,6 @@ public class FireplacePebble extends Game{
 		magicCards.put("leo", Leo);
 		magicCards.put("virgo", Virgo);
 		magicCards.put("libra", Libra);
-		
 		///mana cost, damage, hp replenish, mana, actionname, sprite
 		ActionCard Weapon = new ActionCard(3, 3, 0, 0, "Weapon", Assets.myTexturesList.get(28), Assets.myTexturesList.get(28+29));
 		ActionCard Heal = new ActionCard(2, 0, 3, 0, "Heal", Assets.myTexturesList.get(25), Assets.myTexturesList.get(25+29));
@@ -275,7 +274,7 @@ public class FireplacePebble extends Game{
 		defaultCardDeck.add(Gemini);
 		defaultCardDeck.add(Cancer);
 		defaultCardDeck.add(Weapon);
-		defaultCardDeck.add( Heal);
+		defaultCardDeck.add(Heal);
 	}
 	public List<Card> getDefaultCardDeck(){
 		return defaultCardDeck;
@@ -305,8 +304,4 @@ public class FireplacePebble extends Game{
 		return allCards;
 	}
 
-	public Player getOpponent() {
-		// TODO Auto-generated method stub
-		return oppo.get_player();
-	}
 }
