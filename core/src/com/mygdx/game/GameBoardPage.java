@@ -115,7 +115,7 @@ public class GameBoardPage implements Screen {
 	    labelmana.setPosition(w/8, (h)/6);
 	    oplabelhealth.setPosition(6*w/8, (5*h)/6 + buttonHeight/2);
 	    oplabelmana.setPosition(6*w/8, (5*h)/6);
-	    turnLabel.setPosition(w/2, h/28);
+	    turnLabel.setPosition(w/4, h/28);
 	    
 	    stage.addActor(labelhealth);
 	    stage.addActor(oplabelhealth);
@@ -251,13 +251,14 @@ public class GameBoardPage implements Screen {
 
 	public void endTurnButtonClicked() {
 		player.set_mana(5); //reset Mana
+		otherPlayer.set_mana(5);
 		updateStats();
 		playerTurn = !playerTurn;
 		opponentAttackCount++;
 		
 		if (playerTurn == false) {
 			// Output P2's cards on the gameboard
-			
+			//DRAW CARDS
 			// If opponent's first turn
 			if (opponentAttackCount == 1)
 			{
@@ -271,84 +272,105 @@ public class GameBoardPage implements Screen {
 			}
 			
 			ArrayList<Card> opCurrHand = otherPlayer.getmHand();
-//			System.out.println(currHand.size());
-			// Get the Textures of the cards to output them
+			//DISPLAY the back of the hand cards
 			for (int i = 0; i < opCurrHand.size(); i++)
 			{
 				TextureRegion DECK_TR = new TextureRegion(CardBack);
 				TextureRegionDrawable DECK_TRD = new TextureRegionDrawable(DECK_TR);
 				ImageButton DeckButton = new ImageButton(DECK_TRD);
 				// Set position of Deck Button to Bottom Right Corner and Clickable
-				System.out.println("w in this computer is: " + w);
-				System.out.println("h in this computer is: " + h);
 				DeckButton.setPosition(i*cw + (w/9), 9*h/12); // Should edit to fit others' resolution
 				DeckButton.setSize(cw, ch);
 				stage.addActor(DeckButton);
 			}
-
-			Random rand = new Random();
-			int min = 1;
-			int max = otherPlayer.getmHand().size();
-			System.out.println("maxxxx: " + max);
-			int randomNum = rand.nextInt(max) + 1;
 			
-			// Add to the Player 2 Gameboard, and remove from Player 2 hand
-			Card chosenOne = otherPlayer.getmHand().get(randomNum-1);
-			otherPlayer.getPlayerBoard().add(chosenOne);
-			otherPlayer.getmHand().remove(chosenOne);
+			Random rand = new Random();
+//			//play random creature card
+//			if(!opCurrHand.isEmpty())
+//			{
+//				int max = opCurrHand.size();
+//				int randomNum = rand.nextInt(max) + 1;
+//				
+//				// Add to the Player 2 Gameboard, and remove from Player 2 hand
+//				Card chosenOne = opCurrHand.get(randomNum-1);
+//				otherPlayer.getPlayerBoard().add(chosenOne);
+//				otherPlayer.getmHand().remove(chosenOne);
+//			}
 			
 			// display all cards from opponent board arraylist
-			for (int i = 0; i < otherPlayer.getPlayerBoard().size(); i++)
+			for (int i = 0; i < opCurrHand.size(); i++)
 			{
-				final Card oppCard = otherPlayer.getPlayerBoard().get(i);
-				final Card youCard = yourCard;
-				final ThisGame gg = currentGame;
+				final Card oppCard = opCurrHand.get(i);
 				Texture currCard = oppCard.getTexture();
 				TextureRegion TEMP_C = new TextureRegion(currCard);
 				TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 				final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
-				GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
-				GameBoardButton.setSize(cw, ch);
-				GameBoardButton.addListener(new ClickListener() {
-					@Override
-					public void touchUp(InputEvent e, float x, float y, int point, int button)
-					{
-						EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton);
-					}
-					@Override
-					public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
-					{
-						return true;
-					}
-				});
-				opponentImages.add(GameBoardButton);
-				// Need to remove all the images of dead creatures
-				//IF THE CARD CHOSEN IS A CREATURE
-				if(oppCard.getMyType().equalsIgnoreCase("creature")) {
-					stage.addActor(GameBoardButton);
-					// if p2 has cards on its gameboard, it can attack
-					if (otherPlayer.getPlayerBoard().size() > 0) {
-						// if p1 has cards on the gameboard, it can attack
-						if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
-							// Select a random card from the computer's gameboard
-							int max1 = otherPlayer.getPlayerBoard().size();
-							int opRandom = rand.nextInt(max1);
-							// Select a random card from the player's gameboard to attack
-							int max2 = player.getPlayerBoard().size();
-							int yourRandom = rand.nextInt(max2);
-							// attack
-							currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), player.getPlayerBoard().get(yourRandom), otherPlayer, player);
-//							Card p2CardChosen = p2.getPlayerBoard().get(randomNum1);
-//							p2CardChosen.Attack((CreatureCard)(p1.getPlayerBoard().get(randomNum2)), p1);
-//							opponentAttackCount = 0;
+				
+				if(oppCard.getMyType().equalsIgnoreCase("creature") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
+					//minus mana
+					otherPlayer.set_mana(otherPlayer.get_mana() - oppCard.get_manaCost());
+					final Card youCard = yourCard;
+					otherPlayer.getPlayerBoard().add(oppCard);
+					otherPlayer.getmHand().remove(oppCard);
+					GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
+					GameBoardButton.setSize(cw, ch);
+					GameBoardButton.addListener(new ClickListener() {
+						@Override
+						public void touchUp(InputEvent e, float x, float y, int point, int button)
+						{
+							EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton);
 						}
+						@Override
+						public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
+						{
+							return true;
+						}
+					});
+					stage.addActor(GameBoardButton);
+				}
+				else if(oppCard.getMyType().equalsIgnoreCase("magic") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
+					//minus mana
+					otherPlayer.getmHand().remove(oppCard);
+					otherPlayer.set_mana(otherPlayer.get_mana() - oppCard.get_manaCost());
+					GameBoardButton.setPosition(cw + (w/30), h/2);  
+					stage.addActor(GameBoardButton);
+					try {
+						TimeUnit.SECONDS.sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				}
-				else if(oppCard.getMyType().equalsIgnoreCase("magic")) {
+					GameBoardButton.remove();
 					currentGame.Act(oppCard, null, otherPlayer, player);
 				}
-				else if(oppCard.getMyType().equalsIgnoreCase("action")) {
+				else if(oppCard.getMyType().equalsIgnoreCase("action") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
+					//minus mana
+					otherPlayer.getmHand().remove(oppCard);
+					otherPlayer.set_mana(otherPlayer.get_mana() - oppCard.get_manaCost());
+					GameBoardButton.setPosition(cw + (w/30), h/2);  
+					stage.addActor(GameBoardButton);
+					try {
+						TimeUnit.SECONDS.sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					GameBoardButton.remove();
 					currentGame.Act(oppCard, null, otherPlayer, player);
+				}
+				// if p2 has cards on its gameboard, it can attack
+			}
+			if (otherPlayer.getPlayerBoard().size() > 0) {
+				// if p1 has cards on the gameboard, it can attack
+				if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
+					// Select a random card from the computer's gameboard
+					int max1 = otherPlayer.getPlayerBoard().size();
+					int opRandom = rand.nextInt(max1);
+					// Select a random card from the player's gameboard to attack
+					int max2 = player.getPlayerBoard().size();
+					int yourRandom = rand.nextInt(max2);
+					// attack
+					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), player.getPlayerBoard().get(yourRandom), otherPlayer, player);
 				}
 			}
 		}
@@ -373,6 +395,7 @@ public class GameBoardPage implements Screen {
 		if (currHandSize < 3)
 		{
 			player.drawCards();
+			displayMessage("Cards drawn!");
 			// Add one more card to the Hand
 			System.out.println(currHandSize);
 			ArrayList<Card> currHand = player.getmHand();
@@ -495,6 +518,7 @@ public class GameBoardPage implements Screen {
 				System.out.println("Mana cost: " + cardToAdd.get_manaCost());
 				updateStats();
 				handImages.remove(handButton); // Remove the Image Button from the Hand Space
+				player.getmHand().remove(cardToAdd);
 				handButton.remove(); // Remove the Picture completely from the stage
 			}
 		}
