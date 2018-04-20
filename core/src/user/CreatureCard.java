@@ -3,6 +3,7 @@ package user;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import gamelogic.ThisGame;
 
@@ -38,6 +39,7 @@ public class CreatureCard extends Card {
 	private Boolean firstTurn;
 	private String name;
 	private int winner;
+	private Label hpLabel;
 	
 	// Copy Constructor
 	public CreatureCard(CreatureCard cc)
@@ -93,7 +95,15 @@ public class CreatureCard extends Card {
 			state = _Creature.pig;
 		}
 	}
-	
+	public void addLabel(Label label) {
+		hpLabel = label;
+	}
+	public Label getLabel() {
+		return hpLabel;
+	}
+	public void changeLabel(String newWords) {
+		hpLabel.setText(newWords);
+	}
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img, Texture clicked) {
 		super(type);
 		_hp = hp;

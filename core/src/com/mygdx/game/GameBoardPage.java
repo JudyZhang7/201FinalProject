@@ -83,6 +83,7 @@ public class GameBoardPage implements Screen {
     Label oplabelhealth;
     Label oplabelmana;
     Label turnLabel;
+    
     public void displayMessage(String message) {
     		turnLabel.setText(message);
     }
@@ -95,7 +96,6 @@ public class GameBoardPage implements Screen {
     }
     
 	public GameBoardPage(FireplacePebble g, ThisGame cg) {
-		System.out.println("GAME BOARD!");
 		game = g;
 		currentGame = cg; //THE ACTUAL GAME LOGIC GAME
 		BitmapFont fontLabl = game.regfont32;
@@ -314,6 +314,9 @@ public class GameBoardPage implements Screen {
 					otherPlayer.getmHand().remove(oppCard);
 					GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
 					GameBoardButton.setSize(cw, ch);
+					Label statLabel = new Label(""+((CreatureCard)oppCard).getHP(), labelStyle);
+				  	statLabel.setPosition(cw + (w/5) - 30, h/2 + 50);
+				  	((CreatureCard)oppCard).addLabel(statLabel);
 					GameBoardButton.addListener(new ClickListener() {
 						@Override
 						public void touchUp(InputEvent e, float x, float y, int point, int button)
@@ -327,6 +330,8 @@ public class GameBoardPage implements Screen {
 						}
 					});
 					stage.addActor(GameBoardButton);
+					stage.addActor(statLabel);
+
 				}
 				else if(oppCard.getMyType().equalsIgnoreCase("magic") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
 					//minus mana
@@ -357,8 +362,9 @@ public class GameBoardPage implements Screen {
 					}
 					GameBoardButton.remove();
 					currentGame.Act(oppCard, null, otherPlayer, player);
+					
 				}
-				// if p2 has cards on its gameboard, it can attack
+			// if p2 has cards on its gameboard, it can attack
 			}
 			if (otherPlayer.getPlayerBoard().size() > 0) {
 				// if p1 has cards on the gameboard, it can attack
@@ -370,7 +376,10 @@ public class GameBoardPage implements Screen {
 					int max2 = player.getPlayerBoard().size();
 					int yourRandom = rand.nextInt(max2);
 					// attack
-					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), player.getPlayerBoard().get(yourRandom), otherPlayer, player);
+					Card cardAttacked = player.getPlayerBoard().get(yourRandom);
+					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), cardAttacked, otherPlayer, player);
+					//update HP
+					((CreatureCard)cardAttacked).changeLabel(Integer.toString(((CreatureCard)cardAttacked).getHP()));
 				}
 			}
 		}
@@ -475,20 +484,28 @@ public class GameBoardPage implements Screen {
 					TextureRegion TEMP_C = new TextureRegion(currCard);
 					TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 					final ImageButton GameBoardButton = new ImageButton(TEMP_CARD);
+					int currentHP = ((CreatureCard)cardToAdd).getHP();
+					Label statLabel = new Label(""+currentHP, labelStyle);
+					((CreatureCard)cardToAdd).addLabel(statLabel);
+				    labelhealth.setPosition(w/8, (h)/6 - buttonHeight/2);
+				    
 					if (yourGameBoard.size() == 1) // 1 card going to be on Gameboard
 					{
-						GameBoardButton.setPosition(cw + (w/5), h/3); // Gameboard 1st Position
+						GameBoardButton.setPosition(cw + (w/5), h/3-50); // Gameboard 1st Position
 						GameBoardButton.setSize(cw, ch);
+						statLabel.setPosition(cw + (w/5)-30, h/3);
 					}
 					else if (yourGameBoard.size() == 2) // 2 cards going to be on Gameboard
 					{
-						GameBoardButton.setPosition(cw * 3 + (w/5), h/3);  // Gameboard 2nd Position
+						GameBoardButton.setPosition(cw * 3 + (w/5), h/3-50);  // Gameboard 2nd Position
 						GameBoardButton.setSize(cw, ch);
+						statLabel.setPosition(cw * 3 + (w/5)-30, h/3); 
 					}
 					else if (yourGameBoard.size() == 3) // 3 cards going to be on Gameboard
 					{
-						GameBoardButton.setPosition(cw * 5 + (w/5), h/3);  // Gameboard 3rd Position
+						GameBoardButton.setPosition(cw * 5 + (w/5), h/3-50);  // Gameboard 3rd Position
 						GameBoardButton.setSize(cw, ch);
+						statLabel.setPosition(cw * 5 + (w/5)-30, h/3);
 					}
 					GameBoardButton.addListener(new ClickListener() 
 					{
@@ -505,6 +522,7 @@ public class GameBoardPage implements Screen {
 						}
 					});
 					GameBoardImages.add(GameBoardButton);
+					stage.addActor(statLabel);
 				}
 				for (int i = 0; i < GameBoardImages.size(); i++)
 				{
@@ -513,7 +531,6 @@ public class GameBoardPage implements Screen {
 			}
 			
 			if(cardPlaySuccess) {
-				
 				player.set_mana(player.get_mana() - cardToAdd.get_manaCost());
 				System.out.println("Mana cost: " + cardToAdd.get_manaCost());
 				updateStats();
@@ -584,7 +601,8 @@ public class GameBoardPage implements Screen {
 			this.yourCard = null;
 			this.opponentCardToAttack = null;
 		}
-	}
+		((CreatureCard)opponentCard).changeLabel(Integer.toString(((CreatureCard)opponentCard).getHP()));
+	} 
 
 	@Override
 	public void render(float delta) {
