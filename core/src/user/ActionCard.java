@@ -100,35 +100,24 @@ public class ActionCard extends Card {
 		case Weapon:
 			if (you.get_mana() >= 3) {
 				opponent.set_hp(opponent.get_hp() - _damage);
-				you.set_mana(you.get_mana() - 3);
 				this.ACTIONDEAD = isDead();
 			}
 			break;
 		case Heal:
 			if (you.get_mana() >= 3) {
 				you.set_hp(you.get_hp() + _hpReplenish);
-				you.set_mana(you.get_mana() - 3);
 				this.ACTIONDEAD = isDead();
 			}
 			break;
 		case Weapon2:
 			if (you.get_mana() >= 5) {
 				opponent.set_hp(opponent.get_hp() - _damage - _damage);
-				you.set_mana(you.get_mana() - 5);
 				this.ACTIONDEAD = isDead();
 			}
 			break;
-//		case Preparation:
-//			if (you.get_mana() >= 3) {
-//				you.set_mana(you.get_mana() + _mana);
-//				you.set_mana(you.get_mana() - 3);
-//				this.ACTIONDEAD = isDead();
-//			}
-//			break;
 		case Heal2:
 			if (you.get_mana() >= 4) {
 				you.set_hp(you.get_hp() + _hpReplenish + _hpReplenish);
-				you.set_mana(you.get_mana() - 4);
 				this.ACTIONDEAD = isDead();
 			}
 			break;

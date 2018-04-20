@@ -65,10 +65,11 @@ public class GameBoardPage implements Screen {
 	ArrayList<ImageButton> opponentImages = new ArrayList<ImageButton>();
 	private int numTurnsSoFar = 0; // Counting the number of turns so far
 	private boolean attackInMotion = false;
+	
 	private CreatureCard yourCard = null;
 	private CreatureCard opponentCardToAttack = null;
 	private Texture CardBack = Assets.myTexturesList.get(58);
-
+	private ImageButton currentAttackIB;
 	private Skin skin;
 	private FireplacePebble game;
 	
@@ -308,20 +309,20 @@ public class GameBoardPage implements Screen {
 				
 				if(oppCard.getMyType().equalsIgnoreCase("creature") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
 					//minus mana
+					((CreatureCard)oppCard).setImageButton(GameBoardButton);
 					otherPlayer.set_mana(otherPlayer.get_mana() - oppCard.get_manaCost());
-					final Card youCard = yourCard;
 					otherPlayer.getPlayerBoard().add(oppCard);
 					otherPlayer.getmHand().remove(oppCard);
-					GameBoardButton.setPosition(cw + (w/5), h/2 + 25);  
+					GameBoardButton.setPosition(i*cw + (w/5), h/2 + 25);  
 					GameBoardButton.setSize(cw, ch);
 					Label statLabel = new Label(""+((CreatureCard)oppCard).getHP(), labelStyle);
-				  	statLabel.setPosition(cw + (w/5) - 30, h/2 + 50);
+				  	statLabel.setPosition(i*cw + (w/5) - 30, h/2 + 50);
 				  	((CreatureCard)oppCard).addLabel(statLabel);
 					GameBoardButton.addListener(new ClickListener() {
 						@Override
 						public void touchUp(InputEvent e, float x, float y, int point, int button)
 						{
-							EnemyGameBoardCardClicked(oppCard, youCard, GameBoardButton);
+							EnemyGameBoardCardClicked(oppCard, GameBoardButton);
 						}
 						@Override
 						public boolean touchDown(InputEvent e, float x, float y, int point, int button) 
@@ -393,6 +394,13 @@ public class GameBoardPage implements Screen {
 			e1.printStackTrace();
 		}
 		displayMessage("Your turn!");
+		//remove all player's dead cards and statlabels
+		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
+			if(player.getPlayerBoard().get(i).isDead()) {
+				((CreatureCard)player.getPlayerBoard().get(i)).getImageButton().remove();
+			}
+		}
+		
 		return;
 	}
 	
@@ -489,6 +497,8 @@ public class GameBoardPage implements Screen {
 					((CreatureCard)cardToAdd).addLabel(statLabel);
 				    labelhealth.setPosition(w/8, (h)/6 - buttonHeight/2);
 				    
+				    ((CreatureCard)cardToAdd).setImageButton(GameBoardButton);
+				    
 					if (yourGameBoard.size() == 1) // 1 card going to be on Gameboard
 					{
 						GameBoardButton.setPosition(cw + (w/5), h/3-50); // Gameboard 1st Position
@@ -557,7 +567,7 @@ public class GameBoardPage implements Screen {
 		// 3) Player needs enough mana to attack
 		// 4) Check if all cards on the gameboard is dead. If dead, then remvove the image and card completely
 		// 5) If opponent has no card on the gameboard, attack the opponent directly
-
+		currentAttackIB = yourButton;
 		TextureRegion TEMP_C = new TextureRegion(yourCard.getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 		yourButton.setBackground(TEMP_CARD);
@@ -576,7 +586,7 @@ public class GameBoardPage implements Screen {
 	}
 	
 	// Enemy GameBoard Card Clicked
-	public void EnemyGameBoardCardClicked(Card opponentCard, Card yourCard, ImageButton enemyButton)
+	public void EnemyGameBoardCardClicked(Card opponentCard, ImageButton enemyButton)
 	{
 		TextureRegion TEMP_C = new TextureRegion(((CreatureCard)opponentCard).getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
@@ -597,11 +607,22 @@ public class GameBoardPage implements Screen {
 			if (opponentCardToAttack.isDead())
 			{
 				enemyButton.remove();
+				((CreatureCard)opponentCard).getLabel().setVisible(false);
 			}
-			this.yourCard = null;
-			this.opponentCardToAttack = null;
 		}
 		((CreatureCard)opponentCard).changeLabel(Integer.toString(((CreatureCard)opponentCard).getHP()));
+		//change texture of player card
+		TextureRegion tr = new TextureRegion(yourCard.getTexture());
+		TextureRegionDrawable trd = new TextureRegionDrawable(tr);
+		
+		ImageButtonStyle yourStyle = currentAttackIB.getStyle();
+		yourStyle.imageUp = trd;
+		currentAttackIB.setStyle(yourStyle);
+		currentAttackIB = null;
+		
+		this.yourCard = null;
+		this.opponentCardToAttack = null;
+		//change texture of opponent card
 	} 
 
 	@Override

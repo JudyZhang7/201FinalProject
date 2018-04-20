@@ -164,6 +164,7 @@ public class MagicCard extends Card{
 			// need player hp to increase by 2;
 			you.set_hp(you.get_hp() + 2);
 		}
+		System.out.println("Magic card: " + _astrological);
 		switch (state) {
 		case Scorpio: //DOES NOT NEED RANDOM NUMBER
 			// need player turn
