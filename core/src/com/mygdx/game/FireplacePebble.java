@@ -37,6 +37,7 @@ public class FireplacePebble extends Game{
 	public BitmapFont regfont16;
     // NEW TOAST
 	public Map<String, Integer> achievementMap = new HashMap<String, Integer>();
+	public Map<String, Integer> messageMap = new HashMap<String, Integer>();
     private Toast.ToastFactory toastFactory;
     private final List<Toast> toasts = new LinkedList<Toast>();
 	HashMap< String,CreatureCard> creatureCards = new HashMap< String,CreatureCard>();

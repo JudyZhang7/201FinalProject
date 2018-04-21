@@ -14,8 +14,8 @@ public class ServerThread extends Thread {
 	//private BufferedReader br;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
-	private ChatRoom cr;
-	public ServerThread(Socket s, ChatRoom cr) {
+	private GameMaster cr;
+	public ServerThread(Socket s, GameMaster cr) {
 		try {
 			this.cr = cr;
 			//pw = new PrintWriter(s.getOutputStream());
@@ -46,7 +46,7 @@ public class ServerThread extends Thread {
 				//String line = br.readLine();
 				//cr.broadcast(line, this);
 				ChatMessage cm = (ChatMessage)ois.readObject();
-				cr.broadcast(cm, this);
+//				cr.broadcast(cm, this);
 			}
 		} catch (IOException ioe) {
 			System.out.println("ioe in ServerThread.run(): " + ioe.getMessage());
