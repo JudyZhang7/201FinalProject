@@ -46,7 +46,8 @@ public class FrontPage implements Screen
 	public static Texture texture;
 	public static TextureRegion mainBackground;
     private SpriteBatch spriteBatch = new SpriteBatch();
-    Label.LabelStyle labelStyle = new Label.LabelStyle();
+//    Label.LabelStyle labelStyle = new Label.LabelStyle();
+    private boolean welcomeMessageShown = false;
     
 //    // NEW TOAST
 //    private Toast.ToastFactory toastFactory;
@@ -121,40 +122,42 @@ public class FrontPage implements Screen
 		stage.addActor(GuestButton);
 		
 		// Try Creating a Socket here and reading messages from the game master
-		BitmapFont fontLabl = game.regfont32;
-		fontLabl.setColor(Color.BLACK);
-		labelStyle.font = fontLabl;
-		Label messageLabel = null;
+//		BitmapFont fontLabl = game.regfont32;
+//		fontLabl.setColor(Color.BLACK);
+//		labelStyle.font = fontLabl;
 		String message = "";
-		try
+		if (welcomeMessageShown == false)
 		{
-			Socket s = new Socket("localhost", 6789);
-			System.out.println("Connected to localhost 6789");
-			BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			PrintWriter pw = new PrintWriter(s.getOutputStream());
-			message = br.readLine();
-			System.out.println("Message from Server: " + message);
-			game.messageMap.put(message, 1);
-			new MessageClientThread(game);
-//			messageLabel = new Label("From Game Creators: " + message, labelStyle);
-//			messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);
-//			stage.addActor(messageLabel);
-			// Close everything
-			if (br != null)
+			try
 			{
-				br.close();
+				Socket s = new Socket("localhost", 6789);
+				System.out.println("Connected to localhost 6789");
+				BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				PrintWriter pw = new PrintWriter(s.getOutputStream());
+				message = br.readLine();
+				System.out.println("Message from Server: " + message);
+				game.messageMap.put(message, 1);
+				new MessageClientThread(game);
+				welcomeMessageShown = true;
+//				messageLabel = new Label("From Game Creators: " + message, labelStyle);
+//				messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);
+//				stage.addActor(messageLabel);
+				// Close everything
+				if (br != null)
+				{
+					br.close();
+				}
+				if (pw != null)
+				{
+					pw.close();
+				}
+				s.close();
 			}
-			if (pw != null)
+			catch (IOException io)
 			{
-				pw.close();
+				System.out.println("io exception in socket: " + io.getMessage());
 			}
-			s.close();
 		}
-		catch (IOException io)
-		{
-			System.out.println("io exception in socket: " + io.getMessage());
-		}
-		
 	}
 	
 	// Method for if loginButton is clicked
