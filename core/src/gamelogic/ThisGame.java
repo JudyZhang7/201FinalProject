@@ -18,21 +18,8 @@ public class ThisGame {
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-
-	private int winner = 0;
 	FireplacePebble game;
-	
-	//private Player mPlayer;
-	private Card p1Card;
-	private Card p2Card;
-	
-	// set p1 card and p2 card to be played
-	public void setCards(Card p1Card, Card p2Card)
-	{
-		this.p1Card = p1Card;
-		this.p2Card = p2Card;
-	}
-	
+
 	public ThisGame(Player first, Player second) {
 		//first will always be the current player, second computer.
 		p1 = first;
@@ -53,14 +40,6 @@ public class ThisGame {
 
 	public void setP2(Player p2) {
 		this.p2 = p2;
-	}
-
-	public int getWinner() {
-		return winner;
-	}
-	
-	public void setWinner(int winner) {
-		this.winner = winner;
 	}
 
 	public boolean Act(Card selected, Card target, Player you, Player opp) {
@@ -84,16 +63,5 @@ public class ThisGame {
 			}
 		}
 		return false;
-	}
-	
-	public void UpdateWL() {
-		if (winner == 1) {
-			p1.getMyUser().AddWin();
-			p2.getMyUser().AddLoss();
-		}
-		else if(winner == 2) {
-			p1.getMyUser().AddLoss();
-			p2.getMyUser().AddWin();
-		}
 	}
 }

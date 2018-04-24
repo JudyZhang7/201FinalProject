@@ -8,11 +8,13 @@ import java.util.Map;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -42,7 +44,7 @@ public class StartGameScreen implements Screen {
 		this.game = game;
 		stage = new Stage();
 		batch = new SpriteBatch();
-		headfont = game.titlefont64();
+		headfont = game.titlefont128();
 		bodyfont = game.regfont20();
 		Gdx.input.setInputProcessor(stage);
 		//Set numplayers
@@ -64,11 +66,6 @@ public class StartGameScreen implements Screen {
 		btnViewProfile.setPosition(3*w/4, 4*h/6);
 		btnViewProfile.setSize(225, 75);
 		
-		//Start button
-//		TextButton btnStart = new TextButton("Start", textSkin);
-//		btnStart.setPosition(550, 350);
-//		btnStart.setSize(200, 50);
-		
 		//Listeners
 		btnViewDeck.addListener(new ClickListener(){
 			@Override
@@ -82,13 +79,6 @@ public class StartGameScreen implements Screen {
 				btnViewProfileClicked();
 			}
 		});
-//		btnStart.addListener(new ClickListener(){
-//			@Override
-//			public void touchUp(InputEvent e, float x, float y, int point, int button) {
-//				btnStartClicked();
-//			}
-//		});
-		
 		//PLAY WITH COMPUTER
 		TextButton computer = new TextButton("Play with Computer", textSkin);
 		computer.setPosition(w/14, 4*h/6);
@@ -102,37 +92,8 @@ public class StartGameScreen implements Screen {
 			}
 		});
 		
-//	Adding players
-//		if(numPlayers != 0) {
-//			TextButton p1 = new TextButton("", textSkin);
-//			p1.setPosition(w/4, h/2);
-//			p1.setSize(300, 150);
-//			stage.addActor(p1);
-//			
-//			p1.addListener(new ClickListener(){
-//				@Override
-//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-//					btnp1Clicked();
-//				}
-//			});
-//		}
-//		if(numPlayers == 2) { //what's this?
-//			TextButton p2 = new TextButton("", textSkin);
-//			p2.setPosition(w/4, h/3);
-//			p2.setSize(300, 150);
-//			stage.addActor(p2);
-//			
-//			p2.addListener(new ClickListener(){
-//				@Override
-//				public void touchUp(InputEvent e, float x, float y, int point, int button) {
-//					btnp2Clicked();
-//				}
-//			});
-//		}
-		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
-//		stage.addActor(btnStart);
 	}
 	
 	public void btnViewDeckClicked() {
@@ -146,40 +107,18 @@ public class StartGameScreen implements Screen {
 	public void btnStartClicked() {
 
 	}
+	
 	public Card copyCard(Card thisCard) {
 		Card newCard = null;
 		if (thisCard.getMytype().equals("creature"))
 		{
-			int hp = ((CreatureCard)thisCard).get_hp();
-			int damage = ((CreatureCard)thisCard).get_damage();
-			int manaCost = ((CreatureCard)thisCard).get_manaCost();
-			String name = ((CreatureCard)thisCard).getName();
-			Texture text =((CreatureCard)thisCard).get_texture();
-			Texture clickedText = ((CreatureCard)(thisCard)).getClickedTexture();
-			if(clickedText == null) {
-				System.out.println("Creaturecardnull textureeeeeeeee");
-			}
-			newCard = new CreatureCard (hp, damage, manaCost, name, text, clickedText);
+			newCard = new CreatureCard ((CreatureCard)thisCard);
 		}
 		else if(thisCard.getMytype().equals("magic")) {
-			//(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
-			int hp = ((MagicCard)thisCard).get_hpRep();
-			int damage = ((MagicCard)thisCard).get_damage();
-			int manaCost = ((MagicCard)thisCard).get_manaCost();
-			String name = ((MagicCard)thisCard).get_astrological();
-			Texture text =((MagicCard)thisCard).get_texture();
-			Texture clickedText = ((MagicCard)(thisCard)).getClickedTexture();
-			newCard = new MagicCard (hp, manaCost, damage, name, text, clickedText, game);
+			newCard = new MagicCard ((MagicCard)thisCard);
 		}
 		else if(thisCard.getMytype().equals("action")) {
-			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
-			int hp = ((ActionCard)thisCard).get_hpReplenish();
-			int damage = ((ActionCard)thisCard).get_damage();
-			int manaCost = ((ActionCard)thisCard).get_manaCost();
-			String name = ((ActionCard)thisCard).getCardname();
-			Texture text =((ActionCard)thisCard).get_texture();
-			Texture clickedText = ((ActionCard)(thisCard)).getClickedTexture();
-			newCard = new ActionCard (manaCost, damage, hp, 0, name, text, clickedText);
+			newCard = new ActionCard ((ActionCard)thisCard);
 		}
 		return newCard;
 	}
@@ -193,32 +132,15 @@ public class StartGameScreen implements Screen {
 	}
 	
 	public void startGameWithComputer() {
-		Player computerPlayer = new Player(10);
-//		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
+		Player computerPlayer = new Player(5);
 		List<Card> comDeck = new ArrayList<Card>();
-		Iterator<Map.Entry<String, CreatureCard>> it = game.creatureCards.entrySet().iterator();
-		while (it.hasNext()) 
-		{
-		    Map.Entry<String, CreatureCard> pair = it.next();
-		    CreatureCard cx = new CreatureCard(pair.getValue());
-		    comDeck.add(cx);
-		}
-		for (int i = 0; i < 8; i++)
-		{
-			comDeck.add(game.creatureCards.get("pig"));
-		}
+
 		computerPlayer.set_cardDeck(getCopyOfDefaultDeck());
 		//or game could just have a default computer player thing
-		game.getUser().get_player().set_cardDeck(getCopyOfDefaultDeck());
+		if(game.getUser().get_player().get_cardDeck() == null) {
+			game.getUser().get_player().set_cardDeck(getCopyOfDefaultDeck()); //get default card deck
+		}
 		game.setScreen(new GameBoardPage(game, new ThisGame(game.getUser().get_player(), computerPlayer))); // Go to the login page
-	}
-	
-	public void btnp1Clicked() {
-		
-	}
-	
-	public void btnp2Clicked() {
-		
 	}
 	
 	@Override
@@ -232,13 +154,16 @@ public class StartGameScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+		
+		Texture texture = new Texture("startgame.jpg");
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 1280, 800);
+		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
+		
+		headfont.draw(batch, "Start a New Game", w/8, h/2);
+		batch.end();
 		stage.act(delta);
 		stage.draw();
-		batch.begin();
-		headfont.draw(batch, "Start a New Game", w/3, h/2);
-		bodyfont.draw(batch, "Players looking for games", w/13, 7*h/9);
-		batch.end();
 	}
 
 	@Override

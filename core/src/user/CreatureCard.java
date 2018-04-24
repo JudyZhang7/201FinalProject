@@ -3,8 +3,10 @@ package user;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import gamelogic.ThisGame;
 
@@ -40,8 +42,9 @@ public class CreatureCard extends Card {
 	private Boolean firstTurn;
 	private String name;
 	private int winner;
+	
 	private Label hpLabel;
-	private ImageButton ib;
+	
 	// Copy Constructor
 	public CreatureCard(CreatureCard cc)
 	{
@@ -51,50 +54,27 @@ public class CreatureCard extends Card {
 		_damage = cc._damage;
 		_manaCost = cc._manaCost;
 		_texture = cc._texture;
+		_clickedTexture = cc._clickedTexture;
+		state = cc.state;
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
-
-		name = cc.name;
-
-		mytype = "creature";
 		
-		if(cc.name.equalsIgnoreCase("rat")) {
-			state = _Creature.rat;
+		Texture currCard = cc.getTexture();
+		TextureRegion TEMP_C = new TextureRegion(currCard);
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		ImageButton newHB = new ImageButton(TEMP_CARD);
+		
+		this.ib = newHB;
+		Label statLabel = null;
+		if(cc.getLabel()!= null) {
+			statLabel = new Label("" + _hp, cc.getLabel().getStyle());
 		}
-		else if(cc.name.equalsIgnoreCase("ox")) {
-			state = _Creature.ox;
-		}
-		else if(cc.name.equalsIgnoreCase("tiger")) {
-			state = _Creature.tiger;
-		}
-		else if(cc.name.equalsIgnoreCase("rabbit")) {
-			state = _Creature.rabbit;
-		}
-		else if(cc.name.equalsIgnoreCase("dragon")) {
-			state = _Creature.dragon;
-		}
-		else if(cc.name.equalsIgnoreCase("snake")) {
-			state = _Creature.snake;
-		}
-		else if(cc.name.equalsIgnoreCase("horse")) {
-			state = _Creature.horse;
-		}
-		else if(cc.name.equalsIgnoreCase("goat")) {
-			state = _Creature.goat;
-		}
-		else if(cc.name.equalsIgnoreCase("monkey")) {
-			state = _Creature.monkey;
-		}
-		else if(cc.name.equalsIgnoreCase("rooster")) {
-			state = _Creature.rooster;
-		}
-		else if(cc.name.equalsIgnoreCase("dog")) {
-			state = _Creature.dog;
-		}
-		else if(cc.name.equalsIgnoreCase("pig")) {
-			state = _Creature.pig;
-		}
+
+		addLabel(statLabel);
+		
+		name = cc.name;
+		mytype = "creature";
 	}
 	public void addLabel(Label label) {
 		hpLabel = label;
@@ -105,12 +85,7 @@ public class CreatureCard extends Card {
 	public void changeLabel(String newWords) {
 		hpLabel.setText(newWords);
 	}
-	public void setImageButton(ImageButton i) {
-		ib = i;
-	}
-	public ImageButton getImageButton() {
-		return ib;
-	}
+
 	public CreatureCard(int hp, int damage, int manaCost, String cre, Texture img, Texture clicked) {
 		super(type);
 		_hp = hp;
@@ -122,7 +97,8 @@ public class CreatureCard extends Card {
 		burn = false;
 		targetedFirst = true;
 		firstTurn = true;
-
+		setib(null);
+		addLabel(null);
 		name = cre;
 
 		mytype = "creature";

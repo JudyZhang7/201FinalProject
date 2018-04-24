@@ -6,6 +6,8 @@ import java.io.Serializable;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 public abstract class Card implements Serializable {
 	
@@ -23,7 +25,15 @@ public abstract class Card implements Serializable {
 	private Boolean onBoard;
 	protected String mytype;
 	private boolean lastedATurn = false;
-
+	protected ImageButton ib;
+	
+	public ImageButton getib() {
+		return ib;
+	}
+	public void setib(ImageButton ib) {
+		this.ib = ib;
+	}
+	
 	public String getMytype() {
 		return mytype;
 	}

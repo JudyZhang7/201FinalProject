@@ -96,8 +96,6 @@ public class CreateNewDeckScreen implements Screen {
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
 				final Card thisCard = fullDeck[counterr]; //why is this final?
-				System.out.println(thisCard.getMytype());
-
 				counterr++;
 				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
@@ -109,10 +107,8 @@ public class CreateNewDeckScreen implements Screen {
 				cardButton.addListener(new ClickListener(){
 					@Override
 					public void touchUp(InputEvent e, float x, float y, int point, int button) {
-//						Card gotCard = cardClicked(thisCard); //get the Card
 						Card newCard = copyCard(thisCard);
-//						if(!showMessage("CATS", thisCard)) {}
-						if(!addCardToDeck(thisCard)) { //deck is full!
+						if(!addCardToDeck(newCard)) { //deck is full!
 							deckFinished();
 						}
 					}
@@ -133,7 +129,6 @@ public class CreateNewDeckScreen implements Screen {
 	
 	public boolean deckFinished() {
 		if(cardDeck[19] == null) {
-//			showMessage("Not enough cards!");
 			return false;
 		}
 		newDeck.addCardDeck(cardDeck);
@@ -164,33 +159,13 @@ public class CreateNewDeckScreen implements Screen {
 		Card newCard = null;
 		if (thisCard.getMytype().equals("creature"))
 		{
-			int hp = ((CreatureCard)thisCard).get_hp();
-			int damage = ((CreatureCard)thisCard).get_damage();
-			int manaCost = ((CreatureCard)thisCard).get_manaCost();
-			String name = ((CreatureCard)thisCard).getName();
-			Texture text =((CreatureCard)thisCard).get_texture();
-			Texture clickedText = ((CreatureCard)(thisCard)).getClickedTexture();
-			newCard = new CreatureCard (hp, damage, manaCost, name, text, clickedText);
+			newCard = new CreatureCard ((CreatureCard)thisCard);
 		}
 		else if(thisCard.getMytype().equals("magic")) {
-			//(int hp, int damage, int manaCost, String cre, Texture img, FireplacePebble game) {
-			int hp = ((MagicCard)thisCard).get_hpRep();
-			int damage = ((MagicCard)thisCard).get_damage();
-			int manaCost = ((MagicCard)thisCard).get_manaCost();
-			String name = ((MagicCard)thisCard).get_astrological();
-			Texture text =((MagicCard)thisCard).get_texture();
-			Texture clickedText = ((MagicCard)(thisCard)).getClickedTexture();
-			newCard = new MagicCard (hp, manaCost, damage, name, text, clickedText, game);
+			newCard = new MagicCard ((MagicCard)thisCard);
 		}
 		else if(thisCard.getMytype().equals("action")) {
-			//public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img) {
-			int hp = ((ActionCard)thisCard).get_hpReplenish();
-			int damage = ((ActionCard)thisCard).get_damage();
-			int manaCost = ((ActionCard)thisCard).get_manaCost();
-			String name = ((ActionCard)thisCard).getCardname();
-			Texture text =((ActionCard)thisCard).get_texture();
-			Texture clickedText = ((ActionCard)(thisCard)).getClickedTexture();
-			newCard = new ActionCard (manaCost, damage, hp, 0, name, text, clickedText);
+			newCard = new ActionCard ((ActionCard)thisCard);
 		}
 		return newCard;
 	}
@@ -223,10 +198,11 @@ public class CreateNewDeckScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
-		stage.draw();
+		Texture texture = new Texture("profile.jpg");
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 1920, 1200);
 		batch.begin();
-		
+		batch.draw(mainBackground, 0, 0, w, h);
+
 		titleFont = game.titlefont128();
 		titleFont.setColor(Color.WHITE);
 		titleFont.draw(batch, "Cards", w/4, 29*h/30);
@@ -235,6 +211,8 @@ public class CreateNewDeckScreen implements Screen {
 		titleFont64.draw(batch, "Cards in \nNew Deck: \n" + numCards, 3*w/4, 18*h/30);
 		// rendering code
 		batch.end();
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override

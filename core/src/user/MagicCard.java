@@ -6,6 +6,9 @@ import gamelogic.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.FireplacePebble;
 import com.mygdx.game.GameBoardPage;
 
@@ -45,54 +48,23 @@ public class MagicCard extends Card{
 		_damage = mc._damage;
 		_manaCost = mc._manaCost;
 		_astrological = mc._astrological;
+		state = mc.state;
+		
+		Texture currCard = mc.getTexture();
+		TextureRegion TEMP_C = new TextureRegion(currCard);
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		ImageButton newHB = new ImageButton(TEMP_CARD);
+		
+		this.ib = newHB;
 
-		//_mSprite = sprite;
 		mytype = "magic";
 		_texture = mc._texture;
 		_clickedTexture = mc._clickedTexture;
-		
-		if(mc._astrological.equalsIgnoreCase("Scorpio")) {
-			state = Astro.Scorpio;
-			turnCounter = 3;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Sagitarius")) {
-			state = Astro.Sagittarius;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Capricorn")) {
-			state = Astro.Capricorn;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Aquarius")) {
-			state = Astro.Aquarius;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Pisces")) {
-			state = Astro.Pisces;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Aries")) {
-			state = Astro.Aries;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Taurus")) {
-			state = Astro.Taurus;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Gemini")) {
-			state = Astro.Gemini;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Cancer")) {
-			state = Astro.Cancer;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Leo")) {
-			state = Astro.Leo;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Virgo")) {
-			state = Astro.Virgo;
-		}
-		else if(mc._astrological.equalsIgnoreCase("Libra")) {
-			state = Astro.Libra;
-		}
+
 	}
 	
 	public MagicCard(int hp, int manaCost, int damage, String cre, Texture img, Texture clicked, FireplacePebble game) {
 		super(type);
-		System.out.println("Magic card manaCost: " + manaCost);
 		this.game = game;
 		_hpRep = hp;
 		_damage = damage;
@@ -103,12 +75,12 @@ public class MagicCard extends Card{
 		mytype = "magic";
 		_texture = img;
 		_clickedTexture = clicked;
-		
+		setib(null);
 		if(cre.equalsIgnoreCase("Scorpio")) {
 			state = Astro.Scorpio;
 			turnCounter = 3;
 		}
-		else if(cre.equalsIgnoreCase("Sagitarius")) {
+		else if(cre.equalsIgnoreCase("Sagittarius")) {
 			state = Astro.Sagittarius;
 		}
 		else if(cre.equalsIgnoreCase("Capricorn")) {
@@ -163,7 +135,8 @@ public class MagicCard extends Card{
 			turnCounter--;
 			// need player hp to increase by 2;
 			you.set_hp(you.get_hp() + 2);
-		}
+        }
+        //DON'T HAVE TO REMOVE IMAGE BUTTONS YET HERE
 		System.out.println("Magic card: " + _astrological);
 		switch (state) {
 		case Scorpio: //DOES NOT NEED RANDOM NUMBER
@@ -172,22 +145,24 @@ public class MagicCard extends Card{
 			break;
 		case Sagittarius: //NEEDS RANDOM NUMBER for opponent
 			if (opponent.getPlayerBoard().isEmpty() == false) {				
-				opponent.getPlayerBoard().get(oprandomNum).setLife(0);
-			}else {
+                opponent.getPlayerBoard().get(oprandomNum).setLife(0);
+			} else {
 				return false;
 			}
 			break;
 		case Capricorn: //NEEDS RANDOM NUMBER for opponent
 			if (opponent.getmHand().isEmpty() == false) {
+				opmax = opponent.getmHand().size();
+				oprandomNum = rand.nextInt(opmax);
 				opponent.getmHand().remove(oprandomNum);
-			}else {
+			} else {
 				return false;
 			}
 			break;
 		case Aquarius: //NO RANDOM NUMBER
-			int boardSize = opponent.getmHand().size();
+			int boardSize = opponent.getPlayerBoard().size();
 			for (int i = 0; i < boardSize; i++) {
-				opponent.getmHand().get(i).setLife(opponent.getmHand().get(i).getLife() - 1);
+				opponent.getPlayerBoard().get(i).setLife(opponent.getPlayerBoard().get(i).getLife() - 1);
 			}
 			break;
 		case Pisces: //NEEDS YOUR RANDOM NUMBER, SET
@@ -200,20 +175,19 @@ public class MagicCard extends Card{
 		case Aries:
 			if (opponent.getPlayerBoard().isEmpty() == false){ //RANDOM NUMBER FOR OPPONENT
 				opponent.getPlayerBoard().get(oprandomNum).setLife(opponent.getPlayerBoard().get(oprandomNum).getLife() - 5);
-				you.set_hp(you.get_hp() - 5);
 			}else {
 				return false;
 			}
 			break;
 		case Taurus:
 			if (opponent.getPlayerBoard().isEmpty() == false) {
-				opponent.getPlayerBoard().get(oprandomNum).setLife(opponent.getPlayerBoard().get(oprandomNum).getLife() - 3);
+                opponent.set_hp(opponent.get_hp() -3);
 			}else {
 				return false;
 			}
 			break;
 		case Gemini:
-			if (you.getPlayerBoard().isEmpty() == false) {
+			if (you.getPlayerBoard().isEmpty() == false && (you.getPlayerBoard().size() < 3)) {
 				CreatureCard newmc = new CreatureCard((CreatureCard)you.getPlayerBoard().get(yourrandomNum));
 				you.getPlayerBoard().add(newmc);
 			}else {
@@ -222,6 +196,9 @@ public class MagicCard extends Card{
 			break;
 		case Cancer:
 			if (opponent.getmHand().isEmpty() == false) {
+                opmax = opponent.getmHand().size();
+                oprandomNum = rand.nextInt(opmax);
+                
 				you.getmHand().add(opponent.getmHand().get(oprandomNum));
 				opponent.getmHand().remove(oprandomNum);
 			}else {
@@ -237,7 +214,9 @@ public class MagicCard extends Card{
 			}
 			break;
 		case Virgo:
-			if (you.getmHand().isEmpty() == false) {				
+			if (you.getmHand().isEmpty() == false && (you.getPlayerBoard().size() < 3)) {		
+				yourmax = you.getmHand().size();
+				yourrandomNum = rand.nextInt(yourmax);
 				you.getPlayerBoard().add(you.getmHand().get(yourrandomNum));
 				you.getmHand().remove(yourrandomNum);
 			}else {

@@ -138,7 +138,11 @@ public class DeckScreen implements Screen {
 		}
 	}
 	public void deckClicked(Card[]c) {
-		currentUser.get_player().set_cardDeck(Arrays.asList(c));
+		List<Card>newdeckofcards = new ArrayList<Card>();
+		for(int i = 0; i < 20; i++) {
+			newdeckofcards.add(c[i]);
+		}
+		currentUser.get_player().set_cardDeck(newdeckofcards);
 		int counter = 0;
 		for (int j = 0; j < numCardsRow; j++) {
 			for (int i = 0; i < numCardsCol; i++) {
@@ -192,9 +196,12 @@ public class DeckScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
-		stage.draw();
+		
+		Texture texture = new Texture("profile.jpg");
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 1920, 1200);
 		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
+
 		
 		titleFont = game.titlefont128();
 		titleFont.setColor(Color.WHITE);
@@ -203,6 +210,8 @@ public class DeckScreen implements Screen {
 		titleFont.draw(batch, "Decks", 3*w/4, 29*h/30);
 		// rendering code
 		batch.end();
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override

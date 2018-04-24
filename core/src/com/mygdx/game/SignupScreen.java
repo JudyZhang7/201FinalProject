@@ -6,8 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -138,12 +140,17 @@ public class SignupScreen implements Screen{
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
-		stage.draw();
+		
+		Texture texture = new Texture("login.jpg");
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 800, 500);
 		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
+		
         font.draw(batch, "Username", w/3, (h)/2 + buttonHeight/4);
         font.draw(batch, "Password", w/3, (h)/2 - buttonHeight/12);
         batch.end();
+        stage.act(delta);
+		stage.draw();
 	}
 
 	@Override

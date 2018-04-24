@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -118,15 +119,20 @@ public class ProfileScreen implements Screen
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 100/255f, 200/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		stage.act(delta);
-		stage.draw();
+		
+		Texture texture = new Texture("profile.jpg");
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 1920, 1200);
 		batch.begin();
+		batch.draw(mainBackground, 0, 0, w, h);
+		
 		usernameFont.draw(batch, username, w/4, (3*h)/4);
         statsFont.draw(batch, "Level : " + level, 3*w/4, (10*h)/15);
         statsFont.draw(batch, "Wins: " + wins, 3*w/4, (8*h)/15);
         statsFont.draw(batch, "Losses: " + losses, 3*w/4, (6*h)/15);
         batch.end();
+        
+        stage.act(delta);
+		stage.draw();
 	}
 
 	@Override

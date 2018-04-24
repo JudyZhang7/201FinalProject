@@ -32,6 +32,7 @@ public class FireplacePebble extends Game{
 	FreeTypeFontParameter titleParam;
 	public BitmapFont titlefont128;
 	public BitmapFont titlefont64;
+	public BitmapFont titlefont32;
 	public BitmapFont regfont32;
 	public BitmapFont regfont20;
 	public BitmapFont regfont16;
@@ -57,8 +58,9 @@ public class FireplacePebble extends Game{
 		titlefont128 = titleText.generateFont(titleParam); // font size 128 pixels
 		titleParam.size = 64;
 		titlefont64 = titleText.generateFont(titleParam); // font size 64
+		titleParam.size = 45;
+		titlefont32 = titleText.generateFont(titleParam);
 		titleText.dispose(); // don't forget to dispose to avoid memory leaks!
-
 		FreeTypeFontGenerator regText = new FreeTypeFontGenerator(Gdx.files.internal("DroidSans.ttf"));
 		FreeTypeFontParameter regParam = new FreeTypeFontParameter();
 		

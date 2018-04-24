@@ -18,10 +18,7 @@ public class Player implements Serializable{
 	private int handSize;
 	
 	private ArrayList<Card> mHand = new ArrayList<Card>();
-//	private ArrayList<Card> opponentHand = new ArrayList<Card>();
-//	private Player opponent;
 	private ArrayList<Card> playerBoard = new ArrayList<Card>();
-//	private ArrayList<Card> opponentBoard = new ArrayList<Card>();
 	
 	// Dummy Constructor for Dummy
 	public Player(int hp)
@@ -122,64 +119,14 @@ public class Player implements Serializable{
 		}
 	}
 	
-	public void drawCards() {
-		if (this.get_turn()) {
-			if (mHand.size() == 3) {
-				double rangeMin = 0.0f;
-				double rangeMax = 1.0f;
-				Random r = new Random();
-				double createRand = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-				this.get_cardDeck().remove((int)(createRand * this.get_cardDeck().size()));
-			} 
-			else {
-				double rangeMin = 0.0f;
-				double rangeMax = 1.0f;
-				Random r = new Random();
-				double createRand = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-				
-				mHand.add(this.get_cardDeck().get((int)(createRand * this.get_cardDeck().size())));
-				
-				this.get_cardDeck().remove((int)(createRand * this.get_cardDeck().size()));
-			}
-		}
-	}
-	
-	public void placeCardOnBoard() {
-		int currHandSize = mHand.size();
-		
-		//place card on board
-		// somehow user choose card or index
-		
-		playerBoard.add(null);
-		
-		// player has to remove card from hand
-		mHand.remove(null);
-	}
-
-
-//	public Player getOpponent() {
-//		return opponent;
-//	}
-//
-//	public void setOpponent(Player opponent) {
-//		this.opponent = opponent;
-//	}
-//
-//	public ArrayList<Card> getOpponentBoard() {
-//		return opponentBoard;
-//	}
-//
-//	public void setOpponentBoard(ArrayList<Card> opponentBoard) {
-//		this.opponentBoard = opponentBoard;
-//	}
-//
-//	public ArrayList<Card> getOpponentHand() {
-//		return opponentHand;
-//	}
-//
-//	public void setOpponentHand(ArrayList<Card> opponentHand) {
-//		this.opponentHand = opponentHand;
-//	}
-	
+	public void drawCards() { //assume legal to draw card
+        int max = _cardDeck.size();
+        Random rand = new Random();
+        int cardNum = rand.nextInt(max);
+        //add to hand
+        mHand.add(_cardDeck.get(cardNum));
+        //remove from deck
+        _cardDeck.remove(cardNum);
+	}	
 }
 

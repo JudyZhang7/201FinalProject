@@ -1,11 +1,17 @@
 package user;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import user.*;
 import gamelogic.*;
 
+import com.mygdx.game.Assets;
 import com.mygdx.game.GameBoardPage;
 
 public class ActionCard extends Card {
@@ -28,12 +34,10 @@ public class ActionCard extends Card {
 	private Action state;
 	private static enum Action {
 		Weapon,
-		Weapon2,
-		Heal,
-		Heal2,
-		DoubleDamage,
-		Preparation;
-	}
+        Heal,
+        DoubleDamage,
+        Preparation;
+    	}
 	
 	// Copy Constructor
 	public ActionCard(ActionCard ac)
@@ -46,21 +50,16 @@ public class ActionCard extends Card {
 		_actionName = ac._actionName;
 		mytype = "action";
 		_texture = ac._texture;
-//		_mSprite = mSprite;
+		state = ac.state;
+		System.out.println("COPY CONSTRUCTOR FOR " + _actionName);
 
-			
-		if(ac._actionName.equalsIgnoreCase("Weapon")) {
-			state = Action.Weapon;
-		}
-		else if(ac._actionName.equalsIgnoreCase("Heal")) {
-			state = Action.Heal;
-		}
-		else if(ac._actionName.equalsIgnoreCase("DoubleDamage")) {
-			state = Action.DoubleDamage;
-		}
-		else if(ac._actionName.equalsIgnoreCase("Preparation")) {
-			state = Action.Preparation;
-		}
+		TextureRegion TEMP_C = new TextureRegion(_texture);
+		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
+		ImageButton newHB = new ImageButton(TEMP_CARD);
+		ImageButton newHBact = new ImageButton(TEMP_CARD);
+		
+		this.ib = newHB;
+		
 	}
 	
 	public ActionCard(int manaCost, int damage, int hpReplenish, int mana, String actionName, Texture img, Texture clicked) {
@@ -73,9 +72,7 @@ public class ActionCard extends Card {
 		mytype = "action";
 		_texture = img;
 		_clickedTexture = clicked;
-//		_mSprite = mSprite;
-
-		
+		setib(null);
 		if(actionName.equalsIgnoreCase("Weapon")) {
 			state = Action.Weapon;
 		}
@@ -92,34 +89,22 @@ public class ActionCard extends Card {
 
 	public Boolean ActionEffect(Player you, Player opponent)
 	{
-		if(you.get_mana() - _mana < 0)  {
-			return false;
-		}
-		
 		switch(state) {
 		case Weapon:
-			if (you.get_mana() >= 3) {
-				opponent.set_hp(opponent.get_hp() - _damage);
-				this.ACTIONDEAD = isDead();
-			}
+			opponent.set_hp(opponent.get_hp() - _damage);
+			this.ACTIONDEAD = isDead();
 			break;
 		case Heal:
-			if (you.get_mana() >= 3) {
-				you.set_hp(you.get_hp() + _hpReplenish);
-				this.ACTIONDEAD = isDead();
-			}
+			you.set_hp(you.get_hp() + _hpReplenish);
+			this.ACTIONDEAD = isDead();
 			break;
-		case Weapon2:
-			if (you.get_mana() >= 5) {
-				opponent.set_hp(opponent.get_hp() - _damage - _damage);
-				this.ACTIONDEAD = isDead();
-			}
+		case DoubleDamage:
+			opponent.set_hp(opponent.get_hp() - _damage - _damage);
+			this.ACTIONDEAD = isDead();
 			break;
-		case Heal2:
-			if (you.get_mana() >= 4) {
-				you.set_hp(you.get_hp() + _hpReplenish + _hpReplenish);
-				this.ACTIONDEAD = isDead();
-			}
+		case Preparation:
+			you.set_hp(you.get_hp() + _hpReplenish + _hpReplenish);
+			this.ACTIONDEAD = isDead();
 			break;
 		}
 		return true;
