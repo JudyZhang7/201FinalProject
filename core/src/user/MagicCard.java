@@ -188,8 +188,9 @@ public class MagicCard extends Card{
 			break;
 		case Gemini:
 			if (you.getPlayerBoard().isEmpty() == false && (you.getPlayerBoard().size() < 3)) {
-				CreatureCard newmc = new CreatureCard((CreatureCard)you.getPlayerBoard().get(yourrandomNum));
-				you.getPlayerBoard().add(newmc);
+//				CreatureCard newmc = new CreatureCard((CreatureCard)you.getPlayerBoard().get(yourrandomNum));
+//				you.get_cardDeck().add(newmc);
+//				you.getPlayerDeck().add(newmc);
 			}else {
 				return false;
 			}
