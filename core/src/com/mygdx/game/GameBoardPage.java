@@ -384,7 +384,7 @@ public class GameBoardPage implements Screen {
                 ((CreatureCard)otherPlayer.getPlayerBoard().get(i)).getLabel().setPosition(i*2*cw + (w/5) - 30, h/2 + 50);
             }
 
-			if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
+			if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0 && otherPlayer.getPlayerBoard().size() > 0) {
 					// Select a random card from the computer's gameboard
 					int max1 = otherPlayer.getPlayerBoard().size();
 					int opRandom = rand.nextInt(max1);
@@ -416,12 +416,6 @@ public class GameBoardPage implements Screen {
 				player.getPlayerBoard().remove(i);
 			}
 		}
-		// ============= DISPLAY WHAT'S ON THE PLAYER BOARD =============
-		displayImages(otherPlayer.getPlayerBoard());
-		displayImages(player.getPlayerBoard());
-		displayLabels(otherPlayer.getPlayerBoard());
-		displayLabels(player.getPlayerBoard());
-		
 		// WIN OR LOSE?
 		if((player.get_hp() <= 0) || (otherPlayer.get_hp() <= 0))
 		{
@@ -433,6 +427,12 @@ public class GameBoardPage implements Screen {
 				banner(1);
 			}
 		}
+		// ============= DISPLAY WHAT'S ON THE PLAYER BOARD =============
+				displayImages(otherPlayer.getPlayerBoard());
+				displayImages(player.getPlayerBoard());
+				displayLabels(otherPlayer.getPlayerBoard());
+				displayLabels(player.getPlayerBoard());
+				
 		return;
 	}
 	
