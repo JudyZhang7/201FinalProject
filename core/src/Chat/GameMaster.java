@@ -21,7 +21,7 @@ public class GameMaster {
 			System.out.println("Binding to port: " + port);
 			ServerSocket ss = new ServerSocket(port);
 			System.out.println("Bound to port: " + port);
-			System.out.println("Waiting for a client to connect...");
+			System.out.println("Server has started up! Waiting for a client to connect...");
 //			Scanner input = new Scanner(System.in);
 //			System.out.println("Please input a welcoming message to send to the client:");
 //			String messageToSend = input.nextLine();

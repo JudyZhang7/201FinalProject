@@ -60,7 +60,6 @@ public class GameBoardPage implements Screen {
 	private int ch = 150;
 	private int cw = 125;
 	boolean cardPlaySuccess = false;
-	boolean firstCardPlay = false;
 	
 	private int numTurnsSoFar = 0; // Counting the number of turns so far
 	private boolean attackInMotion = false;
@@ -78,6 +77,13 @@ public class GameBoardPage implements Screen {
     float h = Gdx.graphics.getHeight();
     Label.LabelStyle labelStyle = new Label.LabelStyle();
     
+    boolean firstGamePlayed = false;
+    boolean firstCardPlay = false;
+    boolean firstCardDrawn = false;
+    boolean firstTurnDone = false;
+    boolean firstWin = false;
+    boolean firstAttack = false;
+    
     Label labelhealth;
     Label labelmana;
     Label oplabelhealth;
@@ -91,6 +97,11 @@ public class GameBoardPage implements Screen {
 		
 		Label banner = new Label("", labelStyle);
     		if(i == 1) {
+    			if (firstWin == false) {
+    				game.achievementMap.put("First Win!", 1);
+    				new AchievementThread(game);
+    				firstWin = true;
+    			}
     			banner.setText("You win!");
     		} else {
     			banner.setText("You lose!");
@@ -98,6 +109,11 @@ public class GameBoardPage implements Screen {
     		banner.setColor(Color.BLACK);
     		banner.setPosition(w/3, h/2);
     		stage.addActor(banner);
+    		if (firstGamePlayed == false) {
+    			game.achievementMap.put("First Game Played!", 1);
+				new AchievementThread(game);
+				firstGamePlayed = true;
+    		}
     }
     public void displayImages(ArrayList<Card> cards){
     		Card cardc;
@@ -204,6 +220,13 @@ public class GameBoardPage implements Screen {
 			@Override
             public void clicked(InputEvent event, float x, float y) {
 				displayMessage("Opponent turn");
+				if (firstTurnDone == false)
+				{
+					game.achievementMap.put("Played first Turn!", 1);
+					new AchievementThread(game);
+					firstTurnDone = true;
+				}
+				System.out.println("First Turn Boolean Value: " + firstTurnDone);
 				endTurnButtonClicked();
             }
 		});
@@ -223,11 +246,11 @@ public class GameBoardPage implements Screen {
 		stage.addActor(btnBack);
 		
 		// Thread to run achievements - Will output the achievement that has been unlocked
-		if (true)
+		if (firstGamePlayed == false)
 		{
-			game.achievementMap.put("Card Picked!", 1);
-			game.achievementMap.put("Played a Game!", 1);
+			game.achievementMap.put("Playing first Game!", 1);
 			new AchievementThread(game);
+			firstGamePlayed = true;
         }
         
 		TextureRegion DECK_TR = new TextureRegion(CardBack);
@@ -240,6 +263,13 @@ public class GameBoardPage implements Screen {
 			@Override
             public void clicked(InputEvent event, float x, float y) {
 				System.out.println("Deck Clicked, Draw a Card!");
+				if (firstCardDrawn == false)
+				{
+					game.achievementMap.put("Drew first Card!", 1);
+					new AchievementThread(game);
+					firstCardDrawn = true;
+				}
+				System.out.println("First Card Drawn Boolean Value: " + firstTurnDone);
 				deckButtonClicked();
             }
 		});
@@ -341,6 +371,12 @@ public class GameBoardPage implements Screen {
 					GameBoardButton.addListener(new ClickListener() {
 						@Override
 			            public void clicked(InputEvent event, float x, float y) {
+							if (firstAttack == false)
+							{
+								game.achievementMap.put("First Attack made!", 1);
+								new AchievementThread(game);
+								firstAttack = true;
+							}
 							EnemyGameBoardCardClicked(oppCard, GameBoardButton);
 			            }
 					});
@@ -458,6 +494,12 @@ public class GameBoardPage implements Screen {
 				newHB.addListener(new ClickListener() {
 					@Override
 		            public void clicked(InputEvent event, float x, float y) {
+						if (firstCardPlay == false)
+						{
+							game.achievementMap.put("First Card Played!", 1);
+							new AchievementThread(game);
+							firstCardPlay = true;
+						}
 						HandButtonClicked(cardToAddToGameBoard, newHB);
 		            }
 				});
