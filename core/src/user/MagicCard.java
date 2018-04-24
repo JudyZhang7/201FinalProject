@@ -56,7 +56,7 @@ public class MagicCard extends Card{
 		ImageButton newHB = new ImageButton(TEMP_CARD);
 		
 		this.ib = newHB;
-
+		ib.setSize(150, 125);
 		mytype = "magic";
 		_texture = mc._texture;
 		_clickedTexture = mc._clickedTexture;
@@ -154,7 +154,9 @@ public class MagicCard extends Card{
 			if (opponent.getmHand().isEmpty() == false) {
 				opmax = opponent.getmHand().size();
 				oprandomNum = rand.nextInt(opmax);
+				opponent.getmHand().get(oprandomNum).getib().remove(); //must remove the button first
 				opponent.getmHand().remove(oprandomNum);
+				
 			} else {
 				return false;
 			}
@@ -202,7 +204,7 @@ public class MagicCard extends Card{
                 opmax = opponent.getmHand().size();
                 oprandomNum = rand.nextInt(opmax);
                 
-				you.getmHand().add(opponent.getmHand().get(oprandomNum));
+				you.get_cardDeck().add(opponent.getmHand().get(oprandomNum));
 				opponent.getmHand().remove(oprandomNum);
 			}else {
 				return false;
@@ -210,18 +212,16 @@ public class MagicCard extends Card{
 			break;
 		case Leo:
 			if (opponent.getPlayerBoard().isEmpty() == false) {					
-				opponent.getmHand().add(opponent.getPlayerBoard().get(oprandomNum));
+				opponent.get_cardDeck().add(opponent.getPlayerBoard().get(oprandomNum));
+				opponent.getPlayerBoard().get(oprandomNum).getib().remove(); //remove imagebutton
 				opponent.getPlayerBoard().remove(oprandomNum);
 			}else {
 				return false;
 			}
 			break;
 		case Virgo:
-			if (you.getmHand().isEmpty() == false && (you.getPlayerBoard().size() < 3)) {		
-				yourmax = you.getmHand().size();
-				yourrandomNum = rand.nextInt(yourmax);
-				you.getPlayerBoard().add(you.getmHand().get(yourrandomNum));
-				you.getmHand().remove(yourrandomNum);
+			if (you.getmHand().isEmpty() == false) {	//if hand is not empty, increase HP
+				you.set_hp(you.get_hp() + 5);
 			}else {
 				return false;
 			}

@@ -66,11 +66,11 @@ public class CreatureCard extends Card {
 		ImageButton newHB = new ImageButton(TEMP_CARD);
 		
 		this.ib = newHB;
+		ib.setSize(150, 125);
 		Label statLabel = null;
 		if(cc.getLabel()!= null) {
 			statLabel = new Label("" + _hp, cc.getLabel().getStyle());
 		}
-
 		addLabel(statLabel);
 		
 		name = cc.name;
@@ -327,6 +327,9 @@ public class CreatureCard extends Card {
 	}
 	public int get_manaCost() {
 		return _manaCost;
+	}
+	public void set_manaCost(int i) {
+		_manaCost = i;
 	}
 	public Texture get_texture() {
 		return _texture;

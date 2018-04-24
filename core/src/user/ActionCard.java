@@ -59,6 +59,7 @@ public class ActionCard extends Card {
 		ImageButton newHBact = new ImageButton(TEMP_CARD);
 		
 		this.ib = newHB;
+		ib.setSize(150, 125);
 		
 	}
 	

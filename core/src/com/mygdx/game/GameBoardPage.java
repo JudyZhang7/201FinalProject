@@ -101,10 +101,10 @@ public class GameBoardPage implements Screen {
     }
     public void displayImages(ArrayList<Card> cards){
     		Card cardc;
-    		System.out.println("Size: " + cards.size() +"================ The cards placed are: ================ ");
+//    		System.out.println("Size: " + cards.size() +"================ The cards placed are: ================ ");
     		for(int i = 0; i < cards.size(); i++) {
     			cardc = cards.get(i);
-    			System.out.println(cardc.getCardname());
+//    			System.out.println(cardc.getCardname());
     			
     			stage.addActor(cardc.getib());
     		}
@@ -357,7 +357,7 @@ public class GameBoardPage implements Screen {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					currentGame.Act(oppCard, null, otherPlayer, player);
+					currentGame.Act(oppCard, null, otherPlayer, player); //this is correct
 				}
 				else if(oppCard.getMyType().equalsIgnoreCase("action") && (otherPlayer.get_mana() >= oppCard.get_manaCost())) {
 					//minus mana
@@ -373,7 +373,7 @@ public class GameBoardPage implements Screen {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					currentGame.Act(oppCard, null, otherPlayer, player);
+					currentGame.Act(oppCard, null, otherPlayer, player); //correct
                 }
                 //UPDATE THE SCREEN
                 updateStats();
@@ -384,9 +384,7 @@ public class GameBoardPage implements Screen {
                 ((CreatureCard)otherPlayer.getPlayerBoard().get(i)).getLabel().setPosition(i*2*cw + (w/5) - 30, h/2 + 50);
             }
 
-			if (otherPlayer.getPlayerBoard().size() > 0) {
-				// if p1 has cards on the gameboard, it can attack
-				if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
+			if (opponentAttackCount % 2 == 0 && player.getPlayerBoard().size() > 0) {
 					// Select a random card from the computer's gameboard
 					int max1 = otherPlayer.getPlayerBoard().size();
 					int opRandom = rand.nextInt(max1);
@@ -395,10 +393,9 @@ public class GameBoardPage implements Screen {
 					int yourRandom = rand.nextInt(max2);
 					// attack
 					Card cardAttacked = player.getPlayerBoard().get(yourRandom);
-					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), cardAttacked, otherPlayer, player);
+					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), cardAttacked, player, otherPlayer); //correct
 					//update HP
 					((CreatureCard)cardAttacked).changeLabel(Integer.toString(((CreatureCard)cardAttacked).getHP()));
-				}
 			}
 		}
 		playerTurn = !playerTurn;
