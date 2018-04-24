@@ -528,26 +528,7 @@ public class GameBoardPage implements Screen {
 				    labelhealth.setPosition(w/8, (h)/6 - buttonHeight/2);
 				    
                     final ImageButton GameBoardButton = ((CreatureCard)cardToAdd).getib();
-					if (player.getPlayerBoard().size() == 1) // 1 card going to be on Gameboard
-					{
-						GameBoardButton.setPosition(cw + (w/5), h/3-50); // Gameboard 1st Position
-						GameBoardButton.setSize(cw, ch);
-						statLabel.setPosition(cw + (w/5)-30, h/3);
-					}
-					else if (player.getPlayerBoard().size() == 2) // 2 cards going to be on Gameboard
-					{
-						GameBoardButton.setPosition(cw * 3 + (w/5), h/3-50);  // Gameboard 2nd Position
-						GameBoardButton.setSize(cw, ch);
-						statLabel.setPosition(cw * 3 + (w/5)-30, h/3); 
-					}
-					else if (player.getPlayerBoard().size() == 3) // 3 cards going to be on Gameboard
-					{
-						GameBoardButton.setPosition(cw * 5 + (w/5), h/3-50);  // Gameboard 3rd Position
-						GameBoardButton.setSize(cw, ch);
-						statLabel.setPosition(cw * 5 + (w/5)-30, h/3);
-					}
 					GameBoardButton.clearListeners();
-					
 					GameBoardButton.addListener(new ClickListener()
 					{
 						@Override
@@ -559,6 +540,11 @@ public class GameBoardPage implements Screen {
 					((CreatureCard)cardToAdd).setib(GameBoardButton);
 				}
 			}
+		}
+		//set playerboard places
+		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
+			player.getPlayerBoard().get(i).getib().setPosition(i*2*cw + (w/5), h/4 + 25); 
+            ((CreatureCard)player.getPlayerBoard().get(i)).getLabel().setPosition(i*2*cw + (w/5) - 30, h/4 + 50);
 		}
 		if(cardPlaySuccess) {
 			player.set_mana(player.get_mana() - cardToAdd.get_manaCost());
