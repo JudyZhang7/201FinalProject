@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,6 +13,7 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,11 +23,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import Chat.MessageClientThread;
+import gamelogic.AchievementThread;
 import user.Player;
 import user.User;
 
@@ -37,6 +46,8 @@ public class FrontPage implements Screen
 	public static Texture texture;
 	public static TextureRegion mainBackground;
     private SpriteBatch spriteBatch = new SpriteBatch();
+//    Label.LabelStyle labelStyle = new Label.LabelStyle();
+    private boolean welcomeMessageShown = false;
     
 //    // NEW TOAST
 //    private Toast.ToastFactory toastFactory;
@@ -109,6 +120,44 @@ public class FrontPage implements Screen
 		stage.addActor(loginButton); // Adding the button to the stage
 		stage.addActor(SignUpButton);
 		stage.addActor(GuestButton);
+		
+		// Try Creating a Socket here and reading messages from the game master
+//		BitmapFont fontLabl = game.regfont32;
+//		fontLabl.setColor(Color.BLACK);
+//		labelStyle.font = fontLabl;
+		String message = "";
+		if (welcomeMessageShown == false)
+		{
+			try
+			{
+				Socket s = new Socket("localhost", 6789);
+				System.out.println("Connected to localhost 6789");
+				BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				PrintWriter pw = new PrintWriter(s.getOutputStream());
+				message = br.readLine();
+				System.out.println("Message from Server: " + message);
+				game.messageMap.put(message, 1);
+				new MessageClientThread(game);
+				welcomeMessageShown = true;
+//				messageLabel = new Label("From Game Creators: " + message, labelStyle);
+//				messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);
+//				stage.addActor(messageLabel);
+				// Close everything
+				if (br != null)
+				{
+					br.close();
+				}
+				if (pw != null)
+				{
+					pw.close();
+				}
+				s.close();
+			}
+			catch (IOException io)
+			{
+				System.out.println("io exception in socket: " + io.getMessage());
+			}
+		}
 	}
 	
 	// Method for if loginButton is clicked
