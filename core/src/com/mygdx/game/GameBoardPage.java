@@ -257,6 +257,8 @@ public class GameBoardPage implements Screen {
 	}
 
 	public void endTurnButtonClicked() {
+		//UPDATE THE SCREEN
+        updateStats();
 		if((player.get_hp() <= 0) || (otherPlayer.get_hp() <= 0))
 		{
 			if(player.get_hp() <= 0) {
@@ -391,7 +393,8 @@ public class GameBoardPage implements Screen {
 					int yourRandom = rand.nextInt(max2);
 					// attack
 					Card cardAttacked = player.getPlayerBoard().get(yourRandom);
-					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), cardAttacked, player, otherPlayer); //correct
+					
+					currentGame.Act(otherPlayer.getPlayerBoard().get(opRandom), cardAttacked, otherPlayer, player); //correct
 					//update HP
 					((CreatureCard)cardAttacked).changeLabel(Integer.toString(((CreatureCard)cardAttacked).getHP()));
 			}
