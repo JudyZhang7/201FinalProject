@@ -15,7 +15,7 @@ public class GameClient extends Thread {
 
 	private BufferedReader br;
 	private PrintWriter pw;
-	private BitmapF
+//	private BitmapF
 	
 	public GameClient(String hostname, int port, BitmapFont message) {
 		try {

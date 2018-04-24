@@ -156,6 +156,10 @@ public class GameBoardPage implements Screen {
 		// Creating a new player for testing
 		player = cg.getP1();
 		otherPlayer = cg.getP2();
+		player.set_mana(5); //reset Mana
+		player.set_hp(10);
+		otherPlayer.set_mana(5);
+		
 		//LABELS FOR STATS, HEALTH AND MANA
 		labelhealth = new Label("Health: " + player.get_hp() ,labelStyle);
 	    labelmana = new Label("Mana: " + player.get_mana(), labelStyle);

@@ -142,7 +142,7 @@ public class SignupScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		Texture texture = new Texture("login.jpg");
-		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 800, 500);
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 2481, 1600);
 		batch.begin();
 		batch.draw(mainBackground, 0, 0, w, h);
 		

@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import Chat.MessageClientThread;
+//import Chat.MessageClientThread;
 import gamelogic.AchievementThread;
 import user.Player;
 import user.User;
@@ -137,7 +137,7 @@ public class FrontPage implements Screen
 				message = br.readLine();
 				System.out.println("Message from Server: " + message);
 				game.messageMap.put(message, 1);
-				new MessageClientThread(game);
+//				new MessageClientThread(game);
 				welcomeMessageShown = true;
 //				messageLabel = new Label("From Game Creators: " + message, labelStyle);
 //				messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);

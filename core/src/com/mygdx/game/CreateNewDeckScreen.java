@@ -45,13 +45,13 @@ public class CreateNewDeckScreen implements Screen {
     float h = Gdx.graphics.getHeight();
     private int counter;
     private BitmapFont titleFont;
-    
     //BACKEND STUFF
     private User currentUser;
     private Deck newDeck = new Deck();
     private Card [] cardDeck = new Card[20];
     private Card [] fullDeck = new Card[28];
     private int numCards = 0;
+    private TextureRegionDrawable trd;
     
 	public CreateNewDeckScreen(FireplacePebble g) {
 		System.out.println("Create new deck screen!");
@@ -99,22 +99,18 @@ public class CreateNewDeckScreen implements Screen {
 				counterr++;
 				TextureRegion cardTR = new TextureRegion(thisCard.getTexture());
 				TextureRegionDrawable myTexRegionDrawable = new TextureRegionDrawable(cardTR);
-				ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
+				final ImageButton cardButton = new ImageButton(myTexRegionDrawable); //Set the button up
 		        				
 				cardButton.setPosition(((i*(128)) % w), (j*150));
 				cardButton.setSize(cw, ch);
-				
 				cardButton.addListener(new ClickListener(){
 					@Override
-					public void touchUp(InputEvent e, float x, float y, int point, int button) {
+					public void clicked(InputEvent event, float x, float y) {
 						Card newCard = copyCard(thisCard);
 						if(!addCardToDeck(newCard)) { //deck is full!
 							deckFinished();
 						}
-					}
-					public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-						return true;
-					}
+		            }
 				});
 				myCards.add(cardButton);
 				counter++; //increment the card
@@ -124,7 +120,7 @@ public class CreateNewDeckScreen implements Screen {
 		for (int i = 0; i < myCards.size() ; i++) {
 			stage.addActor(myCards.get(i));
 		}
-		
+
 	}
 	
 	public boolean deckFinished() {

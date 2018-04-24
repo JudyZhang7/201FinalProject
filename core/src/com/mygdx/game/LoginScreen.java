@@ -85,7 +85,6 @@ public class LoginScreen implements Screen{
 		txfPassword = new TextField("", textSkin);
 		txfPassword.setPosition(w/3, (h)/4 + (2*buttonHeight)/3);
 		stage.addActor(txfPassword);
-	
 		stage.addActor(btnBack);
 		stage.addActor(btnLogin);
 	}
@@ -152,7 +151,7 @@ public class LoginScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		Texture texture = new Texture("login.jpg");
-		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 800, 500);
+		TextureRegion mainBackground = new TextureRegion(texture, 0, 0, 2481, 1600);
 		batch.begin();
 		batch.draw(mainBackground, 0, 0, w, h);
 		
