@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -51,7 +52,8 @@ public class CreateNewDeckScreen implements Screen {
     private Card [] cardDeck = new Card[20];
     private Card [] fullDeck = new Card[28];
     private int numCards = 0;
-    private TextureRegionDrawable trd;
+    private TextureRegionDrawable bigTRD;
+    private TextureRegion bigTR;
     
 	public CreateNewDeckScreen(FireplacePebble g) {
 		System.out.println("Create new deck screen!");
@@ -106,9 +108,26 @@ public class CreateNewDeckScreen implements Screen {
 				cardButton.addListener(new ClickListener(){
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						Card newCard = copyCard(thisCard);
-						if(!addCardToDeck(newCard)) { //deck is full!
-							deckFinished();
+						if(getTapCount() == 2) {
+							System.out.println("Tap count is 2");
+							bigTR = new TextureRegion(thisCard.getTexture());
+							bigTRD = new TextureRegionDrawable(bigTR);
+							final ImageButton ib = new ImageButton(bigTRD);
+							ib.setPosition(w/4, (h/8));
+							ib.setSize(cw*5, ch*5);
+							ib.addListener(new ClickListener() {
+								@Override
+								public void clicked(InputEvent event, float x, float y) {
+									ib.remove();
+								}
+							});
+							stage.addActor(ib);
+						}
+						else {
+							Card newCard = copyCard(thisCard);
+							if(!addCardToDeck(newCard)) { //deck is full!
+								deckFinished();
+							}
 						}
 		            }
 				});
@@ -130,7 +149,7 @@ public class CreateNewDeckScreen implements Screen {
 		newDeck.addCardDeck(cardDeck);
 		currentUser.addDeck(newDeck);
 		//GOOD!
-		System.out.println("Deck created!");
+		System.out.println("Deck created!");		
 		game.setScreen(new DeckScreen(game));
 		return true;
 	}

@@ -145,7 +145,7 @@ public class MagicCard extends Card{
 			break;
 		case Sagittarius: //NEEDS RANDOM NUMBER for opponent
 			if (opponent.getPlayerBoard().isEmpty() == false) {				
-                opponent.getPlayerBoard().get(oprandomNum).setLife(0);
+				((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).setHP(0);
 			} else {
 				return false;
 			}
@@ -162,19 +162,21 @@ public class MagicCard extends Card{
 		case Aquarius: //NO RANDOM NUMBER
 			int boardSize = opponent.getPlayerBoard().size();
 			for (int i = 0; i < boardSize; i++) {
-				opponent.getPlayerBoard().get(i).setLife(opponent.getPlayerBoard().get(i).getLife() - 1);
+				int lifenum = ((CreatureCard)(opponent.getPlayerBoard().get(i))).getHP();
+				System.out.println(lifenum + " is the life of aquarious fdsjlka");
+				((CreatureCard)(opponent.getPlayerBoard().get(i))).setHP(lifenum - 1);
 			}
 			break;
 		case Pisces: //NEEDS YOUR RANDOM NUMBER, SET
 			if (you.getPlayerBoard().isEmpty() == false) {
-				you.getPlayerBoard().get(yourrandomNum).setLife(you.getPlayerBoard().get(yourrandomNum).getLife() * 2);
+				((CreatureCard)(you.getPlayerBoard().get(yourrandomNum))).setHP(((CreatureCard)(you.getPlayerBoard().get(yourrandomNum))).getHP() * 2);
 			}else {
 				return false;
 			}
 			break;
 		case Aries:
 			if (opponent.getPlayerBoard().isEmpty() == false){ //RANDOM NUMBER FOR OPPONENT
-				opponent.getPlayerBoard().get(oprandomNum).setLife(opponent.getPlayerBoard().get(oprandomNum).getLife() - 5);
+				((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).setHP(((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).getHP() - 5);
 			}else {
 				return false;
 			}
@@ -228,10 +230,10 @@ public class MagicCard extends Card{
 			if (opponent.getPlayerBoard().isEmpty() == false) {
 				// randomly select target
 				Random rand1 = new Random();
-				int creatureHP = opponent.getPlayerBoard().get(oprandomNum).getLife();
+				int creatureHP = ((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).getHP();
 				int max = Math.max(creatureHP, 4);
 				int randomAttack = rand1.nextInt(max)+1;
-				opponent.getPlayerBoard().get(oprandomNum).setLife(creatureHP - randomAttack);
+				((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).setHP(creatureHP - randomAttack);
 			}else {
 				return false;
 			}

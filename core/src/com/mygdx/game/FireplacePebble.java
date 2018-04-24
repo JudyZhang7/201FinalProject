@@ -11,9 +11,12 @@ import java.util.Set;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 import user.ActionCard;
 import user.Card;
@@ -79,7 +82,10 @@ public class FireplacePebble extends Game{
 //		this.setScreen(new ProfileScreen(this));
 		int w = Gdx.graphics.getWidth();
 	    int h = Gdx.graphics.getHeight();
-		
+	    
+	    Sound musicBackground = Gdx.audio.newSound(Gdx.files.internal("adventurers.MP3"));
+	    musicBackground.loop();
+
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(9*h/10).build();
@@ -93,7 +99,6 @@ public class FireplacePebble extends Game{
 		this.setScreen(new FrontPage(this));
 		//this.setScreen(new DragAndDropTutorial(this));
 //		this.setScreen(new CreateNewDeckScreen(this));
-		
 	}
 	
 	public BitmapFont titlefont64() {

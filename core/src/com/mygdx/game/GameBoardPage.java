@@ -223,7 +223,7 @@ public class GameBoardPage implements Screen {
 		stage.addActor(btnBack);
 		
 		// Thread to run achievements - Will output the achievement that has been unlocked
-		if (firstCardPlay)
+		if (true)
 		{
 			game.achievementMap.put("Card Picked!", 1);
 			game.achievementMap.put("Played a Game!", 1);
