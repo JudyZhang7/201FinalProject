@@ -375,8 +375,6 @@ public class GameBoardPage implements Screen {
 					}
 					currentGame.Act(oppCard, null, otherPlayer, player); //correct
                 }
-                //UPDATE THE SCREEN
-                updateStats();
             }
 			//ATTACK PLAYER
             for(int i = 0; i < otherPlayer.getPlayerBoard().size(); i++){
@@ -416,6 +414,8 @@ public class GameBoardPage implements Screen {
 				player.getPlayerBoard().remove(i);
 			}
 		}
+		//UPDATE THE SCREEN
+        updateStats();
 		// WIN OR LOSE?
 		if((player.get_hp() <= 0) || (otherPlayer.get_hp() <= 0))
 		{
@@ -432,7 +432,6 @@ public class GameBoardPage implements Screen {
 				displayImages(player.getPlayerBoard());
 				displayLabels(otherPlayer.getPlayerBoard());
 				displayLabels(player.getPlayerBoard());
-				
 		return;
 	}
 	
