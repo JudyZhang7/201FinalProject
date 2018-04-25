@@ -1,4 +1,4 @@
-package Chat;
+package mischellaneous;
 
 import java.io.Serializable;
 

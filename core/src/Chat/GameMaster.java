@@ -31,17 +31,20 @@ public class GameMaster extends Thread {
 			Scanner input = new Scanner(System.in);
 //			System.out.println("Please input a welcoming message to send to the client:");
 			String messageToSend = "";
-			messageToSend = input.nextLine();
-			System.out.println("Message that was sent: " + messageToSend);
-			pw.println(messageToSend);
-			pw.flush();
+//			messageToSend = input.nextLine();
+//			System.out.println("Message that was sent: " + messageToSend);
+//			pw.println(messageToSend);
+//			pw.flush();
 			// Try doing a scanner, while game master wants to send messages to the client,
 			// keep sending messages. Using MessageClientThread?
 			// While input is not equal to end
-			while (!input.nextLine().equalsIgnoreCase("end"))
+			while (true)
 			{
 				messageToSend = input.nextLine();
-				System.out.println(messageToSend);
+				if (messageToSend.equalsIgnoreCase("end"))
+				{
+					break;
+				}
 				pw.println(messageToSend);
 				pw.flush();
 				System.out.println("Message that was sent: " + messageToSend);
@@ -54,7 +57,7 @@ public class GameMaster extends Thread {
 				pw.close();
 			}
 		} catch (IOException ioe) {
-			System.out.println("ioe in ChatRoom constructor: " + ioe.getMessage());
+			System.out.println("ioe in GameMaster constructor: " + ioe.getMessage());
 		}
 	}
 	
