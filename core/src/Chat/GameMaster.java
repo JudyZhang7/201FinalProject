@@ -9,10 +9,8 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class GameMaster {
-
-//	private Vector<ServerThread> serverThreads;
-	ServerThread st;
+public class GameMaster extends Thread {
+	
 	private BufferedReader br;
 	private PrintWriter pw;
 	
@@ -29,21 +27,25 @@ public class GameMaster {
 			System.out.println("Client Connected! Connection from: " + s.getInetAddress());
 			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			pw = new PrintWriter(s.getOutputStream());
+			this.start();
 			Scanner input = new Scanner(System.in);
-			System.out.println("Please input a welcoming message to send to the client:");
-			String messageToSend = input.nextLine();
+//			System.out.println("Please input a welcoming message to send to the client:");
+			String messageToSend = "";
+			messageToSend = input.nextLine();
+			System.out.println("Message that was sent: " + messageToSend);
 			pw.println(messageToSend);
 			pw.flush();
 			// Try doing a scanner, while game master wants to send messages to the client,
 			// keep sending messages. Using MessageClientThread?
-//			Scanner input = new Scanner(System.in);
-//			// While input is not equal to end
-//			while (!input.nextLine().equalsIgnoreCase("end"))
-//			{
-//				messageToSend = input.nextLine();
-//				pw.println(messageToSend);
-//				System.out.println("Message sent!");
-//			}
+			// While input is not equal to end
+			while (!input.nextLine().equalsIgnoreCase("end"))
+			{
+				messageToSend = input.nextLine();
+				System.out.println(messageToSend);
+				pw.println(messageToSend);
+				pw.flush();
+				System.out.println("Message that was sent: " + messageToSend);
+			}
 			input.close();
 			if (br != null) {
 				br.close();
@@ -53,6 +55,26 @@ public class GameMaster {
 			}
 		} catch (IOException ioe) {
 			System.out.println("ioe in ChatRoom constructor: " + ioe.getMessage());
+		}
+	}
+	
+	public void run()
+	{
+		while (true)
+		{
+			try
+			{
+				String line = br.readLine();
+				System.out.println(line);
+				if (line == null)
+				{
+					break;
+				}
+			}
+			catch (IOException io)
+			{
+				System.out.println("IO Exception in Server: " + io.getMessage());
+			}
 		}
 	}
 	
