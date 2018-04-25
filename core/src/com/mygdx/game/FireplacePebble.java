@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
+import Chat.MessageClientThread;
 import user.ActionCard;
 import user.Card;
 import user.CreatureCard;
@@ -50,6 +56,9 @@ public class FireplacePebble extends Game{
 	List<Card>defaultCardDeck = new ArrayList<Card>();
 
     // NEW TOAST
+	public Socket s = null;
+    public BufferedReader br = null;
+    public PrintWriter pw = null;
 
 	@Override
 	public void create() {
@@ -312,4 +321,59 @@ public class FireplacePebble extends Game{
 		return allCards;
 	}
 
+	public void getGMasterComments(FireplacePebble game)
+	{
+		String message = "";
+		try
+		{
+			if (game.br != null)
+			{
+				if (game.br.ready())
+				{
+					message = game.br.readLine();
+				}
+				if (message != null && !message.equals(""))
+				{
+					System.out.println("Message from Server: " + message);
+					game.messageMap.put(message, 1);
+					new MessageClientThread(game);
+				}
+			}
+		}
+		catch (IOException io)
+		{
+			System.out.println("io exception in socket: " + io.getMessage());
+		}
+	}
+	
+	public void notifyGM(FireplacePebble game, FrontPage fp)
+	{
+		if (game.pw != null)
+		{
+			String message = "User is on the Front Page! Any welcoming words?";
+			game.pw.println(message);
+			game.pw.flush();
+		}
+	}
+	
+	public void notifyGM(FireplacePebble game, CreateNewDeckScreen cnd)
+	{
+		System.out.println("In CND FUNCTION");
+		if (game.pw != null)
+		{
+			String message = "User is possibly trying to create a new deck! Any words of wisdom?";
+			game.pw.println(message);
+			game.pw.flush();
+		}
+	}
+	
+	public void notifyGM(FireplacePebble game, DeckScreen ds)
+	{
+		if (game.pw != null)
+		{
+			String message = "User is looking through their decks! Any words of advice?";
+			game.pw.println(message);
+			game.pw.flush();
+		}
+	}
 }

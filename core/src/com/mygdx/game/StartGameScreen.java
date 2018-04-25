@@ -94,6 +94,8 @@ public class StartGameScreen implements Screen {
 		
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
+		// Networking
+		game.getGMasterComments(game);
 	}
 	
 	public void btnViewDeckClicked() {

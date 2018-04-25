@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import Chat.MessageClientThread;
 //import Chat.MessageClientThread;
 import gamelogic.AchievementThread;
 import user.Player;
@@ -67,7 +68,6 @@ public class FrontPage implements Screen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage); // Input to point to the stage
 		skin = new Skin(Gdx.files.internal(game.getSkin()));
-		
 //		// TOAST create factory
 //		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 //	    toastFactory = new Toast.ToastFactory.Builder().font(game.regfont20).positionY(735).build();
@@ -125,38 +125,18 @@ public class FrontPage implements Screen
 //		BitmapFont fontLabl = game.regfont32;
 //		fontLabl.setColor(Color.BLACK);
 //		labelStyle.font = fontLabl;
-		String message = "";
-		if (welcomeMessageShown == false)
+		try
 		{
-			try
-			{
-				Socket s = new Socket("localhost", 6789);
-				System.out.println("Connected to localhost 6789");
-				BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				PrintWriter pw = new PrintWriter(s.getOutputStream());
-				message = br.readLine();
-				System.out.println("Message from Server: " + message);
-				game.messageMap.put(message, 1);
-//				new MessageClientThread(game);
-				welcomeMessageShown = true;
-//				messageLabel = new Label("From Game Creators: " + message, labelStyle);
-//				messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);
-//				stage.addActor(messageLabel);
-				// Close everything
-				if (br != null)
-				{
-					br.close();
-				}
-				if (pw != null)
-				{
-					pw.close();
-				}
-				s.close();
-			}
-			catch (IOException io)
-			{
-				System.out.println("io exception in socket: " + io.getMessage());
-			}
+			game.s = new Socket("localhost", 6789);
+			System.out.println("Connected to localhost 6789!");
+			game.br = new BufferedReader(new InputStreamReader(game.s.getInputStream()));
+			game.pw = new PrintWriter(game.s.getOutputStream());
+			// Networking
+			game.notifyGM(game, this);
+		}
+		catch (IOException io)
+		{
+			System.out.println("Exception in Connection: " + io.getMessage());
 		}
 	}
 	
