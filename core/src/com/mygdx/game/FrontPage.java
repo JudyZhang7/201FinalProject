@@ -127,35 +127,6 @@ public class FrontPage implements Screen
 //		labelStyle.font = fontLabl;
 		try
 		{
-			try
-			{
-				Socket s = new Socket("localhost", 6789);
-				System.out.println("Connected to localhost 6789");
-				BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				PrintWriter pw = new PrintWriter(s.getOutputStream());
-				String message = br.readLine();
-				System.out.println("Message from Server: " + message);
-				game.messageMap.put(message, 1);
-				new MessageClientThread(game);
-				welcomeMessageShown = true;
-//				messageLabel = new Label("From Game Creators: " + message, labelStyle);
-//				messageLabel.setPosition(w/4 + 100, (h)/6 - buttonHeight/2);
-//				stage.addActor(messageLabel);
-				// Close everything
-				if (br != null)
-				{
-					br.close();
-				}
-				if (pw != null)
-				{
-					pw.close();
-				}
-				s.close();
-			}
-			catch (IOException io)
-			{
-				System.out.println("io exception in socket: " + io.getMessage());
-			}
 			game.s = new Socket("localhost", 6789);
 			System.out.println("Connected to localhost 6789!");
 			game.br = new BufferedReader(new InputStreamReader(game.s.getInputStream()));

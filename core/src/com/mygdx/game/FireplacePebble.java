@@ -345,34 +345,53 @@ public class FireplacePebble extends Game{
 			System.out.println("io exception in socket: " + io.getMessage());
 		}
 	}
-	
+
 	public void notifyGM(FireplacePebble game, FrontPage fp)
 	{
 		if (game.pw != null)
 		{
-			String message = "User is on the Front Page! Any welcoming words?";
+			String message = "A User is on the Front Page! Any welcoming words?";
 			game.pw.println(message);
 			game.pw.flush();
 		}
 	}
-	
-	public void notifyGM(FireplacePebble game, CreateNewDeckScreen cnd)
+
+	public void notifyGM(FireplacePebble game, StartGameScreen sg)
 	{
-		System.out.println("In CND FUNCTION");
 		if (game.pw != null)
 		{
-			String message = "User is possibly trying to create a new deck! Any words of wisdom?";
-			game.pw.println(message);
+			System.out.println("Username is: " + game.getCurrentUsername());
+			String message = "";
+			if (game.getCurrentUsername().equals("Guest"))
+			{
+				message = "User is possibly readying up for a game! Any words of wisdom?";
+				game.pw.println(message);
+			}
+			else
+			{
+				message = "User " + game.getCurrentUsername() + " is possibly readying up for a game! Any words of wisdom?";
+				game.pw.println(message);
+			}
 			game.pw.flush();
 		}
 	}
-	
+
 	public void notifyGM(FireplacePebble game, DeckScreen ds)
 	{
 		if (game.pw != null)
 		{
-			String message = "User is looking through their decks! Any words of advice?";
-			game.pw.println(message);
+			System.out.println("Username is: " + game.getCurrentUsername());
+			String message = "";
+			if (game.getCurrentUsername().equals("Guest"))
+			{
+				message = "Guest is possibly trying to create a new deck! Any words of advice?";
+				game.pw.println(message);
+			}
+			else
+			{
+				message = "User " + game.getCurrentUsername() +  " is possibly trying to create a new deck! Any words of advice?";
+				game.pw.println(message);
+			}
 			game.pw.flush();
 		}
 	}

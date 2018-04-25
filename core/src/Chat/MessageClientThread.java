@@ -40,7 +40,7 @@ public class MessageClientThread extends Thread
         	 			{
         	 				game.toastLong("From Game Creators: " + entry.getKey());
         	 				// Update the value of map value so that you don't output the same achievement twice
-        	 				game.achievementMap.put(entry.getKey(), 2);
+        	 				game.messageMap.put(entry.getKey(), 2);
         	 			}
         	 		}
         	 	}
