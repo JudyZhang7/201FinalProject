@@ -342,8 +342,12 @@ public class GameBoardPage implements Screen {
 			}
 			else
 			{
-				while(otherPlayer.getmHand().size() < 3) {
-					otherPlayer.drawCards();
+				boolean canDraw = true;
+				while(otherPlayer.getmHand().size() < 3 && canDraw) {
+					if(!otherPlayer.drawCards()) {
+						displayMessage("Opponent out of cards!");
+						canDraw = false;
+					}
 				}
 			}
 			
@@ -495,8 +499,11 @@ public class GameBoardPage implements Screen {
 		if (player.getmHand().size() < 3)
 		{
 			// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
+			if(!player.drawCards()) {
+				displayMessage("You're out of cards!");
+				return;
+			}
 			removeImages(player.getmHand());
-			player.drawCards();
 			displayMessage("Cards drawn!");
 			System.out.println("Current hand size: " + player.getmHand().size());
 

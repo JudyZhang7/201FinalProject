@@ -119,14 +119,19 @@ public class Player implements Serializable{
 		}
 	}
 	
-	public void drawCards() { //assume legal to draw card
+	public boolean drawCards() { //assume legal to draw card
         int max = _cardDeck.size();
+        if(max == 0)
+        {
+        		return false;
+        }
         Random rand = new Random();
         int cardNum = rand.nextInt(max);
         //add to hand
         mHand.add(_cardDeck.get(cardNum));
         //remove from deck
         _cardDeck.remove(cardNum);
+        return true;
 	}	
 }
 
