@@ -89,7 +89,21 @@ public class GameBoardPage implements Screen {
     Label oplabelhealth;
     Label oplabelmana;
     Label turnLabel;
-       
+      
+    public void displayAll() {
+    		displayImages(otherPlayer.getPlayerBoard());
+		displayImages(player.getPlayerBoard());
+		displayLabels(otherPlayer.getPlayerBoard());
+		displayLabels(player.getPlayerBoard());
+		displayImages(player.getmHand());
+    }
+    public void removeAll() {
+    		removeImages(otherPlayer.getPlayerBoard());
+		removeImages(player.getPlayerBoard());
+		removeLabels(otherPlayer.getPlayerBoard());
+		removeLabels(player.getPlayerBoard());
+		removeImages(player.getmHand());
+    }
     public void banner(int i) {
     		
     		BitmapFont titlefont = game.titlefont128;
@@ -121,7 +135,6 @@ public class GameBoardPage implements Screen {
     		for(int i = 0; i < cards.size(); i++) {
     			cardc = cards.get(i);
 //    			System.out.println(cardc.getCardname());
-    			
     			stage.addActor(cardc.getib());
     		}
     }
@@ -130,6 +143,7 @@ public class GameBoardPage implements Screen {
     		CreatureCard cardc;
 		for(int i = 0; i < cards.size(); i++) {
 			cardc = (CreatureCard)cards.get(i);
+			cardc.getLabel().setText(cardc.get_hp() + "");
 			cardc.getLabel().setVisible(true);
 			stage.addActor(cardc.getLabel());
 		}
@@ -338,10 +352,7 @@ public class GameBoardPage implements Screen {
 			// display all cards from opponent board arraylist
 			
 			// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
-			removeImages(otherPlayer.getPlayerBoard());
-			removeImages(player.getPlayerBoard());
-			removeLabels(otherPlayer.getPlayerBoard());
-			removeLabels(player.getPlayerBoard());
+			removeAll();
 			
 			for (int i = 0; i < opCurrHand.size(); i++)
 			{                
@@ -453,6 +464,12 @@ public class GameBoardPage implements Screen {
 				player.getPlayerBoard().remove(i);
 			}
 		}
+		for(int i = 0; i < otherPlayer.getPlayerBoard().size(); i++) {
+			if(otherPlayer.getPlayerBoard().get(i).isDead()) {
+				System.out.println("Removing dead animatlfdsasdf...");
+				otherPlayer.getPlayerBoard().remove(i);
+			}
+		}
 		//UPDATE THE SCREEN
         updateStats();
 		// WIN OR LOSE?
@@ -467,10 +484,7 @@ public class GameBoardPage implements Screen {
 			}
 		}
 		// ============= DISPLAY WHAT'S ON THE PLAYER BOARD =============
-				displayImages(otherPlayer.getPlayerBoard());
-				displayImages(player.getPlayerBoard());
-				displayLabels(otherPlayer.getPlayerBoard());
-				displayLabels(player.getPlayerBoard());
+		displayAll();
 		return;
 	}
 	
@@ -523,9 +537,7 @@ public class GameBoardPage implements Screen {
 	public void HandButtonClicked(final Card cardToAdd, ImageButton handButton)
 	{
 		// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
-		removeImages(player.getPlayerBoard());
-		removeLabels(player.getPlayerBoard());
-		removeImages(player.getmHand());
+		removeAll();
 				
 		cardPlaySuccess = false;
 		System.out.println("Player mana: " + player.get_mana() + " card mana: " + cardToAdd.get_manaCost());
@@ -583,6 +595,20 @@ public class GameBoardPage implements Screen {
 				}
 			}
 		}
+		//remove other player dead cards
+		for(int i = 0; i < otherPlayer.getPlayerBoard().size(); i++) {
+			if(otherPlayer.getPlayerBoard().get(i).isDead()) {
+				System.out.println("Removing dead animatlfdsasdf...");
+				otherPlayer.getPlayerBoard().remove(i);
+			}
+		}
+		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
+			if(player.getPlayerBoard().get(i).isDead()) {
+				System.out.println("Removing dead animatlfdsasdf...");
+				player.getPlayerBoard().remove(i);
+			}
+		}
+		
 		//set playerboard places
 		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
 			player.getPlayerBoard().get(i).getib().setPosition(i*2*cw + (w/5), h/4 + 25); 
@@ -599,9 +625,7 @@ public class GameBoardPage implements Screen {
 		}
 		System.out.println("On your gameboard now: " + player.getPlayerBoard().size() + " and on your hand now: " + player.getmHand().size());
 		// ============= DISPLAY WHAT'S ON THE PLAYER BOARD =============
-		displayImages(player.getPlayerBoard());
-		displayLabels(player.getPlayerBoard());
-		displayImages(player.getmHand());
+		displayAll();
 	}
 	
 	//A CREATURE CARD WAS CLICKED
@@ -636,9 +660,7 @@ public class GameBoardPage implements Screen {
 	public void EnemyGameBoardCardClicked(Card opponentCard, ImageButton enemyButton)
 	{
 		// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
-		removeImages(otherPlayer.getPlayerBoard());
-		removeLabels(otherPlayer.getPlayerBoard());
-		
+		removeAll();
 		TextureRegion TEMP_C = new TextureRegion(((CreatureCard)opponentCard).getClickedTexture());
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);
 		ImageButtonStyle _oldStyle = enemyButton.getStyle();
@@ -683,8 +705,8 @@ public class GameBoardPage implements Screen {
 		//change texture of opponent card
 		
 		// ============= DISPLAY WHAT'S ON THE PLAYER BOARD =============
-		displayImages(otherPlayer.getPlayerBoard());
-		displayLabels(otherPlayer.getPlayerBoard());
+		displayAll();
+		updateStats();
 	} 
 
 	@Override

@@ -263,11 +263,11 @@ public class FireplacePebble extends Game{
 		actionCards.put("doubleDamage", DoubleDamage);
 		actionCards.put("preparation", Preparation);
 		
-		defaultCardDeck.add(ratCard);
+//		defaultCardDeck.add(ratCard);
 		defaultCardDeck.add(oxCard);
-		defaultCardDeck.add(tigerCard);
+//		defaultCardDeck.add(tigerCard);
 		defaultCardDeck.add(rabbitCard);
-		defaultCardDeck.add(snakeCard);
+//		defaultCardDeck.add(snakeCard);
 		defaultCardDeck.add(monkeyCard);
 		defaultCardDeck.add(roosterCard);
 		defaultCardDeck.add(dogCard);
@@ -282,7 +282,7 @@ public class FireplacePebble extends Game{
 		defaultCardDeck.add(Gemini);
 		defaultCardDeck.add(Cancer);
 		defaultCardDeck.add(Weapon);
-		defaultCardDeck.add(Heal);
+//		defaultCardDeck.add(Heal);
 	}
 	public List<Card> getDefaultCardDeck(){
 		return defaultCardDeck;
@@ -311,5 +311,4 @@ public class FireplacePebble extends Game{
 	    }
 		return allCards;
 	}
-
 }

@@ -56,12 +56,9 @@ public class LoginScreen implements Screen{
 		
 		btnLogin.addListener(new ClickListener(){
 			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button) {
+            public void clicked(InputEvent event, float x, float y) {
 				btnLoginClicked();
-			}
-			public boolean touchDown(InputEvent e, float x, float y, int point, int button) {
-				return true;
-			}
+            }
 		});
 		
 		TextButton btnBack = new TextButton ("Back", textSkin);

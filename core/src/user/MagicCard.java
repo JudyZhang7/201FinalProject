@@ -167,6 +167,7 @@ public class MagicCard extends Card{
 				int lifenum = ((CreatureCard)(opponent.getPlayerBoard().get(i))).getHP();
 				System.out.println(lifenum + " is the life of aquarious fdsjlka");
 				((CreatureCard)(opponent.getPlayerBoard().get(i))).setHP(lifenum - 1);
+				System.out.println("New life is: " + ((CreatureCard)(opponent.getPlayerBoard().get(i))).getHP());
 			}
 			break;
 		case Pisces: //NEEDS YOUR RANDOM NUMBER, SET
@@ -234,7 +235,7 @@ public class MagicCard extends Card{
 				int max = Math.max(creatureHP, 4);
 				int randomAttack = rand1.nextInt(max)+1;
 				((CreatureCard)(opponent.getPlayerBoard().get(oprandomNum))).setHP(creatureHP - randomAttack);
-			}else {
+			} else {
 				return false;
 			}
 			break;
