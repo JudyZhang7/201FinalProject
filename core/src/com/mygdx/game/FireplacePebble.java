@@ -95,6 +95,18 @@ public class FireplacePebble extends Game{
 	    Sound musicBackground = Gdx.audio.newSound(Gdx.files.internal("adventurers.MP3"));
 	    musicBackground.loop();
 
+	    try
+		{
+			s = new Socket("localhost", 6789);
+			System.out.println("Connected to localhost 6789!");
+			br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			pw = new PrintWriter(s.getOutputStream());
+		}
+		catch (IOException io)
+		{
+			System.out.println("Exception in Connection: " + io.getMessage());
+		}
+	    
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(9*h/10).build();

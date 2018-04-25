@@ -125,19 +125,20 @@ public class FrontPage implements Screen
 //		BitmapFont fontLabl = game.regfont32;
 //		fontLabl.setColor(Color.BLACK);
 //		labelStyle.font = fontLabl;
-		try
-		{
-			game.s = new Socket("localhost", 6789);
-			System.out.println("Connected to localhost 6789!");
-			game.br = new BufferedReader(new InputStreamReader(game.s.getInputStream()));
-			game.pw = new PrintWriter(game.s.getOutputStream());
-			// Networking
-			game.notifyGM(game, this);
-		}
-		catch (IOException io)
-		{
-			System.out.println("Exception in Connection: " + io.getMessage());
-		}
+//		try
+//		{
+//			game.s = new Socket("localhost", 6789);
+//			System.out.println("Connected to localhost 6789!");
+//			game.br = new BufferedReader(new InputStreamReader(game.s.getInputStream()));
+//			game.pw = new PrintWriter(game.s.getOutputStream());
+//			// Networking
+//			game.notifyGM(game, this);
+//		}
+//		catch (IOException io)
+//		{
+//			System.out.println("Exception in Connection: " + io.getMessage());
+//		}
+		game.notifyGM(game, this);
 	}
 	
 	// Method for if loginButton is clicked
