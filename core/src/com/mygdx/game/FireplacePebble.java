@@ -95,7 +95,7 @@ public class FireplacePebble extends Game{
 	    
 	    Sound musicBackground = Gdx.audio.newSound(Gdx.files.internal("adventurers.MP3"));
 	    musicBackground.loop();
-
+	    //asd
 	    try
 		{
 			s = new Socket("localhost", 6789);
