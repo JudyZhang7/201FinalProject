@@ -95,7 +95,12 @@ public class StartGameScreen implements Screen {
 		stage.addActor(btnViewDeck);
 		stage.addActor(btnViewProfile);
 		// Networking
-		game.getGMasterComments(game);
+		if (game.gameBoardMessage == false)
+		{
+			game.getGMasterComments(game);
+			game.notifyGM(game, this);
+			game.gameBoardMessage = true;
+		}
 	}
 	
 	public void btnViewDeckClicked() {

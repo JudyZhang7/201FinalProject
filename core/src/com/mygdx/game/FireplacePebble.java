@@ -59,6 +59,7 @@ public class FireplacePebble extends Game{
 	public Socket s = null;
     public BufferedReader br = null;
     public PrintWriter pw = null;
+    public Boolean gameBoardMessage = false;
 
 	@Override
 	public void create() {
