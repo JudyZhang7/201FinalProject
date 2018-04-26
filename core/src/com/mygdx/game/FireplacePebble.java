@@ -95,6 +95,7 @@ public class FireplacePebble extends Game{
 	    
 	    Sound musicBackground = Gdx.audio.newSound(Gdx.files.internal("adventurers.MP3"));
 	    musicBackground.loop();
+<<<<<<< HEAD
 	    //asd
 	    try
 		{
@@ -108,6 +109,9 @@ public class FireplacePebble extends Game{
 			System.out.println("Exception in Connection: " + io.getMessage());
 		}
 	    
+=======
+
+>>>>>>> 5f73b704f52106fb977857dcb337b1570ee34f29
 		// TOAST create factory
 		//Skin textSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	    toastFactory = new Toast.ToastFactory.Builder().font(regfont20).positionY(9*h/10).build();
@@ -289,18 +293,18 @@ public class FireplacePebble extends Game{
 		defaultCardDeck.add(oxCard);
 //		defaultCardDeck.add(tigerCard);
 		defaultCardDeck.add(rabbitCard);
-//		defaultCardDeck.add(snakeCard);
-//		defaultCardDeck.add(monkeyCard);
-//		defaultCardDeck.add(roosterCard);
-//		defaultCardDeck.add(dogCard);
-//		defaultCardDeck.add(pigCard);
-//		defaultCardDeck.add(Scorpio);
-//		defaultCardDeck.add(Sagittarius);
-//		defaultCardDeck.add(Capricorn);
-//		defaultCardDeck.add(Aquarius);
-//		defaultCardDeck.add(Pisces);
-//		defaultCardDeck.add(Aries);
-//		defaultCardDeck.add(Taurus);
+		defaultCardDeck.add(snakeCard);
+		defaultCardDeck.add(monkeyCard);
+		defaultCardDeck.add(roosterCard);
+		defaultCardDeck.add(dogCard);
+		defaultCardDeck.add(pigCard);
+		defaultCardDeck.add(Scorpio);
+		defaultCardDeck.add(Sagittarius);
+		defaultCardDeck.add(Capricorn);
+		defaultCardDeck.add(Aquarius);
+		defaultCardDeck.add(Pisces);
+		defaultCardDeck.add(Aries);
+		defaultCardDeck.add(Taurus);
 		defaultCardDeck.add(Gemini);
 		defaultCardDeck.add(Cancer);
 		defaultCardDeck.add(Weapon);
