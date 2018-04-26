@@ -388,24 +388,4 @@ public class FireplacePebble extends Game{
 			game.pw.flush();
 		}
 	}
-
-	public void notifyGM(FireplacePebble game, DeckScreen ds)
-	{
-		if (game.pw != null)
-		{
-			System.out.println("Username is: " + game.getCurrentUsername());
-			String message = "";
-			if (game.getCurrentUsername().equals("Guest"))
-			{
-				message = "Guest is possibly trying to create a new deck! Any words of advice?";
-				game.pw.println(message);
-			}
-			else
-			{
-				message = "User " + game.getCurrentUsername() +  " is possibly trying to create a new deck! Any words of advice?";
-				game.pw.println(message);
-			}
-			game.pw.flush();
-		}
-	}
 }
