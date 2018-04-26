@@ -294,6 +294,12 @@ public class GameBoardPage implements Screen {
 		{
 			deckButtonClicked();
 		}
+		// Networking
+		if (game.gameBoardMessage == true)
+		{
+			game.getGMasterComments(game);
+			game.gameBoardMessage = false;
+		}
 	}
 	
 	public void btnBackClicked() {
