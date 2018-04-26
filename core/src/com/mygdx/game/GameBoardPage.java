@@ -240,7 +240,6 @@ public class GameBoardPage implements Screen {
 					new AchievementThread(game);
 					firstTurnDone = true;
 				}
-				System.out.println("First Turn Boolean Value: " + firstTurnDone);
 				endTurnButtonClicked();
             }
 		});
@@ -276,14 +275,12 @@ public class GameBoardPage implements Screen {
 		DeckButton.addListener(new ClickListener() {
 			@Override
             public void clicked(InputEvent event, float x, float y) {
-				System.out.println("Deck Clicked, Draw a Card!");
 				if (firstCardDrawn == false)
 				{
 					game.achievementMap.put("Drew first Card!", 1);
 					new AchievementThread(game);
 					firstCardDrawn = true;
 				}
-				System.out.println("First Card Drawn Boolean Value: " + firstTurnDone);
 				deckButtonClicked();
             }
 		});
@@ -305,7 +302,7 @@ public class GameBoardPage implements Screen {
 	public void btnBackClicked() {
 		game.setScreen(new ProfileScreen(game));
 	}
-
+//REMOVE ALL, DISPLAY ALL
 	public void endTurnButtonClicked() {
 		//UPDATE THE SCREEN
         updateStats();
@@ -458,7 +455,6 @@ public class GameBoardPage implements Screen {
 		}
 		playerTurn = !playerTurn;
 		numTurnsSoFar++;
-		System.out.println("Numturnssofar: " + numTurnsSoFar);
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e1) {
@@ -470,13 +466,13 @@ public class GameBoardPage implements Screen {
 		//remove all player's dead cards and statlabels
 		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
 			if(player.getPlayerBoard().get(i).isDead()) {
-				System.out.println("Removing dead animatlfdsasdf...");
+				System.out.println("Removing dead " + player.getPlayerBoard().get(i).getCardname());
 				player.getPlayerBoard().remove(i);
 			}
 		}
 		for(int i = 0; i < otherPlayer.getPlayerBoard().size(); i++) {
 			if(otherPlayer.getPlayerBoard().get(i).isDead()) {
-				System.out.println("Removing dead animatlfdsasdf...");
+				System.out.println("Removing dead " + otherPlayer.getPlayerBoard().get(i).getCardname());
 				otherPlayer.getPlayerBoard().remove(i);
 			}
 		}
@@ -498,9 +494,11 @@ public class GameBoardPage implements Screen {
 		return;
 	}
 	
-	// Deck Button Clicked, 
+	// Deck Button Clicked
+	//DISPLAY ALL, REMOVE ALL
 	public void deckButtonClicked()
 	{		
+		removeAll();
 		// Draw a card from the deck in thisGame and output it on the Screen.
 		if (player.getmHand().size() < 3)
 		{
@@ -509,7 +507,6 @@ public class GameBoardPage implements Screen {
 				displayMessage("You're out of cards!");
 				return;
 			}
-			removeImages(player.getmHand());
 			displayMessage("Cards drawn!");
 			System.out.println("Current hand size: " + player.getmHand().size());
 
@@ -530,53 +527,42 @@ public class GameBoardPage implements Screen {
 						HandButtonClicked(cardToAddToGameBoard, newHB);
 		            }
 				});
-				
-				if(newHB.getClickListener() == null) {
-					System.out.println("CLICK LISTENER IS NULLFSDLKJALSDKJF!");
-				}
 				// Set position of the Hand to be next to the Deck
 				cardToAddToGameBoard.getib().setPosition(cw * i + (w/2 + 100), h/12); // Hand Position
 				cardToAddToGameBoard.getib().setSize(cw, ch);
 			}
 			// ============= DISPLAY WHAT'S IN PLAYER HAND =============
 			System.out.println("Display what is in hand: ");
-			displayImages(player.getmHand());
 		}
 		else {
 			displayMessage("Cannot draw another card!");
 		}
+		displayAll();
 	}
-	
+	//DISPLAY ALL, REMOVE ALL
 	public void HandButtonClicked(final Card cardToAdd, ImageButton handButton)
 	{
 		// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
 		removeAll();
-				
 		cardPlaySuccess = false;
-		System.out.println("Player mana: " + player.get_mana() + " card mana: " + cardToAdd.get_manaCost());
 		if (playerTurn && (player.get_mana() >= cardToAdd.get_manaCost()))
 		{
-			System.out.println("Can play card!");
 			// If Creature Card, then remove the card from the hand, and add the card to the Gameboard
 			// if the gameboard is not full. If Magic or Action Card, play the effect of that card.
 			if (cardToAdd.getMyType().equalsIgnoreCase("magic"))
 			{
-                System.out.println("Can play magic card!");
 				if(currentGame.Act(cardToAdd, cardToAdd, player, otherPlayer)) { //second argument is just to satisfy, not actually used.
 					cardPlaySuccess = true; //can remove card now.
 				}
 			}
 			else if (cardToAdd.getMyType().equalsIgnoreCase("action"))
 			{
-                System.out.println("Can play action card!");
 				if(currentGame.Act(cardToAdd, cardToAdd, player, otherPlayer)) {
 					cardPlaySuccess = true;
 				}
 			}
 			else // Creature Card - No effect, just putting card on the gameboard
-			{
-				System.out.println("Hand Button Clicked, Put that card on the Gameboard! " + cardToAdd.getCardname());
-				
+			{				
 				if (player.getPlayerBoard().size() < 3)
 				{
 					cardPlaySuccess = true;
@@ -600,7 +586,6 @@ public class GameBoardPage implements Screen {
 					{
 						@Override
 			            public void clicked(InputEvent event, float x, float y) {
-							System.out.println("GameBoard Button Clicked, User now clicks enemy Gameboard!");
 							GameBoardCardClicked(cardToAdd, GameBoardButton, player);
 			            }
 					});					
@@ -611,13 +596,13 @@ public class GameBoardPage implements Screen {
 		//remove other player dead cards
 		for(int i = 0; i < otherPlayer.getPlayerBoard().size(); i++) {
 			if(otherPlayer.getPlayerBoard().get(i).isDead()) {
-				System.out.println("Removing dead animatlfdsasdf...");
+				System.out.println("Removing dead " + otherPlayer.getPlayerBoard().get(i).getCardname());
 				otherPlayer.getPlayerBoard().remove(i);
 			}
 		}
 		for(int i = 0; i < player.getPlayerBoard().size(); i++) {
 			if(player.getPlayerBoard().get(i).isDead()) {
-				System.out.println("Removing dead animatlfdsasdf...");
+				System.out.println("Removing dead " + player.getPlayerBoard().get(i).getCardname());
 				player.getPlayerBoard().remove(i);
 			}
 		}
@@ -629,7 +614,6 @@ public class GameBoardPage implements Screen {
 		}
 		if(cardPlaySuccess) {
 			player.set_mana(player.get_mana() - cardToAdd.get_manaCost());
-			System.out.println("Mana cost: " + cardToAdd.get_manaCost());
 			updateStats();
 			player.getmHand().remove(cardToAdd);
         }
@@ -660,8 +644,6 @@ public class GameBoardPage implements Screen {
 		ImageButtonStyle _oldStyle = yourButton.getStyle();
 		_oldStyle.imageUp = TEMP_CARD;
 		yourButton.setStyle(_oldStyle);
-		
-		System.out.println("In Gameboard Card Clicked Function");
 		if (numTurnsSoFar != 0)
 		{
 			attackInMotion = true;
@@ -669,7 +651,7 @@ public class GameBoardPage implements Screen {
 		}
 	}
 	
-	// Enemy GameBoard Card Clicked
+	//DISPLAY ALL, REMOVE ALL
 	public void EnemyGameBoardCardClicked(Card opponentCard, ImageButton enemyButton)
 	{
 		// ============= REMOVE WHAT'S ON THE PLAYER BOARD =============
@@ -680,7 +662,6 @@ public class GameBoardPage implements Screen {
 		_oldStyle.imageUp = TEMP_CARD;
 		enemyButton.setStyle(_oldStyle);
 		// Once here, the user wants to attack 
-		System.out.println(attackInMotion);
 		if (attackInMotion)
 		{
 			opponentCardToAttack = (CreatureCard) opponentCard;

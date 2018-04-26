@@ -51,7 +51,6 @@ public class ActionCard extends Card {
 		mytype = "action";
 		_texture = ac._texture;
 		state = ac.state;
-		System.out.println("COPY CONSTRUCTOR FOR " + _actionName);
 
 		TextureRegion TEMP_C = new TextureRegion(_texture);
 		TextureRegionDrawable TEMP_CARD = new TextureRegionDrawable(TEMP_C);

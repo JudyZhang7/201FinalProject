@@ -136,8 +136,6 @@ public class MagicCard extends Card{
 			// need player hp to increase by 2;
 			you.set_hp(you.get_hp() + 2);
         }
-        //DON'T HAVE TO REMOVE IMAGE BUTTONS YET HERE
-		System.out.println("Magic card: " + _astrological);
 		switch (state) {
 		case Scorpio: //DOES NOT NEED RANDOM NUMBER
 			// need player turn
@@ -165,9 +163,7 @@ public class MagicCard extends Card{
 			int boardSize = opponent.getPlayerBoard().size();
 			for (int i = 0; i < boardSize; i++) {
 				int lifenum = ((CreatureCard)(opponent.getPlayerBoard().get(i))).getHP();
-				System.out.println(lifenum + " is the life of aquarious fdsjlka");
 				((CreatureCard)(opponent.getPlayerBoard().get(i))).setHP(lifenum - 1);
-				System.out.println("New life is: " + ((CreatureCard)(opponent.getPlayerBoard().get(i))).getHP());
 			}
 			break;
 		case Pisces: //NEEDS YOUR RANDOM NUMBER, SET

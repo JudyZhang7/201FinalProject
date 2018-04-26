@@ -180,7 +180,6 @@ public class CreatureCard extends Card {
 	public Boolean Attack(CreatureCard target, Player opponent, Player player) {
 		int attackValue = target.getHP() - _damage;
 		int effectValue = 0;
-		System.out.println("Here: " + opponent.get_hp());
 		switch(state) {
 		case rat:
 			effectValue = 2 * _damage;
@@ -217,7 +216,6 @@ public class CreatureCard extends Card {
 			player.drawCards();
 			break;
 		}
-		System.out.println("mana - " + player.get_mana());
 		if(player.get_mana() - _manaCost < 0) {
 			return false;
 		}
